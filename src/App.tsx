@@ -1,9 +1,12 @@
 
 import "./App.css";
+import Inicio from "./views/Inicio";
 function App() {
  
   return (
-    <div></div>
+    <>
+      <Inicio />
+    </>
   );
 }
 
