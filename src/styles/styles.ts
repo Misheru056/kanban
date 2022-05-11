@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+/*INICIO*/
+export const StyledInicio = styled.div`
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const Contenedor = styled.div`
   width: 400px;
   padding: 14px;
@@ -19,6 +27,11 @@ export const Contenedor = styled.div`
     align-items: center;
   }
 
+  .formulario .error{
+    color: #c12020;
+    font-style: italic;
+  }
+
   .input {
     width: 100%;
     line-height: 30px;
@@ -28,6 +41,7 @@ export const Contenedor = styled.div`
 
 export const DivFormGroup = styled.div`
   margin-bottom: 10px;
+  width: 100%;
 `;
 
 export const Label = styled.label`

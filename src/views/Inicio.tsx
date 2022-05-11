@@ -1,17 +1,18 @@
-import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import FormInicioSesion from '../components/FormInicioSesion';
-
-const StyledInicio = styled.div`
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
+import { StyledInicio } from '../styles/styles';
 
 const Inicio = () => {
+
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        localStorage.setItem('usuario', username);
+    });
+    
     return (
         <StyledInicio>
-            <FormInicioSesion />
+            <FormInicioSesion setUsername={setUsername} />
         </StyledInicio>
     )
 }
