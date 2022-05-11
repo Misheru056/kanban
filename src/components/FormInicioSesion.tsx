@@ -1,4 +1,5 @@
 import { Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
 import { Boton, Contenedor, DivFormGroup, Label } from "../styles/styles";
 import { Usuario } from "../types/types";
 
@@ -14,14 +15,19 @@ type FormInicioSesionProps = {
 
 /*-- Componente --*/
 const FormInicioSesion = ({setUsername}:FormInicioSesionProps) => {
+
+  const navigate = useNavigate();
+
   return (
     <Contenedor>
-      <h1>Inicia sesión</h1>
+      <h2>Inicia sesión</h2>
 
       <Formik 
         initialValues={initialValues} 
         onSubmit={(values) => {
             setUsername(values.username);
+            localStorage.setItem('usuario', values.username);
+            navigate('/organizador');
         }}
         validate={(values) => {
             let errores:any = {};
