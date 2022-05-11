@@ -53,3 +53,7 @@ export const Boton = styled.button`
     background-color: #97359c;
   }
 `;
+
+export const ContenedorKanban = styled.div`
+background-color:black;
+`

@@ -1,5 +1,12 @@
+import { ContenedorKanban } from "../styles/styles";
+import { Tarea } from "../types/types";
+
 export const Kanban = () => {
-    let tareasNuevas;
-    let tareasEnProceso;
-    let tareasTerminadas;
+  let tareasNuevas: Tarea[];
+  let tareasEnProceso: Tarea[];
+  let tareasTerminadas: Tarea[];
+
+    return <ContenedorKanban>
+      
+  </ContenedorKanban>;
 };
