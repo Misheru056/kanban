@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { Boton, Contenedor, DivFormGroup, Label } from '../styles/styles';
+import { Boton, Contenedor, DivFormGroup, Label } from "../styles/styles";
 import { Usuario } from "../types/types";
 
 /*-- Variables --*/
@@ -17,6 +17,7 @@ const FormInicioSesion = ({setUsername}:FormInicioSesionProps) => {
   return (
     <Contenedor>
       <h1>Inicia sesión</h1>
+
       <Formik 
         initialValues={initialValues} 
         onSubmit={(values) => {

@@ -16,5 +16,4 @@ const Inicio = () => {
         </StyledInicio>
     )
 }
-
-export default Inicio
+export default Inicio;
