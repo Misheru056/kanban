@@ -8,14 +8,38 @@ const initialValues: Usuario = {
   passwd: "",
 };
 
+type FormInicioSesionProps = {
+  usuario: Usuario;
+  setUsuario: Function;
+};
+
 /*-- Componente --*/
-const FormInicioSesion = () => {
+const FormInicioSesion = ({setUsuario, usuario}:FormInicioSesionProps) => {
   return (
     <Contenedor>
       <h1>Inicia sesión</h1>
       <Formik 
-        initialValues={initialValues} onSubmit={() => {}}>
-        <Form className="formulario">
+        initialValues={initialValues} 
+        onSubmit={({username, passwd}) => {
+            setUsuario({
+              username: username,
+              passwd: passwd
+            });
+        }}
+        validate={(values) => {
+            let errores:any = {};
+
+            if(!values.username){
+                errores.username = 'Introduce un nombre de usuario'
+            }
+
+            if(!values.passwd){
+                errores.passwd = 'Introduce una contraseña'
+            }
+
+            return errores;
+        }}>
+        {({errors, touched}) => (<Form className="formulario">
           <DivFormGroup>
             <Label htmlFor="username">Usuario</Label>
             <Field
@@ -24,6 +48,7 @@ const FormInicioSesion = () => {
               id="username"
               className="input"
             />
+            {touched.username && errors.username && <div className="error">{errors.username}</div>}
           </DivFormGroup>
           <DivFormGroup>
             <Label htmlFor="passwd">Contraseña</Label>
@@ -33,9 +58,10 @@ const FormInicioSesion = () => {
               id="passwd"
               className="input"
             />
+            {touched.passwd && errors.passwd && <div className="error">{errors.passwd}</div>}
           </DivFormGroup>
           <Boton type="submit">Entrar</Boton>
-        </Form>
+        </Form>)}
       </Formik>
     </Contenedor>
   );
