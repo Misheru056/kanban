@@ -1,5 +1,4 @@
 import { Field, Form, Formik } from "formik";
-import { NavigateFunction, NavigateProps, useNavigate } from "react-router-dom";
 import { Boton, Contenedor, DivFormGroup, Label } from "../styles/styles";
 import { Usuario } from "../types/types";
 
@@ -11,15 +10,12 @@ const initialValues: Usuario = {
 
 /*-- Componente --*/
 const FormInicioSesion = () => {
-  const irA: NavigateFunction = useNavigate();
   return (
     <Contenedor>
       <h1>Inicia sesión</h1>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
-          localStorage.setItem("usuario", values.username);
-          // irA('/organizador');
+        onSubmit={() => {
         }}
       >
         <Form className="formulario">

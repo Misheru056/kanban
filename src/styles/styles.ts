@@ -56,4 +56,60 @@ export const Boton = styled.button`
 
 export const ContenedorKanban = styled.div`
 background-color:black;
+color:white;
+display: grid;
+padding-left:10%;
+grid-template-columns: 50% 50%; 
+@media (min-width: 1080px) {
+grid-template-columns: 32% 32% 32%;
+}
+
+@media (max-width: 960px) {
+  grid-template-columns: 100%;
+}
+`
+export const Lista = styled.div`
+width: 90%;
+display: flex;
+flex-direction: column;
+`
+
+export const DivTarea = styled.div`
+border: 1px solid white;
+padding: 2%;
+display: grid;
+grid-template-columns: 65% 35%;
+.tituloTarea{  color: brown;
+}
+.descripcionTarea{
+ 
+  padding: 1%;
+  text-justify: auto;
+}
+`
+export const BotonTarea = styled.div`
+display: flex;
+align-self: center;
+button{
+  cursor:pointer;
+  width: 25%;margin-left:4%;
+  border: 1px solid;
+  background-color: transparent;
+}
+.editar{
+  border-color: yellow;
+color:yellow;
+}
+.eliminar{
+  border-color: red;
+  color:red;
+}
+.terminada{
+  border-color: green;
+  color :green;
+}
+.enviarAProceso{
+  border-color: blue;
+  color :blue;
+}
 `
