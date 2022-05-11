@@ -9,22 +9,18 @@ const initialValues: Usuario = {
 };
 
 type FormInicioSesionProps = {
-  usuario: Usuario;
-  setUsuario: Function;
+  setUsername: Function;
 };
 
 /*-- Componente --*/
-const FormInicioSesion = ({setUsuario, usuario}:FormInicioSesionProps) => {
+const FormInicioSesion = ({setUsername}:FormInicioSesionProps) => {
   return (
     <Contenedor>
       <h1>Inicia sesión</h1>
       <Formik 
         initialValues={initialValues} 
-        onSubmit={({username, passwd}) => {
-            setUsuario({
-              username: username,
-              passwd: passwd
-            });
+        onSubmit={(values) => {
+            setUsername(values.username);
         }}
         validate={(values) => {
             let errores:any = {};

@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import FormInicioSesion from '../components/FormInicioSesion';
 import { StyledInicio } from '../styles/styles';
-import { Usuario } from '../types/types';
 
 const Inicio = () => {
 
-    const [usuario, setUsuario] = useState({} as Usuario);
+    const [username, setUsername] = useState('');
 
     useEffect(() => {
-        localStorage.setItem('usuario', usuario.username);
+        localStorage.setItem('usuario', username);
     });
     
     return (
         <StyledInicio>
-            <FormInicioSesion setUsuario={setUsuario} usuario={usuario} />
+            <FormInicioSesion setUsername={setUsername} />
         </StyledInicio>
     )
 }
