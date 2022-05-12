@@ -1,4 +1,5 @@
 import FormInicioSesion from '../components/FormInicioSesion';
+import ModalFormCrear from '../components/ModalFormCrear';
 import { StyledInicio } from '../styles/styles';
 
 const Inicio = () => {
@@ -7,6 +8,7 @@ const Inicio = () => {
         <StyledInicio>
             <h1>Pizarra Kanban</h1>
             <FormInicioSesion />
+            <ModalFormCrear />
         </StyledInicio>
     )
 }
