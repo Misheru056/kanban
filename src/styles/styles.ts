@@ -7,7 +7,7 @@ export const StyledInicio = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #1b1b32;
+  background-color: #322F33;
 
   h1 {
     color: white;
@@ -77,11 +77,15 @@ export const Boton = styled.button`
 `;
 
 export const ContenedorKanban = styled.div`
-  background-color: black;
+  background-color: #322F33;
+  height: 100vh;
   color: white;
   display: grid;
   padding-left: 10%;
   grid-template-columns: 50% 50%;
+  .tituloLista{
+    text-align: center;
+  }
   @media (min-width: 1080px) {
     grid-template-columns: 32% 32% 32%;
   }
@@ -97,12 +101,14 @@ export const Lista = styled.div`
 `;
 
 export const DivTarea = styled.div`
-  border: 1px solid white;
-  padding: 2%;
+    border-radius: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
   display: grid;
+  background-color: #998AA2 ;
   grid-template-columns: 65% 35%;
   .tituloTarea {
-    color: brown;
+    color: #004B37;
   }
   .descripcionTarea {
     padding: 1%;
@@ -117,15 +123,18 @@ export const BotonTarea = styled.div`
     width: 25%;
     margin-left: 4%;
     border: 1px solid;
+      border-radius: 15px;
+  cursor: pointer;
     background-color: transparent;
   }
   .editar {
-    border-color: yellow;
-    color: yellow;
+    border-color: #D4ED77;
+    color: #D4ED77;
   }
+
   .eliminar {
-    border-color: red;
-    color: red;
+    border-color: #F58F8F;
+    color: #F58F8F;
   }
   .terminada {
     border-color: green;

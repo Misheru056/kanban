@@ -32,7 +32,7 @@ export const Kanban = () => {
   return (
     <ContenedorKanban>
       <Lista>
-        <h1>Nuevas Tareas</h1>
+        <h1 className="tituloLista">Nuevas Tareas</h1>
         {tareasNuevas.map((tarea) => (
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
@@ -61,7 +61,7 @@ export const Kanban = () => {
         ))}
       </Lista>
       <Lista>
-        <h1>En proceso</h1>
+        <h1 className="tituloLista">En proceso</h1>
         {tareasEnProceso.map((tarea) => (
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
@@ -86,7 +86,7 @@ export const Kanban = () => {
         ))}
       </Lista>
       <Lista>
-        <h1>Terminadas</h1>
+        <h1 className="tituloLista" >Terminadas</h1>
         {tareasTerminadas.map((tarea) => (
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
