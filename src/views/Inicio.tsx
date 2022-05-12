@@ -8,7 +8,6 @@ const Inicio = () => {
         <StyledInicio>
             <h1>Pizarra Kanban</h1>
             <FormInicioSesion />
-            <ModalFormCrear />
         </StyledInicio>
     )
 }

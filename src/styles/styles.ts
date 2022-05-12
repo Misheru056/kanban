@@ -17,11 +17,12 @@ export const StyledInicio = styled.div`
 export const Contenedor = styled.div`
   width: 400px;
   padding: 14px;
-  background-color: #99c9ff;
+  background-color: #8ec5fc;
+  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
   border-radius: 20px;
-  border: 5px solid black;
+  border: 2px solid black;
   box-sizing: border-box;
-
+  
   h2 {
     text-align: center;
   }
@@ -67,7 +68,7 @@ export const Boton = styled.button`
   border-radius: 15px;
   margin: 0.67rem 0;
   cursor: pointer;
-  background-color: #85FFBD;
+  background-color: #56E38F;
   border: none;
 
 
@@ -147,7 +148,7 @@ export const Modal = styled.div`
   z-index: 1000;
   width: 100vw;
   height: 100vh;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 `;

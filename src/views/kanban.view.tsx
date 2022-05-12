@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import ModalFormCrear from "../components/ModalFormCrear";
 import {
   BotonTarea,
   ContenedorKanban,
@@ -110,6 +111,7 @@ export const Kanban = () => {
           </DivTarea>
         ))}
       </Lista>
+      <ModalFormCrear />
     </ContenedorKanban>
   );
 };
