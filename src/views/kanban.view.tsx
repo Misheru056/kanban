@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ModalFormCrear from "../components/ModalFormCrear";
 import {
   Boton,
@@ -10,11 +10,14 @@ import {
 import { Tarea } from "../types/types";
 
 export const Kanban = () => {
-  let tareasNuevas: Tarea[] = [
-    { titulo: "tarea1", id: 1, descripcion: "blablabla", estado: "nueva" },
-  ];
+  const [tareasNuevas, setTareasNuevas] = useState<Tarea[]>([
+    { titulo: "Mi tarea", id: 1, descripcion: "YOLOYOLOYOLO", estado: "nueva" },
+    { titulo: "Mi tarea 2", id: 2, descripcion: "Otra cosa mariposa", estado: "nueva" }
+  ]);
   let tareasEnProceso: Tarea[] = [];
   let tareasTerminadas: Tarea[] = [];
+
+  let largoNuevas:number = 0;
 
   const eliminarTarea = (tarea: Tarea, nombre: string) => {
     if (nombre == "nueva") {
@@ -29,14 +32,40 @@ export const Kanban = () => {
     }
   };
   const editarTarea = (tarea: Tarea, nombre: string) => {};
-  useEffect(() => {}, [tareasNuevas, tareasEnProceso, tareasTerminadas]);
+
+  
+
+  /* Añade una tarea al array tareasNuevas */
+  const addTarea = (tarea: Tarea) => {
+    setTareasNuevas(
+      [...tareasNuevas, tarea]
+    );
+    toggleDivCrear();
+  };
+
+  /* Muestra u oculta el div que contiene el modal de creación de tareas*/
+  const toggleDivCrear = () =>{
+    const divCrear = document.getElementById("modalCrear");
+    if (divCrear !== null) {
+      if(divCrear.style.display == 'none')
+        divCrear.style.display = 'flex'
+      else
+        divCrear.style.display = 'none'
+    }
+  };
 
   return (
     <ContenedorKanban>
+      <Boton 
+        style={{'position':'absolute', 'top':'0', 'right': '10px'}}
+        onClick={() => toggleDivCrear()}
+      >
+          Añadir tarea
+      </Boton>
       <Lista>
         <h1 className="tituloLista">Nuevas Tareas</h1>
         {tareasNuevas.map((tarea) => (
-          <DivTarea key={tareasTerminadas.indexOf(tarea)}>
+          <DivTarea key={tareasNuevas.indexOf(tarea)}>
             <div>
               <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
               <h3 className="descripcion">Descripción:</h3>
@@ -112,7 +141,9 @@ export const Kanban = () => {
           </DivTarea>
         ))}
       </Lista>
-      <ModalFormCrear />
+      <div id="modalCrear" style={{ display: "none" }}>
+        <ModalFormCrear addTarea={addTarea} />
+      </div>
     </ContenedorKanban>
   );
 };
