@@ -1,7 +1,10 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
 import { Boton, ContenedorForm, DivFormGroup, Label, Modal } from "../styles/styles";
 import { Tarea } from "../types/types";
+
+type ModalFormCrearProps = {
+    addTarea: Function;
+};
 
 const initialValues: Tarea = {
   id: 0,
@@ -10,7 +13,10 @@ const initialValues: Tarea = {
   estado: "nueva",
 };
 
-const ModalFormCrear = () => {
+const ModalFormCrear = ({addTarea}:ModalFormCrearProps) => {
+
+    const getId = (): number => new Date().getTime();
+
   return (
     <Modal>
       <ContenedorForm>
@@ -18,7 +24,16 @@ const ModalFormCrear = () => {
         <hr/>
         <Formik
           initialValues={initialValues}
-          onSubmit={() => {}}
+          onSubmit={(values, {resetForm}) => {
+            let nuevaTarea:Tarea = {
+                id: getId(),
+                titulo: values.titulo,
+                descripcion: values.descripcion,
+                estado: 'nueva'
+            };
+            addTarea(nuevaTarea);
+            resetForm();
+          }}
           validate={() => {}}
         >
           {() => (

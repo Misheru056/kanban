@@ -1,5 +1,4 @@
 import FormInicioSesion from '../components/FormInicioSesion';
-import ModalFormCrear from '../components/ModalFormCrear';
 import { StyledInicio } from '../styles/styles';
 
 const Inicio = () => {

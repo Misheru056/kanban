@@ -143,12 +143,12 @@ export const Modal = styled.div`
   padding: auto;
   margin: auto;
   position: absolute;
-  top: auto;
-  left: auto;
+  top: 0;
+  left: 0;
   z-index: 1000;
   width: 100vw;
   height: 100vh;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
@@ -162,6 +162,7 @@ export const ContenedorForm = styled.div`
   box-sizing: border-box;
   min-width: 400px;
   position: absolute;
+  color: black;
 
   h2 {
     text-align: center;
