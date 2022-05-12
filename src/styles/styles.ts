@@ -6,6 +6,12 @@ export const StyledInicio = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    background-color: #1b1b32;
+
+    h1{
+      color: white;
+    }
 `;
 
 export const Contenedor = styled.div`
@@ -16,7 +22,7 @@ export const Contenedor = styled.div`
   border: 5px solid black;
   box-sizing: border-box;
 
-  h1 {
+  h2 {
     text-align: center;
   }
 

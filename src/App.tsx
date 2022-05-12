@@ -1,27 +1,15 @@
-import { useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { LoginRoute, PrivateRoute } from "./routes/routes";
 import Inicio from "./views/Inicio";
 import { Kanban } from "./views/kanban.view";
 function App() {
-  let iniciado: boolean = false;
-  let usuario: string | null = "";
-  useEffect(() => {
-    usuario = localStorage.getItem("usuario");
-  }, [!localStorage.getItem("usuario")]);
+  
   return (
     <>
       <Routes>
-        <Route
-          element={usuario ? <Navigate to="/organizador" /> : <Inicio />}
-          path={"/"}
-        ></Route>
-        <Route
-          element={
-            !localStorage.getItem("usuario") ? <Navigate to="/" /> : <Kanban />
-          }
-          path="/organizador"
-        ></Route>
+        <Route path="/" element={<LoginRoute outlet={<Inicio /> } />} />
+        <Route path="/organizador" element={<PrivateRoute outlet={<Kanban /> } />} />
       </Routes>
     </>
   );
