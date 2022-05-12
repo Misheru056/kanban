@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import ModalFormCrear from "../components/ModalFormCrear";
 import {
+  Boton,
   BotonTarea,
   ContenedorKanban,
   DivTarea,
@@ -38,25 +39,25 @@ export const Kanban = () => {
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
               <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3>Descripción:</h3>
+              <h3 className="descripcion">Descripción:</h3>
               <p className="descripcion">{tarea.descripcion}</p>
             </div>
             <BotonTarea>
-              <button
+              <Boton
                 className="editar"
                 role="button"
                 onClick={() => editarTarea(tarea, "nueva")}
               >
                 L
-              </button>
-              <button
+              </Boton>
+              <Boton
                 className="eliminar"
                 onClick={() => eliminarTarea(tarea, "nueva")}
               >
                 E
-              </button>
-              <button className="terminada">T</button>
-              <button className="enviarAProceso">{"->"}</button>
+              </Boton>
+              <Boton className="terminada">T</Boton>
+              <Boton className="enviarAProceso">{"->"}</Boton>
             </BotonTarea>
           </DivTarea>
         ))}
@@ -67,7 +68,7 @@ export const Kanban = () => {
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
               <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3>Descripción:</h3>
+              <h3 className="descripcion">Descripción:</h3>
               <p className="descripcion">{tarea.descripcion}</p>
             </div>
             <BotonTarea>
@@ -87,12 +88,12 @@ export const Kanban = () => {
         ))}
       </Lista>
       <Lista>
-        <h1 className="tituloLista" >Terminadas</h1>
+        <h1 className="tituloLista">Terminadas</h1>
         {tareasTerminadas.map((tarea) => (
           <DivTarea key={tareasTerminadas.indexOf(tarea)}>
             <div>
               <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3>Descripción:</h3>
+              <h3 className="descripcion">Descripción:</h3>
               <p className="descripcion">{tarea.descripcion}</p>
             </div>
             <BotonTarea>

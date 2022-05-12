@@ -19,7 +19,7 @@ export const Contenedor = styled.div`
   padding: 14px;
   background-color: #8ec5fc;
   background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  border-radius: 20px;
+  border-radius: 20px;    
   border: 2px solid black;
   box-sizing: border-box;
   
@@ -106,12 +106,13 @@ export const DivTarea = styled.div`
   padding-left: 5%;
   padding-right: 5%;
   display: grid;
-  background-color: #998AA2 ;
+  background-color: #C3E8D5 ;
   grid-template-columns: 65% 35%;
   .tituloTarea {
     color: #004B37;
   }
-  .descripcionTarea {
+  .descripcion {
+    color: black;
     padding: 1%;
     text-justify: auto;
   }
@@ -124,13 +125,17 @@ export const BotonTarea = styled.div`
     width: 25%;
     margin-left: 4%;
     border: 1px solid;
-      border-radius: 15px;
-  cursor: pointer;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 2.5em;
+    font-size:0.8em;
     background-color: transparent;
+  }:hover{
+    color: black;
   }
   .editar {
-    border-color: #D4ED77;
-    color: #D4ED77;
+    border-color: #C900FF ;
+    color: #C900FF ;
   }
 
   .eliminar {
@@ -144,6 +149,25 @@ export const BotonTarea = styled.div`
   .enviarAProceso {
     border-color: blue;
     color: blue;
+  }
+
+  .editar:hover{
+  background-color:#DF71FD ;
+  color: black;
+  }
+  .eliminar:hover{
+
+  background-color:#F58F8F;
+   color: black;
+  }
+  .terminada:hover{
+
+  background-color: green;
+   color: black;
+  }
+  .enviarAProceso:hover{
+  background-color:blue;
+   color: black;
   }
 `;
 
