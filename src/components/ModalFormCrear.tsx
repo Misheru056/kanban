@@ -32,7 +32,7 @@ const ModalFormCrear = ({ addTarea, toggleDivCrear }: ModalFormCrearProps) => {
   const getId = (): number => new Date().getTime();
 
   return (
-    <Modal>
+    <Modal >
       <ContenedorForm>
         <h2>Crear nueva tarea</h2>
         <hr />

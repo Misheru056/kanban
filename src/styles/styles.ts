@@ -205,6 +205,7 @@ export const BotonTarea = styled.div`
 `;
 
 export const Modal = styled.div`
+display: none;
   background: rgba(56, 56, 56, 0.5);
   padding: auto;
   margin: auto;
