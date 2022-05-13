@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikErrors, FormikValues } from "formik";
 import { Boton, ContenedorForm, DivFormGroup, Label, Modal } from "../styles/styles";
 import { Tarea } from "../types/types";
 
@@ -34,7 +34,15 @@ const ModalFormCrear = ({addTarea}:ModalFormCrearProps) => {
             addTarea(nuevaTarea);
             resetForm();
           }}
-          validate={() => {}}
+          validate={(values) => {
+            let errores : FormikErrors<FormikValues> = {};
+
+            if(!values.titulo){
+              errores.titulo = 'El título es un campo obligatorio'
+            }
+
+            return errores;
+          }}
         >
           {() => (
             <Form className="formulario">
@@ -46,6 +54,7 @@ const ModalFormCrear = ({addTarea}:ModalFormCrearProps) => {
                   id="titulo"
                   className="input"
                 />
+                <ErrorMessage name="titulo" render={msg => <div className='error'>{msg}</div>} />
               </DivFormGroup>
               <DivFormGroup>
                 <Label>Descripción</Label>
