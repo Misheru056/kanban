@@ -118,6 +118,7 @@ export const ContenedorKanban = styled.div`
   @media (max-width: 960px) {
     grid-template-columns: 100%;
   }
+
 `;
 export const Lista = styled.div`
   width: 90%;
@@ -218,4 +219,26 @@ display: none;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const BarraSuperior = styled.div`
+  border-bottom: 1px solid silver;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  background-color: #201f21;
+
+  span{
+    color: white;
+    font-size: 1.3rem;
+  }
+
+  button.cerrarSesion{
+    font-size: 14px;
+    width: 110px;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid grey;
+  }
 `;

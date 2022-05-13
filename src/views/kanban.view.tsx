@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ModalFormCrear from "../components/ModalFormCrear";
 import ModalFormEditar from "../components/ModalFormEditar";
 import {
+  BarraSuperior,
   Boton,
   BotonTarea,
   ContenedorKanban,
@@ -44,6 +46,8 @@ export const Kanban = () => {
     },
   ]);
 
+  const navigate = useNavigate();
+
   /* Elimina una tarea */
   const eliminarTarea = (tarea: Tarea) => {
     let ubicacion: number = tareasNuevas.indexOf(tarea);
@@ -64,7 +68,6 @@ export const Kanban = () => {
   };
 
   const editarTarea = (tarea: Tarea, nombre: string) => {};
-
 
   /* Añade una tarea al array tareasNuevas */
   const addTarea = (tarea: Tarea) => {
@@ -118,11 +121,10 @@ export const Kanban = () => {
 
     let tareasActualizadas = [...tareasTerminadas];
     tareasActualizadas.splice(ubicacion, 1);
-    
+
     setTareasTerminadas(tareasActualizadas);
     tarea.estado = "nueva";
   };
-
 
   // const [tocado, setTocado] = useState(false);
   // useEffect(() => {
@@ -133,7 +135,7 @@ export const Kanban = () => {
   //   if (e.target == document.querySelector("#modalEditar")) {
   //     document.getElementById("modalEditar")!.style.display = "none";
   //   } else {
-     
+
   //   }
   // });
 
@@ -142,113 +144,141 @@ export const Kanban = () => {
     const divCrear = document.getElementById("modalCrear");
     if (divCrear !== null) {
       if (divCrear.style.display == "none") divCrear.style.display = "flex";
-
       else divCrear.style.display = "none";
     }
   };
 
+  /* Elimina el usuario guardado en localStorage (cierra sesión) */
+  const cerrarSesion = () => {
+    localStorage.removeItem("usuario");
+    navigate('/');
+  };
+
   return (
-    <ContenedorKanban>
-      <Boton
-        style={{ position: "absolute", top: "0", right: "10px" }}
-        onClick={() => toggleDivCrear()}
-      >
-        Añadir tarea
-      </Boton>
-      <Lista>
-        <h1 className="tituloLista">Nuevas Tareas</h1>
-        {tareasNuevas.map((tarea) => (
-          <DivTarea key={tarea.id}>
-            <div>
-              <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3 className="descripcion">Descripción:</h3>
-              <p className="descripcion">{tarea.descripcion}</p>
-            </div>
-            <BotonTarea>
-              <Boton
-                className="editar"
-                onClick={() => {
-                  ModalFormEditar(tarea);
-                  // setTocado(true);
-                }}
-              >
-                L
-              </Boton>
-              <Boton className="eliminar" onClick={() => eliminarTarea(tarea)}>
-                E
-              </Boton>
-              <Boton className="terminada" onClick={() => terminarTarea(tarea)}>
-                T
-              </Boton>
-              <Boton
-                className="enviarAProceso"
-                onClick={() => enviarAProceso(tarea)}
-              >
-                {"->"}
-              </Boton>
-            </BotonTarea>
-          </DivTarea>
-        ))}
-      </Lista>
-      <Lista>
-        <h1 className="tituloLista">En proceso</h1>
-        {tareasEnProceso.map((tarea) => (
-          <DivTarea key={tarea.id}>
-            <div>
-              <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3 className="descripcion">Descripción:</h3>
-              <p className="descripcion">{tarea.descripcion}</p>
-            </div>
-            <BotonTarea>
-              <Boton className="editar">L</Boton>
-              <Boton
-                className="eliminar"
-                onClick={() => eliminarTarea(tarea)}
-              >
-                E
-              </Boton>
-              <Boton className="terminada" onClick={() => terminarTarea(tarea)}>
-                T
-              </Boton>
-            </BotonTarea>
-          </DivTarea>
-        ))}
-      </Lista>
-      <Lista>
-        <h1 className="tituloLista">Terminadas</h1>
-        {tareasTerminadas.map((tarea) => (
-          <DivTarea key={tarea.id}>
-            <div>
-              <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-              <h3 className="descripcion">Descripción:</h3>
-              <p className="descripcion">{tarea.descripcion}</p>
-            </div>
-            <BotonTarea>
-              <Boton className="editar" role="button">
-                L
-              </Boton>
-              <Boton className="eliminar" onClick={() => eliminarTarea(tarea)}>
-                E
-              </Boton>
-              <Boton
-                className="enviarAProceso"
-                onClick={() => enviarAProceso(tarea)}
-              >
-                {"->"}
-              </Boton>
-              <Boton
-                className="reutilizarTarea"
-                onClick={() => reutilizarTarea(tarea)}
-              >
-                R
-              </Boton>
-            </BotonTarea>
-          </DivTarea>
-        ))}
-      </Lista>
-      <div id="modalCrear" style={{ display: "none" }}>
-        <ModalFormCrear addTarea={addTarea} toggleDivCrear={toggleDivCrear} />
-      </div>
-    </ContenedorKanban>
+    <div>
+      <BarraSuperior>
+        <span>Hola, {localStorage.getItem("usuario")}</span>
+        <Boton 
+          onClick={() => toggleDivCrear()}
+          style={{'fontSize':'18px', 'width':'150px'}}
+        >
+          + Añadir tarea
+        </Boton>
+        <Boton 
+          onClick={() => cerrarSesion()}
+          className="cerrarSesion"
+        >
+          Cerrar sesión
+        </Boton>
+      </BarraSuperior>
+      <ContenedorKanban>
+        <Lista>
+          <h1 className="tituloLista">Nuevas Tareas</h1>
+          {tareasNuevas.map((tarea) => (
+            <DivTarea key={tarea.id}>
+              <div>
+                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
+                <h3 className="descripcion">Descripción:</h3>
+                <p className="descripcion">{tarea.descripcion}</p>
+              </div>
+              <BotonTarea>
+                <Boton
+                  className="editar"
+                  onClick={() => {
+                    ModalFormEditar(tarea);
+                    // setTocado(true);
+                  }}
+                >
+                  L
+                </Boton>
+                <Boton
+                  className="eliminar"
+                  onClick={() => eliminarTarea(tarea)}
+                >
+                  E
+                </Boton>
+                <Boton
+                  className="terminada"
+                  onClick={() => terminarTarea(tarea)}
+                >
+                  T
+                </Boton>
+                <Boton
+                  className="enviarAProceso"
+                  onClick={() => enviarAProceso(tarea)}
+                >
+                  {"->"}
+                </Boton>
+              </BotonTarea>
+            </DivTarea>
+          ))}
+        </Lista>
+        <Lista>
+          <h1 className="tituloLista">En proceso</h1>
+          {tareasEnProceso.map((tarea) => (
+            <DivTarea key={tarea.id}>
+              <div>
+                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
+                <h3 className="descripcion">Descripción:</h3>
+                <p className="descripcion">{tarea.descripcion}</p>
+              </div>
+              <BotonTarea>
+                <Boton className="editar">L</Boton>
+                <Boton
+                  className="eliminar"
+                  onClick={() => eliminarTarea(tarea)}
+                >
+                  E
+                </Boton>
+                <Boton
+                  className="terminada"
+                  onClick={() => terminarTarea(tarea)}
+                >
+                  T
+                </Boton>
+              </BotonTarea>
+            </DivTarea>
+          ))}
+        </Lista>
+        <Lista>
+          <h1 className="tituloLista">Terminadas</h1>
+          {tareasTerminadas.map((tarea) => (
+            <DivTarea key={tarea.id}>
+              <div>
+                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
+                <h3 className="descripcion">Descripción:</h3>
+                <p className="descripcion">{tarea.descripcion}</p>
+              </div>
+              <BotonTarea>
+                <Boton className="editar" role="button">
+                  L
+                </Boton>
+                <Boton
+                  className="eliminar"
+                  onClick={() => eliminarTarea(tarea)}
+                >
+                  E
+                </Boton>
+                <Boton
+                  className="enviarAProceso"
+                  onClick={() => enviarAProceso(tarea)}
+                >
+                  {"->"}
+                </Boton>
+                <Boton
+                  className="reutilizarTarea"
+                  onClick={() => reutilizarTarea(tarea)}
+                >
+                  R
+                </Boton>
+              </BotonTarea>
+            </DivTarea>
+          ))}
+        </Lista>
+        <div id="modalCrear" style={{ display: "none" }}>
+          <ModalFormCrear addTarea={addTarea} toggleDivCrear={toggleDivCrear} />
+        </div>
+      </ContenedorKanban>
+    </div>
   );
 };
