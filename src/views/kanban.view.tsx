@@ -200,12 +200,11 @@ export const Kanban = () => {
               <p className="descripcion">{tarea.descripcion}</p>
             </div>
             <BotonTarea>
-              <button className="editar">L</button>
-              <button
+              <Boton className="editar">L</Boton>
+              <Boton
                 className="eliminar"
-                onClick={() => eliminarTarea(tarea, "proceso")}
+                onClick={() => eliminarTarea(tarea)}
               >
-
                 E
               </Boton>
               <Boton className="terminada" onClick={() => terminarTarea(tarea)}>
@@ -229,7 +228,6 @@ export const Kanban = () => {
                 L
               </Boton>
               <Boton className="eliminar" onClick={() => eliminarTarea(tarea)}>
-
                 E
               </Boton>
               <Boton
@@ -249,7 +247,7 @@ export const Kanban = () => {
         ))}
       </Lista>
       <div id="modalCrear" style={{ display: "none" }}>
-        <ModalFormCrear addTarea={addTarea} />
+        <ModalFormCrear addTarea={addTarea} toggleDivCrear={toggleDivCrear} />
       </div>
     </ContenedorKanban>
   );
