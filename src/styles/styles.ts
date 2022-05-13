@@ -20,7 +20,9 @@ export const StyledInicio = styled.div`
   }
 `;
 
-export const Contenedor = styled.div`
+/* FORMULARIOS */
+
+export const ContenedorForm = styled.div`
   width: 400px;
   padding: 14px;
   background-color: #8ec5fc;
@@ -28,6 +30,7 @@ export const Contenedor = styled.div`
   border-radius: 20px;    
   border: 2px solid black;
   box-sizing: border-box;
+  color: black;
   
   h2 {
     text-align: center;
@@ -77,11 +80,12 @@ export const Boton = styled.button`
   background-color: #56E38F;
   border: none;
 
-
   :hover {
     background-color: #BD94DF;
   }
 `;
+
+/* PIZARRA KANBAN */
 
 export const ContenedorKanban = styled.div`
   height: 100vh;
@@ -155,6 +159,10 @@ export const BotonTarea = styled.div`
     border-color: blue;
     color: blue;
   }
+  .reutilizarTarea {
+    border-color: #d67427;
+    color: #d67427;
+  }
 
   .editar:hover{
   background-color:#DF71FD ;
@@ -174,6 +182,11 @@ export const BotonTarea = styled.div`
   background-color:blue;
    color: black;
   }
+
+  .reutilizarTarea:hover{
+  background-color:#d67427;
+   color: black;
+  }
 `;
 
 export const Modal = styled.div`
@@ -190,38 +203,4 @@ display: none;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const ContenedorForm = styled.div`
-  padding: 14px;
-  background-color: #8ec5fc;
-  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  border-radius: 20px;
-  border: 2px solid black;
-  box-sizing: border-box;
-  min-width: 400px;
-  position: absolute;
-  color: black;
-
-  h2 {
-    text-align: center;
-  }
-
-  .formulario {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .formulario .error {
-    color: #c12020;
-    font-style: italic;
-  }
-
-  .input {
-    width: 98%;
-    line-height: 30px;
-    font-size: 1.1rem;
-  }
 `;

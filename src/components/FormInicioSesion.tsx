@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { Boton, Contenedor, DivFormGroup, Label } from "../styles/styles";
+import { Boton, ContenedorForm, DivFormGroup, Label } from "../styles/styles";
 import { Usuario } from "../types/types";
 
 /*-- Variables --*/
@@ -15,9 +15,9 @@ const FormInicioSesion = () => {
   const navigate = useNavigate();
 
   return (
-    <Contenedor>
+    <ContenedorForm>
       <h2>Inicia sesión</h2>
-
+      <hr/>
       <Formik 
         initialValues={initialValues} 
         onSubmit={(values) => {
@@ -58,10 +58,11 @@ const FormInicioSesion = () => {
             />
             {touched.passwd && errors.passwd && <div className="error">{errors.passwd}</div>}
           </DivFormGroup>
+          <hr style={{'width': '100%'}}/>
           <Boton type="submit">Entrar</Boton>
         </Form>)}
       </Formik>
-    </Contenedor>
+    </ContenedorForm>
   );
 };
 
