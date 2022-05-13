@@ -53,6 +53,12 @@ export const ContenedorForm = styled.div`
     line-height: 30px;
     font-size: 1.1rem;
   }
+
+  div.cajaBotones{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
 `;
 
 export const DivFormGroup = styled.div`
@@ -77,12 +83,21 @@ export const Boton = styled.button`
   border-radius: 15px;
   margin: 0.67rem 0;
   cursor: pointer;
-  background-color: #56E38F;
+  background-color: #56E38F; //Verde
   border: none;
 
   :hover {
-    background-color: #BD94DF;
+    background-color: #BD94DF; //Lila
   }
+
+  &.cancelar{
+    background-color: #de5252; //Rojo
+  }
+
+  &.cancelar:hover{
+    background-color: #BD94DF; //Lila
+  }
+
 `;
 
 /* PIZARRA KANBAN */

@@ -226,7 +226,7 @@ export const Kanban = () => {
         ))}
       </Lista>
       <div id="modalCrear" style={{ display: "none" }}>
-        <ModalFormCrear addTarea={addTarea} />
+        <ModalFormCrear addTarea={addTarea} toggleDivCrear={toggleDivCrear} />
       </div>
     </ContenedorKanban>
   );
