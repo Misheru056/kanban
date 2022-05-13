@@ -1,39 +1,25 @@
+import { render } from "@testing-library/react";
 import { Field, Form, Formik } from "formik";
-import { Boton, ContenedorForm, DivFormGroup, Label, Modal } from "../styles/styles";
+import React, { useEffect, useState } from "react";
+import {
+  Boton,
+  ContenedorForm,
+  DivFormGroup,
+  Label,
+  Modal,
+} from "../styles/styles";
 import { Tarea } from "../types/types";
 
-type ModalFormCrearProps = {
-    addTarea: Function;
-};
+const ModalFormCrear = (tarea: Tarea) => {
 
-const initialValues: Tarea = {
-  id: 0,
-  titulo: "",
-  descripcion: "",
-  estado: "nueva",
-};
-
-const ModalFormCrear = ({addTarea}:ModalFormCrearProps) => {
-
-    const getId = (): number => new Date().getTime();
-
-  return (
-    <Modal >
+  render (
+    <Modal id="modalEditar">
       <ContenedorForm>
-        <h2>Crear nueva tarea</h2>
-        <hr/>
+        <h2>Editar tarea </h2>
+        <hr />
         <Formik
-          initialValues={initialValues}
-          onSubmit={(values, {resetForm}) => {
-            let nuevaTarea:Tarea = {
-                id: getId(),
-                titulo: values.titulo,
-                descripcion: values.descripcion,
-                estado: 'nueva'
-            };
-            addTarea(nuevaTarea);
-            resetForm();
-          }}
+          initialValues={tarea}
+          onSubmit={(values, { resetForm }) => {}}
           validate={() => {}}
         >
           {() => (
@@ -56,8 +42,16 @@ const ModalFormCrear = ({addTarea}:ModalFormCrearProps) => {
                   className="input"
                 />
               </DivFormGroup>
-              <hr style={{'width': '100%'}}/>
-              <Boton type="submit">Crear tarea</Boton>
+              <hr style={{ width: "100%" }} />
+              <Boton
+                type="submit"
+                onClick={() => {
+                  let md = document.getElementById("modalEditar");
+                  md!.style.display = "none";
+                }}
+              >
+                Editar
+              </Boton>
             </Form>
           )}
         </Formik>
