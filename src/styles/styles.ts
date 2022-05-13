@@ -1,4 +1,11 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+/* GLOBAL */
+export const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: #322F33;
+  }
+`;
 
 /*INICIO*/
 export const StyledInicio = styled.div`
@@ -7,7 +14,6 @@ export const StyledInicio = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #322F33;
 
   h1 {
     color: white;
@@ -78,7 +84,6 @@ export const Boton = styled.button`
 `;
 
 export const ContenedorKanban = styled.div`
-  background-color: #322F33;
   height: 100vh;
   color: white;
   display: grid;
