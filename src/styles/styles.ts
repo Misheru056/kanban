@@ -130,7 +130,7 @@ export const DivTarea = styled.div`
   padding-right: 5%;
   display: grid;
   background-color: #c3e8d5;
-  grid-template-columns: 65% 35%;
+  grid-template-columns: 100%;
   margin-bottom: 1rem;
   .tituloTarea {
     color: #004b37;
@@ -142,13 +142,11 @@ export const DivTarea = styled.div`
   }
 `;
 export const BotonTarea = styled.div`
-  display: flex;
-  align-self: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  border-top: 1px solid #373636; /*Casi negro*/
+  padding: 5px;
   button {
     width: 31px;
-    margin-left: 4%;
+    margin: 5px;
     border: 1px solid;
     border-radius: 100%;
     height: fit-content;
@@ -202,6 +200,10 @@ export const BotonTarea = styled.div`
     color: black;
   }
 
+  @media (max-width: 960px) {
+    grid-template-columns: 100%;
+  }
+
 `;
 
 export const Modal = styled.div`
@@ -220,7 +222,7 @@ export const Modal = styled.div`
   justify-content: center;
 `;
 
-export const BarraSuperior = styled.div`
+export const BarraHerramientas = styled.div`
   border-bottom: 1px solid silver;
   display: flex;
   justify-content: space-between;
