@@ -10,7 +10,6 @@ import {
   Lista,
 } from "../styles/styles";
 import { Context } from "../context/context";
-import { State } from "../context/state";
 
 export const Kanban = () => {
   const contexto = useContext(Context);
@@ -31,8 +30,7 @@ export const Kanban = () => {
                 <Boton
                   className="editar"
                   onClick={() => {
-                    ModalFormEditar(tarea);
-                    // setTocado(true);
+                    ModalFormEditar(tarea.id);
                   }}
                   title="Editar"
                 >

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import { Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik, FormikErrors, FormikValues } from "formik";
+import { useContext } from "react";
 import {
   Boton,
   ContenedorForm,
@@ -8,19 +8,27 @@ import {
   Label,
   Modal,
 } from "../styles/styles";
-import { Tarea } from "../types/types";
-
-const ModalFormCrear = (tarea: Tarea) => {
-
-  render (
+import { Context } from "../context/context";
+const ModalFormCrear = (tarea: number) => {
+  const datosTareas = useContext(Context);
+  render(
     <Modal id="modalEditar">
       <ContenedorForm>
         <h2>Editar tarea </h2>
         <hr />
         <Formik
-          initialValues={tarea}
-          onSubmit={(values, { resetForm }) => {}}
-          validate={() => {}}
+          initialValues={{ titulo: "", descripcion: "" }}
+          onSubmit={() => {}}
+          validate={(values) => {
+            let error: FormikErrors<FormikValues> = {};
+            if (!values.titulo) {
+              error.titulo = "No puede estar este campo vacío";
+            }
+            if (!values.descripcion) {
+              error.descripcion = "No puede estar este campo vacío";
+            }
+            return error;
+          }}
         >
           {() => (
             <Form className="formulario">
@@ -32,6 +40,10 @@ const ModalFormCrear = (tarea: Tarea) => {
                   id="titulo"
                   className="input"
                 />
+                <ErrorMessage
+                  name="titulo"
+                  render={(msg) => <div className="error">{msg}</div>}
+                />
               </DivFormGroup>
               <DivFormGroup>
                 <Label>Descripción</Label>
@@ -40,6 +52,10 @@ const ModalFormCrear = (tarea: Tarea) => {
                   name="descripcion"
                   id="descripcion"
                   className="input"
+                />
+                <ErrorMessage
+                  name="descripcion"
+                  render={(msg) => <div className="error">{msg}</div>}
                 />
               </DivFormGroup>
               <hr style={{ width: "100%" }} />
