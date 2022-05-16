@@ -10,7 +10,6 @@ import {
   Lista,
 } from "../styles/styles";
 import { Context } from "../context/context";
-import { State } from "../context/state";
 
 export const Kanban = () => {
   const contexto = useContext(Context);
