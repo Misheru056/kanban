@@ -1,184 +1,30 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import ModalFormCrear from "../components/ModalFormCrear";
 import ModalFormEditar from "../components/ModalFormEditar";
+import BarraSuperior from "../components/BarraSuperior";
 import {
-  BarraSuperior,
   Boton,
   BotonTarea,
   ContenedorKanban,
   DivTarea,
   Lista,
 } from "../styles/styles";
-import { Tarea } from "../types/types";
+import { Context } from "../context/context";
+import { State } from "../context/state";
 
 export const Kanban = () => {
-  /* Variables de estado */
-  const [tareasNuevas, setTareasNuevas] = useState<Tarea[]>([
-    {
-      titulo: "Mi tarea 1",
-      id: 1,
-      descripcion: "YOLOYOLOYOLO",
-      estado: "nueva",
-    },
-
-    {
-      titulo: "Mi tarea 2",
-      id: 2,
-      descripcion: "Otra cosa mariposa",
-      estado: "nueva",
-    },
-  ]);
-  const [tareasEnProceso, setTareasEnProceso] = useState<Tarea[]>([
-    {
-      titulo: "Mi tarea 3",
-      id: 3,
-      descripcion: "Esta tarea está en proceso",
-      estado: "proceso",
-    },
-  ]);
-  const [tareasTerminadas, setTareasTerminadas] = useState<Tarea[]>([
-    {
-      titulo: "Mi tarea 4",
-      id: 4,
-      descripcion: "Tarea completamente terminada",
-      estado: "terminada",
-    },
-  ]);
-
-  const navigate = useNavigate();
-
-  /* Elimina una tarea */
-  const eliminarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-    if (estado == "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado == "proceso") {
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasEnProceso(tareasActualizadas);
-    } else {
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasTerminadas(tareasActualizadas);
-    }
-  };
-
-  const editarTarea = (tarea: Tarea, nombre: string) => {};
-
-  /* Añade una tarea al array tareasNuevas */
-  const addTarea = (tarea: Tarea) => {
-    setTareasNuevas([...tareasNuevas, tarea]);
-    toggleDivCrear();
-  };
-
-  /* Mueve una tarea a la fase 'En proceso' */
-  const enviarAProceso = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-
-    if (estado == "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado == "terminada") {
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasTerminadas(tareasActualizadas);
-    }
-
-    setTareasEnProceso([...tareasEnProceso, tarea]);
-    tarea.estado = "proceso";
-  };
-
-  /* Mueve una tarea a la fase 'Terminada' */
-  const terminarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-
-    if (estado == "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado == "proceso") {
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasEnProceso(tareasActualizadas);
-    }
-
-    setTareasTerminadas([...tareasTerminadas, tarea]);
-    tarea.estado = "terminada";
-  };
-
-  /* Mueve una tarea terminada a la fase 'Nueva' */
-  const reutilizarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-
-    setTareasNuevas([...tareasNuevas, tarea]);
-
-    let tareasActualizadas = [...tareasTerminadas];
-    tareasActualizadas.splice(ubicacion, 1);
-
-    setTareasTerminadas(tareasActualizadas);
-    tarea.estado = "nueva";
-  };
-
-  // const [tocado, setTocado] = useState(false);
-  // useEffect(() => {
-  //   console.log("fszs");
-  //    setTocado(false);
-  // }, [tocado]);
-  // document.addEventListener("click", (e) => {
-  //   if (e.target == document.querySelector("#modalEditar")) {
-  //     document.getElementById("modalEditar")!.style.display = "none";
-  //   } else {
-
-  //   }
-  // });
-
-  /* Muestra u oculta el div que contiene el modal de creación de tareas*/
-  const toggleDivCrear = () => {
-    const divCrear = document.getElementById("modalCrear");
-    if (divCrear !== null) {
-      if (divCrear.style.display == "none") divCrear.style.display = "flex";
-      else divCrear.style.display = "none";
-    }
-  };
-
-  /* Elimina el usuario guardado en localStorage (cierra sesión) */
-  const cerrarSesion = () => {
-    localStorage.removeItem("usuario");
-    navigate('/');
-  };
-
+  const contexto = useContext(Context);
+  console.log('Contexto llegando a Kanban -> '+contexto)
   return (
     <div>
-      <BarraSuperior>
-        <span>Hola, {localStorage.getItem("usuario")}</span>
-        <Boton 
-          onClick={() => toggleDivCrear()}
-          style={{'fontSize':'18px', 'width':'150px'}}
-        >
-          + Añadir tarea
-        </Boton>
-        <Boton 
-          onClick={() => cerrarSesion()}
-          className="cerrarSesion"
-        >
-          Cerrar sesión
-        </Boton>
-      </BarraSuperior>
+      <BarraSuperior />
       <ContenedorKanban>
         <Lista>
           <h1 className="tituloLista">Nuevas Tareas</h1>
-          {tareasNuevas.map((tarea) => (
+          {contexto.tareasNuevas.map((tarea) => (
             <DivTarea key={tarea.id}>
               <div>
-                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-                <h3 className="descripcion">Descripción:</h3>
+                <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
@@ -188,26 +34,30 @@ export const Kanban = () => {
                     ModalFormEditar(tarea);
                     // setTocado(true);
                   }}
+                  title="Editar"
                 >
-                  L
+                  {String.fromCodePoint(parseInt('9998')) /* Icono lápiz */}
                 </Boton>
                 <Boton
                   className="eliminar"
-                  onClick={() => eliminarTarea(tarea)}
+                  onClick={() => contexto.eliminarTarea(tarea)}
+                  title="Eliminar"
                 >
-                  E
+                  {String.fromCodePoint(parseInt('128465')) /* Icono papelera */}
                 </Boton>
                 <Boton
                   className="terminada"
-                  onClick={() => terminarTarea(tarea)}
+                  onClick={() => contexto.terminarTarea(tarea)}
+                  title="Marcar como terminada"
                 >
-                  T
+                  {String.fromCodePoint(parseInt('10004')) /* Icono check */}
                 </Boton>
                 <Boton
                   className="enviarAProceso"
-                  onClick={() => enviarAProceso(tarea)}
+                  onClick={() => contexto.enviarAProceso(tarea)}
+                  title="Marcar como 'En proceso'"
                 >
-                  {"->"}
+                  {String.fromCodePoint(parseInt('129154')) /* Icono flecha */}
                 </Boton>
               </BotonTarea>
             </DivTarea>
@@ -215,26 +65,32 @@ export const Kanban = () => {
         </Lista>
         <Lista>
           <h1 className="tituloLista">En proceso</h1>
-          {tareasEnProceso.map((tarea) => (
+          {contexto.tareasEnProceso.map((tarea) => (
             <DivTarea key={tarea.id}>
               <div>
-                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-                <h3 className="descripcion">Descripción:</h3>
+                <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-                <Boton className="editar">L</Boton>
+                <Boton 
+                  className="editar"
+                  title="Editar"
+                >
+                  {String.fromCodePoint(parseInt('9998')) /* Icono lápiz */}
+                </Boton>
                 <Boton
                   className="eliminar"
-                  onClick={() => eliminarTarea(tarea)}
+                  onClick={() => contexto.eliminarTarea(tarea)}
+                  title="Eliminar"
                 >
-                  E
+                  {String.fromCodePoint(parseInt('128465')) /* Icono papelera */}
                 </Boton>
                 <Boton
                   className="terminada"
-                  onClick={() => terminarTarea(tarea)}
+                  onClick={() => contexto.terminarTarea(tarea)}
+                  title="Marcar como terminada"
                 >
-                  T
+                  {String.fromCodePoint(parseInt('10004')) /* Icono check */}
                 </Boton>
               </BotonTarea>
             </DivTarea>
@@ -242,41 +98,46 @@ export const Kanban = () => {
         </Lista>
         <Lista>
           <h1 className="tituloLista">Terminadas</h1>
-          {tareasTerminadas.map((tarea) => (
+          {contexto.tareasTerminadas.map((tarea) => (
             <DivTarea key={tarea.id}>
               <div>
-                <h2 className="tituloTarea">Título: {tarea.titulo}</h2>{" "}
-                <h3 className="descripcion">Descripción:</h3>
+                <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-                <Boton className="editar" role="button">
-                  L
+                <Boton 
+                  className="editar"
+                  title="Editar"
+                >
+                  {String.fromCodePoint(parseInt('9998')) /* Icono lápiz */}
                 </Boton>
                 <Boton
                   className="eliminar"
-                  onClick={() => eliminarTarea(tarea)}
+                  onClick={() => contexto.eliminarTarea(tarea)}
+                  title="Eliminar"
                 >
-                  E
+                  {String.fromCodePoint(parseInt('128465')) /* Icono papelera */}
                 </Boton>
                 <Boton
                   className="enviarAProceso"
-                  onClick={() => enviarAProceso(tarea)}
+                  onClick={() => contexto.enviarAProceso(tarea)}
+                  title="Marcar como 'En proceso'"
                 >
-                  {"->"}
+                  {String.fromCodePoint(parseInt('129152')) /* Icono flecha */}
                 </Boton>
                 <Boton
                   className="reutilizarTarea"
-                  onClick={() => reutilizarTarea(tarea)}
+                  onClick={() => contexto.reutilizarTarea(tarea)}
+                  title="Reutilizar"
                 >
-                  R
+                  {String.fromCodePoint(parseInt('9851')) /* Icono reciclaje */}
                 </Boton>
               </BotonTarea>
             </DivTarea>
           ))}
         </Lista>
         <div id="modalCrear" style={{ display: "none" }}>
-          <ModalFormCrear addTarea={addTarea} toggleDivCrear={toggleDivCrear} />
+          <ModalFormCrear />
         </div>
       </ContenedorKanban>
     </div>

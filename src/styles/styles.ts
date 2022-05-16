@@ -27,11 +27,11 @@ export const ContenedorForm = styled.div`
   padding: 14px;
   background-color: #8ec5fc;
   background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  border-radius: 20px;    
+  border-radius: 20px;
   border: 2px solid black;
   box-sizing: border-box;
   color: black;
-  
+
   h2 {
     text-align: center;
   }
@@ -54,7 +54,7 @@ export const ContenedorForm = styled.div`
     font-size: 1.1rem;
   }
 
-  div.cajaBotones{
+  div.cajaBotones {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -83,21 +83,20 @@ export const Boton = styled.button`
   border-radius: 15px;
   margin: 0.67rem 0;
   cursor: pointer;
-  background-color: #56E38F; //Verde
+  background-color: #56e38f; //Verde
   border: none;
 
   :hover {
-    background-color: #BD94DF; //Lila
+    background-color: #bd94df; //Lila
   }
 
-  &.cancelar{
+  &.cancelar {
     background-color: #de5252; //Rojo
   }
 
-  &.cancelar:hover{
-    background-color: #BD94DF; //Lila
+  &.cancelar:hover {
+    background-color: #bd94df; //Lila
   }
-
 `;
 
 /* PIZARRA KANBAN */
@@ -108,7 +107,7 @@ export const ContenedorKanban = styled.div`
   display: grid;
   padding-left: 10%;
   grid-template-columns: 50% 50%;
-  .tituloLista{
+  .tituloLista {
     text-align: center;
   }
   @media (min-width: 1080px) {
@@ -118,7 +117,6 @@ export const ContenedorKanban = styled.div`
   @media (max-width: 960px) {
     grid-template-columns: 100%;
   }
-
 `;
 export const Lista = styled.div`
   width: 90%;
@@ -127,14 +125,15 @@ export const Lista = styled.div`
 `;
 
 export const DivTarea = styled.div`
-    border-radius: 15px;
+  border-radius: 15px;
   padding-left: 5%;
   padding-right: 5%;
   display: grid;
-  background-color: #C3E8D5 ;
+  background-color: #c3e8d5;
   grid-template-columns: 65% 35%;
+  margin-bottom: 1rem;
   .tituloTarea {
-    color: #004B37;
+    color: #004b37;
   }
   .descripcion {
     color: black;
@@ -145,27 +144,28 @@ export const DivTarea = styled.div`
 export const BotonTarea = styled.div`
   display: flex;
   align-self: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   button {
-    cursor: pointer;
-    width: 25%;
+    width: 31px;
     margin-left: 4%;
     border: 1px solid;
-    border-radius: 15px;
-    cursor: pointer;
-    height: 2.5em;
-    font-size:0.8em;
+    border-radius: 100%;
+    height: fit-content;
+    font-size: 1em;
     background-color: transparent;
-  }:hover{
+  }
+  :hover {
     color: black;
   }
   .editar {
-    border-color: #C900FF ;
-    color: #C900FF ;
+    border-color: #c900ff;
+    color: #c900ff;
   }
 
   .eliminar {
-    border-color: #F58F8F;
-    color: #F58F8F;
+    border-color: #f58f8f;
+    color: #f58f8f;
   }
   .terminada {
     border-color: green;
@@ -180,33 +180,32 @@ export const BotonTarea = styled.div`
     color: #d67427;
   }
 
-  .editar:hover{
-  background-color:#DF71FD ;
-  color: black;
+  .editar:hover {
+    background-color: #df71fd;
+    color: black;
   }
-  .eliminar:hover{
-
-  background-color:#F58F8F;
-   color: black;
+  .eliminar:hover {
+    background-color: #f58f8f;
+    color: black;
   }
-  .terminada:hover{
-
-  background-color: green;
-   color: black;
+  .terminada:hover {
+    background-color: green;
+    color: black;
   }
-  .enviarAProceso:hover{
-  background-color:blue;
-   color: black;
+  .enviarAProceso:hover {
+    background-color: blue;
+    color: black;
   }
 
-  .reutilizarTarea:hover{
-  background-color:#d67427;
-   color: black;
+  .reutilizarTarea:hover {
+    background-color: #d67427;
+    color: black;
   }
+
 `;
 
 export const Modal = styled.div`
-display: none;
+  display: none;
   background: rgba(56, 56, 56, 0.5);
   padding: auto;
   margin: auto;
@@ -229,16 +228,29 @@ export const BarraSuperior = styled.div`
   padding: 0 40px;
   background-color: #201f21;
 
-  span{
+  span {
     color: white;
     font-size: 1.3rem;
   }
 
-  button.cerrarSesion{
+  button.cerrarSesion {
     font-size: 14px;
     width: 110px;
     height: 30px;
     background-color: transparent;
     border: 1px solid grey;
+
+    @media screen and (max-width: 480px) {
+      height: 40px;
+      margin-left: 10px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+      padding: 0 10px;
+
+      span{
+        display: none;
+      }
   }
 `;

@@ -6,6 +6,8 @@ import {
   FormikErrors,
   FormikValues,
 } from "formik";
+import { useContext } from "react";
+import { Context } from "../context/context";
 import {
   Boton,
   ContenedorForm,
@@ -15,11 +17,6 @@ import {
 } from "../styles/styles";
 import { Tarea } from "../types/types";
 
-type ModalFormCrearProps = {
-  addTarea: Function;
-  toggleDivCrear: Function;
-};
-
 const initialValues: Tarea = {
   id: 0,
   titulo: "",
@@ -27,7 +24,8 @@ const initialValues: Tarea = {
   estado: "nueva",
 };
 
-const ModalFormCrear = ({ addTarea, toggleDivCrear }: ModalFormCrearProps) => {
+const ModalFormCrear = () => {
+  const contexto = useContext(Context);
   /* Genera un id utilizando la hora y fecha actual */
   const getId = (): number => new Date().getTime();
 
@@ -45,7 +43,7 @@ const ModalFormCrear = ({ addTarea, toggleDivCrear }: ModalFormCrearProps) => {
               descripcion: values.descripcion,
               estado: "nueva",
             };
-            addTarea(nuevaTarea);
+            contexto.addTarea(nuevaTarea);
             resetForm();
           }}
           validate={(values) => {
@@ -84,14 +82,14 @@ const ModalFormCrear = ({ addTarea, toggleDivCrear }: ModalFormCrearProps) => {
               </DivFormGroup>
               <hr style={{ width: "100%" }} />
               <div className="cajaBotones">
-                <Boton type="submit">Crear tarea</Boton>
                 <Boton
                   type="reset"
-                  onClick={() => toggleDivCrear()}
+                  onClick={() => contexto.toggleDivCrear()}
                   className="cancelar"
                 >
                   Cancelar
                 </Boton>
+                <Boton type="submit">Crear tarea</Boton>
               </div>
             </Form>
           )}
