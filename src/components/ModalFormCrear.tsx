@@ -6,7 +6,7 @@ import {
   FormikErrors,
   FormikValues,
 } from "formik";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Context } from "../context/context";
 import {
   Boton,
@@ -24,13 +24,13 @@ const initialValues: Tarea = {
   estado: "nueva",
 };
 
-const ModalFormCrear = () => {
+const ModalFormCrear: React.FC = () => {
   const contexto = useContext(Context);
   /* Genera un id utilizando la hora y fecha actual */
   const getId = (): number => new Date().getTime();
 
   return (
-    <Modal >
+    <Modal>
       <ContenedorForm>
         <h2>Crear nueva tarea</h2>
         <hr />

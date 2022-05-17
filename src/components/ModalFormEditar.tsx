@@ -1,6 +1,12 @@
-import { render } from "@testing-library/react";
-import { ErrorMessage, Field, Form, Formik, FormikErrors, FormikValues } from "formik";
-import { useContext } from "react";
+import {
+  ErrorMessage,
+  Field,
+  Form,
+  Formik,
+  FormikErrors,
+  FormikValues,
+} from "formik";
+import { useContext, useState } from "react";
 import {
   Boton,
   ContenedorForm,
@@ -9,16 +15,21 @@ import {
   Modal,
 } from "../styles/styles";
 import { Context } from "../context/context";
-const ModalFormCrear = (tarea: number) => {
+import { Tarea } from "../types/types";
+
+const ModalFormEditar: React.FC<Tarea> = (tarea: Tarea) => {
   const datosTareas = useContext(Context);
-  render(
-    <Modal id="modalEditar">
+  return (
+    <Modal>
       <ContenedorForm>
         <h2>Editar tarea </h2>
         <hr />
         <Formik
-          initialValues={{ titulo: "", descripcion: "" }}
-          onSubmit={() => {}}
+          initialValues={{'titulo': tarea.titulo, 'descripcion':tarea.descripcion} }
+          onSubmit={() => {
+            console.log(tarea);
+            datosTareas.eliminarTarea(tarea);
+          }}
           validate={(values) => {
             let error: FormikErrors<FormikValues> = {};
             if (!values.titulo) {
@@ -66,6 +77,7 @@ const ModalFormCrear = (tarea: number) => {
                   md!.style.display = "none";
                 }}
               >
+                {" "}
                 Editar
               </Boton>
             </Form>
@@ -76,4 +88,4 @@ const ModalFormCrear = (tarea: number) => {
   );
 };
 
-export default ModalFormCrear;
+export default ModalFormEditar;

@@ -47,7 +47,7 @@ export const State = ({ children }: StateProps) => {
   const eliminarTarea = (tarea: Tarea) => {
     let ubicacion: number = tareasNuevas.indexOf(tarea);
     let estado: string = tarea.estado;
-    if (estado == "nueva") {
+    if (estado === "nueva") {
       let tareasActualizadas = [...tareasNuevas];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasNuevas(tareasActualizadas);
@@ -75,11 +75,11 @@ export const State = ({ children }: StateProps) => {
     let ubicacion: number = tareasNuevas.indexOf(tarea);
     let estado: string = tarea.estado;
 
-    if (estado == "nueva") {
+    if (estado === "nueva") {
       let tareasActualizadas = [...tareasNuevas];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasNuevas(tareasActualizadas);
-    } else if (estado == "terminada") {
+    } else if (estado === "terminada") {
       let tareasActualizadas = [...tareasTerminadas];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasTerminadas(tareasActualizadas);
@@ -94,11 +94,11 @@ export const State = ({ children }: StateProps) => {
     let ubicacion: number = tareasNuevas.indexOf(tarea);
     let estado: string = tarea.estado;
 
-    if (estado == "nueva") {
+    if (estado === "nueva") {
       let tareasActualizadas = [...tareasNuevas];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasNuevas(tareasActualizadas);
-    } else if (estado == "proceso") {
+    } else if (estado === "proceso") {
       let tareasActualizadas = [...tareasEnProceso];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasEnProceso(tareasActualizadas);
@@ -125,7 +125,7 @@ export const State = ({ children }: StateProps) => {
   const toggleDivCrear = () => {
     const divCrear = document.getElementById("modalCrear");
     if (divCrear !== null) {
-      if (divCrear.style.display == "none") divCrear.style.display = "flex";
+      if (divCrear.style.display === "none") divCrear.style.display = "flex";
       else divCrear.style.display = "none";
     }
   };
@@ -135,8 +135,7 @@ export const State = ({ children }: StateProps) => {
     localStorage.removeItem("usuario");
     navigate("/");
   };
-
-  console.log(tareasNuevas)
+  
   return (
     //Pasar con value a qué se tendrá acceso
     <Context.Provider
@@ -144,17 +143,17 @@ export const State = ({ children }: StateProps) => {
         tareasNuevas: tareasNuevas,
         tareasEnProceso: tareasEnProceso,
         tareasTerminadas: tareasTerminadas,
-        setTareasNuevas: setTareasNuevas,
-        setTareasEnProceso: setTareasEnProceso,
-        setTareasTerminadas: setTareasTerminadas,
-        eliminarTarea: eliminarTarea,
-        editarTarea: editarTarea,
-        addTarea: addTarea,
-        enviarAProceso: enviarAProceso,
-        reutilizarTarea: reutilizarTarea,
-        terminarTarea: terminarTarea,
-        cerrarSesion: cerrarSesion,
-        toggleDivCrear: toggleDivCrear
+        'setTareasNuevas': setTareasNuevas,
+        'setTareasEnProceso': setTareasEnProceso,
+        'setTareasTerminadas': setTareasTerminadas,
+        'eliminarTarea': eliminarTarea,
+        'editarTarea': editarTarea,
+        'addTarea': addTarea,
+        'enviarAProceso': enviarAProceso,
+        'reutilizarTarea': reutilizarTarea,
+        'terminarTarea': terminarTarea,
+        'cerrarSesion': cerrarSesion,
+        'toggleDivCrear': toggleDivCrear
       }}
     >
       {children}
