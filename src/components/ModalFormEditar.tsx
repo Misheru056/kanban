@@ -6,7 +6,7 @@ import {
   FormikErrors,
   FormikValues,
 } from "formik";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import {
   Boton,
   ContenedorForm,
@@ -17,26 +17,40 @@ import {
 import { Context } from "../context/context";
 import { Tarea } from "../types/types";
 
-const ModalFormEditar: React.FC<Tarea> = (tarea: Tarea) => {
+const ModalFormEditar = (props: {
+  dataModal: Tarea;
+  setDataModal: Function;
+}) => {
   const datosTareas = useContext(Context);
+
+  //Permite y maneja los cambios realizados en el formulario de edición
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.setDataModal({
+      ...props.dataModal,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <Modal>
       <ContenedorForm>
         <h2>Editar tarea </h2>
         <hr />
         <Formik
-          initialValues={{'titulo': tarea.titulo, 'descripcion':tarea.descripcion} }
+          initialValues={{
+            id: props.dataModal.id,
+            titulo: props.dataModal.titulo,
+            descripcion: props.dataModal.descripcion,
+            estado: props.dataModal.estado,
+          }}
+          enableReinitialize={true}
           onSubmit={() => {
-            console.log(tarea);
-            datosTareas.eliminarTarea(tarea);
+            datosTareas.editarTarea(props.dataModal);
           }}
           validate={(values) => {
             let error: FormikErrors<FormikValues> = {};
             if (!values.titulo) {
               error.titulo = "No puede estar este campo vacío";
-            }
-            if (!values.descripcion) {
-              error.descripcion = "No puede estar este campo vacío";
             }
             return error;
           }}
@@ -50,6 +64,8 @@ const ModalFormEditar: React.FC<Tarea> = (tarea: Tarea) => {
                   name="titulo"
                   id="titulo"
                   className="input"
+                  value={props.dataModal.titulo}
+                  onChange={handleChange}
                 />
                 <ErrorMessage
                   name="titulo"
@@ -63,23 +79,30 @@ const ModalFormEditar: React.FC<Tarea> = (tarea: Tarea) => {
                   name="descripcion"
                   id="descripcion"
                   className="input"
+                  value={props.dataModal.descripcion}
+                  onChange={handleChange}
                 />
-                <ErrorMessage
-                  name="descripcion"
-                  render={(msg) => <div className="error">{msg}</div>}
-                />
+                {
+                  <ErrorMessage
+                    name="descripcion"
+                    render={(msg) => <div className="error">{msg}</div>}
+                  />
+                }
               </DivFormGroup>
               <hr style={{ width: "100%" }} />
-              <Boton
-                type="submit"
-                onClick={() => {
-                  let md = document.getElementById("modalEditar");
-                  md!.style.display = "none";
-                }}
-              >
-                {" "}
-                Editar
-              </Boton>
+              <div className="cajaBotones">
+                <Boton
+                  type="reset"
+                  onClick={() => {
+                    let md = document.getElementById("modalEditar");
+                    md!.style.display = "none"
+                  }}
+                  className="cancelar"
+                >
+                  Cancelar
+                </Boton>
+                <Boton type="submit">Crear tarea</Boton>
+              </div>
             </Form>
           )}
         </Formik>
