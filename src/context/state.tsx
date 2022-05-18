@@ -1,4 +1,4 @@
-import  * as React  from "react";
+import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { Tarea } from "../types/types";
 import { Context } from "./context";
@@ -62,7 +62,42 @@ export const State = ({ children }: StateProps) => {
     }
   };
 
-  const editarTarea = (tarea: Tarea, nombre: string) => {};
+  const editarTarea = (tarea: Tarea) => {
+    let estado = tarea.estado;
+
+    if (estado === "nueva") {
+      let index: number = tareasNuevas.findIndex(
+        (t) => t.id === tarea.id
+      );
+      if (index !== -1) {
+        let tareasActualizadas = [...tareasNuevas];
+        tareasActualizadas.splice(index, 1, tarea);
+        setTareasNuevas(tareasActualizadas);
+      }
+    } else if (estado === "proceso") {
+      let index: number = tareasEnProceso.findIndex(
+        (t) => t.id === tarea.id
+      );
+      if (index !== -1) {
+        let tareasActualizadas = [...tareasEnProceso];
+        tareasActualizadas.splice(index, 1, tarea);
+        setTareasEnProceso(tareasActualizadas);
+      }
+    } else {
+      let index: number = tareasTerminadas.findIndex(
+        (t) => t.id === tarea.id
+      );
+      if (index !== -1) {
+        let tareasActualizadas = [...tareasTerminadas];
+        tareasActualizadas.splice(index, 1, tarea);
+        setTareasTerminadas(tareasActualizadas);
+      }
+    }
+
+    //Ocultar modal tras la actualización
+    let md = document.getElementById("modalEditar");
+    md!.style.display = "none";
+  };
 
   /* Añade una tarea al array tareasNuevas */
   const addTarea = (tarea: Tarea) => {
@@ -135,7 +170,7 @@ export const State = ({ children }: StateProps) => {
     localStorage.removeItem("usuario");
     navigate("/");
   };
-  
+
   return (
     //Pasar con value a qué se tendrá acceso
     <Context.Provider
@@ -143,17 +178,17 @@ export const State = ({ children }: StateProps) => {
         tareasNuevas: tareasNuevas,
         tareasEnProceso: tareasEnProceso,
         tareasTerminadas: tareasTerminadas,
-        'setTareasNuevas': setTareasNuevas,
-        'setTareasEnProceso': setTareasEnProceso,
-        'setTareasTerminadas': setTareasTerminadas,
-        'eliminarTarea': eliminarTarea,
-        'editarTarea': editarTarea,
-        'addTarea': addTarea,
-        'enviarAProceso': enviarAProceso,
-        'reutilizarTarea': reutilizarTarea,
-        'terminarTarea': terminarTarea,
-        'cerrarSesion': cerrarSesion,
-        'toggleDivCrear': toggleDivCrear
+        setTareasNuevas: setTareasNuevas,
+        setTareasEnProceso: setTareasEnProceso,
+        setTareasTerminadas: setTareasTerminadas,
+        eliminarTarea: eliminarTarea,
+        editarTarea: editarTarea,
+        addTarea: addTarea,
+        enviarAProceso: enviarAProceso,
+        reutilizarTarea: reutilizarTarea,
+        terminarTarea: terminarTarea,
+        cerrarSesion: cerrarSesion,
+        toggleDivCrear: toggleDivCrear,
       }}
     >
       {children}

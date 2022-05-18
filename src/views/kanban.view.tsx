@@ -10,17 +10,18 @@ import {
   Lista,
 } from "../styles/styles";
 import { Context } from "../context/context";
-import React from "react";
 import { Tarea } from "../types/types";
 
 export const Kanban = () => {
   const contexto = useContext(Context);
-  const [tareas, setTarea] = useState<Tarea>({
+
+  const [dataModal, setDataModal] = useState<Tarea>({
     id: 0,
-    titulo: "",
-    descripcion: "",
-    estado: "nueva",
+    titulo: '',
+    descripcion: '',
+    estado: ''
   });
+  
   return (
     <div>
       <BarraSuperior />
@@ -37,8 +38,7 @@ export const Kanban = () => {
                 <Boton
                   className="editar"
                   onClick={() => {
-                    console.log(tarea);
-                    setTarea(tarea);
+                    setDataModal(tarea);
 
                     let md = document.getElementById("modalEditar");
                     md!.style.display = "flex";
@@ -87,7 +87,16 @@ export const Kanban = () => {
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-                <Boton className="editar" title="Editar">
+              <Boton
+                  className="editar"
+                  onClick={() => {
+                    setDataModal(tarea);
+
+                    let md = document.getElementById("modalEditar");
+                    md!.style.display = "flex";
+                  }}
+                  title="Editar"
+                >
                   {String.fromCodePoint(parseInt("9998")) /* Icono lápiz */}
                 </Boton>
                 <Boton
@@ -121,7 +130,16 @@ export const Kanban = () => {
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-                <Boton className="editar" title="Editar">
+              <Boton
+                  className="editar"
+                  onClick={() => {
+                    setDataModal(tarea);
+
+                    let md = document.getElementById("modalEditar");
+                    md!.style.display = "flex";
+                  }}
+                  title="Editar"
+                >
                   {String.fromCodePoint(parseInt("9998")) /* Icono lápiz */}
                 </Boton>
                 <Boton
@@ -156,11 +174,9 @@ export const Kanban = () => {
         <div id="modalCrear" style={{ display: "none" }}>
           <ModalFormCrear />
         </div>
-        {React.createElement("div", {
-          id: "modalEditar",
-          children: <ModalFormEditar {...tareas} />,
-          style: { display: "none" },
-        })}
+        <div id="modalEditar" style={{ display: "none" }}>
+          <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal}/>
+        </div>
       </ContenedorKanban>
     </div>
   );
