@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { Tarea } from "../types/types";
+import { Tarea } from "../domain/types/types";
 import { Context } from "./context";
 
 interface StateProps {

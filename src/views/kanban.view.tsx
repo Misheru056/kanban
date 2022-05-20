@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
-import ModalFormCrear from "../components/ModalFormCrear";
-import ModalFormEditar from "../components/ModalFormEditar";
-import BarraSuperior from "../components/BarraSuperior";
+import ModalFormCrear from "./components/ModalFormCrear";
+import ModalFormEditar from "./components/ModalFormEditar";
+import BarraSuperior from "./components/BarraSuperior";
 import {
   Boton,
   BotonTarea,
   ContenedorKanban,
   DivTarea,
   Lista,
-} from "../styles/styles";
+} from "./styles/styles";
 import { Context } from "../context/context";
-import { Tarea } from "../types/types";
+import { Tarea } from "../domain/types/types";
 
 export const Kanban = () => {
   const contexto = useContext(Context);

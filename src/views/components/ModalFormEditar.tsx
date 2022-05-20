@@ -14,8 +14,8 @@ import {
   Label,
   Modal,
 } from "../styles/styles";
-import { Context } from "../context/context";
-import { Tarea } from "../types/types";
+import { Context } from "../../context/context";
+import { Tarea } from "../../domain/types/types";
 
 const ModalFormEditar = (props: {
   dataModal: Tarea;

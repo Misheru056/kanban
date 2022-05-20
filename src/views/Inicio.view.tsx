@@ -1,5 +1,5 @@
-import FormInicioSesion from '../components/FormInicioSesion';
-import { StyledInicio } from '../styles/styles';
+import FormInicioSesion from './components/FormInicioSesion';
+import { StyledInicio } from './styles/styles';
 
 const Inicio = () => {
 
