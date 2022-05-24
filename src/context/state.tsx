@@ -57,51 +57,106 @@ export const State = ({ children }: StateProps) => {
       estado: "verificada",
     },
   ]);
+
   const navigate = useNavigate();
 
   /* Elimina una tarea */
   const eliminarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-    if (estado === "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado == "proceso") {
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasEnProceso(tareasActualizadas);
-    } else {
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasTerminadas(tareasActualizadas);
+    let origen = tarea.estado;
+    let ubicacion: number;
+    let tareasActualizadas: Tarea[];
+
+    switch (origen) {
+      case "nueva":
+        ubicacion = tareasNuevas.indexOf(tarea);
+
+        tareasActualizadas = [...tareasNuevas];
+        tareasActualizadas.splice(ubicacion, 1);
+
+        setTareasNuevas(tareasActualizadas);
+        break;
+      case "proceso":
+        ubicacion = tareasEnProceso.indexOf(tarea);
+
+        tareasActualizadas = [...tareasEnProceso];
+        tareasActualizadas.splice(ubicacion, 1);
+
+        setTareasEnProceso(tareasActualizadas);
+        break;
+      case "terminada":
+        ubicacion = tareasTerminadas.indexOf(tarea);
+
+        tareasActualizadas = [...tareasTerminadas];
+        tareasActualizadas.splice(ubicacion, 1);
+
+        setTareasTerminadas(tareasActualizadas);
+        break;
+      case "bloqueada":
+        ubicacion = tareasBloqueadas.indexOf(tarea);
+
+        tareasActualizadas = [...tareasBloqueadas];
+        tareasActualizadas.splice(ubicacion, 1);
+
+        setTareasBloqueadas(tareasActualizadas);
+        break;
+      case "verificada":
+        ubicacion = tareasVerificadas.indexOf(tarea);
+
+        tareasActualizadas = [...tareasVerificadas];
+        tareasActualizadas.splice(ubicacion, 1);
+
+        setTareasVerificadas(tareasActualizadas);
+        break;
     }
   };
 
+  /* Edita una tarea */
   const editarTarea = (tarea: Tarea) => {
     let estado = tarea.estado;
+    let index: number;
+    let tareasActualizadas: Tarea[];
 
-    if (estado === "nueva") {
-      let index: number = tareasNuevas.findIndex((t) => t.id === tarea.id);
-      if (index !== -1) {
-        let tareasActualizadas = [...tareasNuevas];
-        tareasActualizadas.splice(index, 1, tarea);
-        setTareasNuevas(tareasActualizadas);
-      }
-    } else if (estado === "proceso") {
-      let index: number = tareasEnProceso.findIndex((t) => t.id === tarea.id);
-      if (index !== -1) {
-        let tareasActualizadas = [...tareasEnProceso];
-        tareasActualizadas.splice(index, 1, tarea);
-        setTareasEnProceso(tareasActualizadas);
-      }
-    } else {
-      let index: number = tareasTerminadas.findIndex((t) => t.id === tarea.id);
-      if (index !== -1) {
-        let tareasActualizadas = [...tareasTerminadas];
-        tareasActualizadas.splice(index, 1, tarea);
-        setTareasTerminadas(tareasActualizadas);
-      }
+    switch (estado) {
+      case "nueva":
+        index = tareasNuevas.findIndex((t) => t.id === tarea.id);
+        if (index !== -1) {
+          tareasActualizadas = [...tareasNuevas];
+          tareasActualizadas.splice(index, 1, tarea);
+          setTareasNuevas(tareasActualizadas);
+        }
+        break;
+      case "proceso":
+        index = tareasEnProceso.findIndex((t) => t.id === tarea.id);
+        if (index !== -1) {
+          tareasActualizadas = [...tareasEnProceso];
+          tareasActualizadas.splice(index, 1, tarea);
+          setTareasEnProceso(tareasActualizadas);
+        }
+        break;
+      case "terminada":
+        index = tareasTerminadas.findIndex((t) => t.id === tarea.id);
+        if (index !== -1) {
+          tareasActualizadas = [...tareasTerminadas];
+          tareasActualizadas.splice(index, 1, tarea);
+          setTareasTerminadas(tareasActualizadas);
+        }
+        break;
+      case "bloqueada":
+        index = tareasBloqueadas.findIndex((t) => t.id === tarea.id);
+        if (index !== -1) {
+          tareasActualizadas = [...tareasBloqueadas];
+          tareasActualizadas.splice(index, 1, tarea);
+          setTareasBloqueadas(tareasActualizadas);
+        }
+        break;
+      case "verificada":
+        index = tareasVerificadas.findIndex((t) => t.id === tarea.id);
+        if (index !== -1) {
+          tareasActualizadas = [...tareasVerificadas];
+          tareasActualizadas.splice(index, 1, tarea);
+          setTareasVerificadas(tareasActualizadas);
+        }
+        break;
     }
 
     //Ocultar modal tras la actualización
@@ -117,132 +172,35 @@ export const State = ({ children }: StateProps) => {
 
   /* Mueve una tarea a la fase 'En proceso' */
   const enviarAProceso = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-
-    if (estado === "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado === "terminada") {
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasTerminadas(tareasActualizadas);
-    }
-
+    eliminarTarea(tarea);
     setTareasEnProceso([...tareasEnProceso, tarea]);
     tarea.estado = "proceso";
   };
 
   /* Mueve una tarea a la fase 'Terminada' */
   const terminarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-    let estado: string = tarea.estado;
-
-    if (estado === "nueva") {
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasNuevas(tareasActualizadas);
-    } else if (estado === "proceso") {
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-      setTareasEnProceso(tareasActualizadas);
-    }
-
+    eliminarTarea(tarea);
     setTareasTerminadas([...tareasTerminadas, tarea]);
     tarea.estado = "terminada";
   };
 
   /* Mueve una tarea terminada a la fase 'Nueva' */
   const reutilizarTarea = (tarea: Tarea) => {
-    let ubicacion: number = tareasNuevas.indexOf(tarea);
-
+    eliminarTarea(tarea);
     setTareasNuevas([...tareasNuevas, tarea]);
-
-    let tareasActualizadas = [...tareasTerminadas];
-    tareasActualizadas.splice(ubicacion, 1);
-
-    setTareasTerminadas(tareasActualizadas);
     tarea.estado = "nueva";
   };
 
   /* Bloquea una tarea */
   const bloquearTarea = (tarea: Tarea) => {
-    let estado: string = tarea.estado;
-
-    if (estado === "nueva") {   
-      let ubicacion: number = tareasNuevas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasNuevas(tareasActualizadas);
-    }
-    else if (estado == "proceso") {
-      let ubicacion: number = tareasEnProceso.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasEnProceso(tareasActualizadas);
-    }
-    else if (estado == "terminada") {
-      let ubicacion: number = tareasTerminadas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasTerminadas(tareasActualizadas);
-    }
-    else {
-      let ubicacion: number = tareasVerificadas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasBloqueadas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasVerificadas(tareasActualizadas);
-    }
+    eliminarTarea(tarea);
     tarea.estado = "bloqueada";
     setTareasBloqueadas([...tareasBloqueadas, tarea]);
   };
 
   /* Verifica una tarea */
   const verificarTarea = (tarea: Tarea) => {
-    let estado: string = tarea.estado;
-
-    if (estado === "nueva") {   
-      let ubicacion: number = tareasNuevas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasNuevas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasNuevas(tareasActualizadas);
-    }
-    else if (estado == "proceso") {
-      let ubicacion: number = tareasEnProceso.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasEnProceso];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasEnProceso(tareasActualizadas);
-    }
-    else if (estado == "terminada") {
-      let ubicacion: number = tareasTerminadas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasTerminadas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasTerminadas(tareasActualizadas);
-    }
-    else {
-      let ubicacion: number = tareasBloqueadas.indexOf(tarea);
-
-      let tareasActualizadas = [...tareasBloqueadas];
-      tareasActualizadas.splice(ubicacion, 1);
-
-      setTareasBloqueadas(tareasActualizadas);
-    }
-
+    eliminarTarea(tarea);
     tarea.estado = "verificada";
     setTareasVerificadas([...tareasVerificadas, tarea]);
   };

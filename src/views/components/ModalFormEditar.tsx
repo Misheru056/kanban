@@ -101,7 +101,7 @@ const ModalFormEditar = (props: {
                 >
                   Cancelar
                 </Boton>
-                <Boton type="submit">Crear tarea</Boton>
+                <Boton type="submit">Guardar</Boton>
               </div>
             </Form>
           )}
