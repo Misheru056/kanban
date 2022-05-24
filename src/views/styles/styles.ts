@@ -104,17 +104,23 @@ export const Boton = styled.button`
 export const ContenedorKanban = styled.div`
   height: 100vh;
   color: white;
+  padding: 2vh 3vw;
   display: grid;
-  padding-left: 10%;
-  grid-template-columns: 50% 50%;
-  .tituloLista {
-    text-align: center;
-  }
-  @media (min-width: 1080px) {
-    grid-template-columns: 32% 32% 32%;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+
+  button.btnAdd {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    background-color: #f2a552;
+    color: #2f2e2e;
   }
 
-  @media (max-width: 960px) {
+  button.btnAdd:hover {
+    background-color: #ffc586;
+  }
+
+  @media screen and (max-width: 767px) {
     grid-template-columns: 100%;
   }
 `;
@@ -122,10 +128,50 @@ export const Lista = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
+
+  .tituloLista {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 0;
+    min-height: 64px;
+    display: grid;
+    align-items: center;
+  }
+
+  .contenedor {
+    overflow-y: auto;
+    max-height: 700px;
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    margin: 0 auto;
+
+    .contenedor {
+      max-height: 500px;
+    }
+  }
 `;
 
 export const DivTarea = styled.div`
-  border-radius: 15px;
   padding-left: 5%;
   padding-right: 5%;
   display: grid;
@@ -134,11 +180,13 @@ export const DivTarea = styled.div`
   margin-bottom: 1rem;
   .tituloTarea {
     color: #004b37;
+    font-size: 1.2em;
   }
   .descripcion {
     color: black;
     padding: 1%;
     text-justify: auto;
+    font-size: 0.9em;
   }
 `;
 export const BotonTarea = styled.div`
@@ -203,7 +251,6 @@ export const BotonTarea = styled.div`
   @media (max-width: 960px) {
     grid-template-columns: 100%;
   }
-
 `;
 
 export const Modal = styled.div`
@@ -249,10 +296,6 @@ export const BarraHerramientas = styled.div`
   }
 
   @media screen and (max-width: 480px) {
-      padding: 0 10px;
-
-      span{
-        display: none;
-      }
+    padding: 0 10px;
   }
 `;
