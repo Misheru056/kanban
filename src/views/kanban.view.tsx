@@ -3,8 +3,6 @@ import ModalFormCrear from "./components/ModalFormCrear";
 import ModalFormEditar from "./components/ModalFormEditar";
 import BarraSuperior from "./components/BarraSuperior";
 import {
-  Boton,
-  BotonTarea,
   ContenedorKanban,
   Lista,
 } from "./styles/styles";
