@@ -1,16 +1,25 @@
-import { useContext } from "react";
+import { DragEventHandler, useContext } from "react";
 import { Context } from "../../context/context";
 import { Tarea } from "../../domain/types/types";
 import { Boton, BotonTarea, DivTarea } from "../styles/styles";
 import SubtareaCard from "./SubtareaCard";
 
-type TareaCardProps = { tarea: Tarea; setDataModal: Function };
+type TareaCardProps = {
+  tarea: Tarea;
+  setDataModal: Function;
+  onStart: DragEventHandler<HTMLDivElement>;
+  id: string;
+};
 
-const TareaCard = ({ tarea, setDataModal }: TareaCardProps) => {
+const TareaCard = ({ tarea, setDataModal, onStart, id }: TareaCardProps) => {
   const contexto = useContext(Context);
 
   return (
-    <DivTarea>
+    <DivTarea
+      draggable={true}
+      id={id}
+      onDragStart={onStart}
+    >
       <div>
         <h2 className="tituloTarea">{tarea.titulo}</h2>
         <p className="descripcion">{tarea.descripcion}</p>

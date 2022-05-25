@@ -119,8 +119,46 @@ export const State = ({ children }: StateProps) => {
         break;
     }
   };
+  // Mover la tarea de sitio
+  const recolocarTarea = (tarea: Tarea, lugar: string) => {
+    let tareasActualizadas: Tarea[];
+
+    switch (lugar) {
+      case "nueva":
+        tareasActualizadas = [...tareasNuevas];
+        tarea.estado = "nueva";
+        tareasActualizadas.push(tarea);
+        setTareasNuevas(tareasActualizadas);
+        break;
+      case "proceso":
+        tareasActualizadas = [...tareasEnProceso];
+        tarea.estado = "proceso";
+        tareasActualizadas.push(tarea);
+        setTareasEnProceso(tareasActualizadas);
+        break;
+      case "terminada":
+        tareasActualizadas = [...tareasTerminadas];
+        tarea.estado = "terminada";
+        tareasActualizadas.push(tarea);
+        setTareasTerminadas(tareasActualizadas);
+        break;
+      case "bloqueada":
+        tareasActualizadas = [...tareasBloqueadas];
+        tarea.estado = "bloqueada";
+        tareasActualizadas.push(tarea);
+        setTareasBloqueadas(tareasActualizadas);
+        break;
+      case "verificada":
+        tareasActualizadas = [...tareasVerificadas];
+        tarea.estado = "verificada";
+        tareasActualizadas.push(tarea);
+        setTareasVerificadas(tareasActualizadas);
+        break;
+    }
+  };
 
   /* Edita una tarea */
+
   const editarTarea = (tarea: Tarea) => {
     let estado = tarea.estado;
     let index: number;
@@ -254,6 +292,7 @@ export const State = ({ children }: StateProps) => {
         verificarTarea: verificarTarea,
         cerrarSesion: cerrarSesion,
         toggleDivCrear: toggleDivCrear,
+        recolocarTarea: recolocarTarea,
       }}
     >
       {children}
