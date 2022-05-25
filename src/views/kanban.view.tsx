@@ -17,8 +17,8 @@ export const Kanban = () => {
   });
 
   const [dragTarea, setDragTarea] = useState<Tarea>();
-  //Constantes relacionadas con Drag & Drop
 
+  //Constantes relacionadas con Drag & Drop
   const draggingItem = useRef<number>();
   const dragOverItem = useRef<string>();
 
@@ -31,7 +31,6 @@ export const Kanban = () => {
   const enableDropping = (event: React.DragEvent<HTMLDivElement>) => {
     dragOverItem.current = event.currentTarget.id;
   };
-
   //cuanto suelto la tarea
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();

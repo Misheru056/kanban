@@ -11,6 +11,8 @@ function App() {
           <Route path="/" element={<LoginRoute outlet={<Inicio />} />} />
           <Route
             path="/organizador"
+           
+            
             element={<PrivateRoute outlet={<Kanban />} />}
           />
         </Routes>
