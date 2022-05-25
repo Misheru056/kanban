@@ -2,17 +2,10 @@ import React, { useContext, useRef, useState } from "react";
 import ModalFormCrear from "./components/ModalFormCrear";
 import ModalFormEditar from "./components/ModalFormEditar";
 import BarraSuperior from "./components/BarraSuperior";
-import {
-  Boton,
-  BotonTarea,
-  ContenedorKanban,
-  DivTarea,
-  Lista,
-} from "./styles/styles";
+import { Boton, ContenedorKanban, Lista } from "./styles/styles";
 import { Context } from "../context/context";
 import { Tarea } from "../domain/types/types";
-import { parseJsonText } from "typescript";
-import { stringify } from "querystring";
+import TareaCard from "./components/TareaCard";
 
 export const Kanban = () => {
   const contexto = useContext(Context);
@@ -22,6 +15,7 @@ export const Kanban = () => {
     descripcion: "",
     estado: "",
   });
+
   const [dragTarea, setDragTarea] = useState<Tarea>();
   //Constantes relacionadas con Drag & Drop
 
@@ -44,9 +38,8 @@ export const Kanban = () => {
     event.preventDefault();
     contexto.eliminarTarea(dragTarea);
     contexto.recolocarTarea(dragTarea, dragOverItem.current);
-    
   };
-console.log(contexto.tareasEnProceso);
+  console.log(contexto.tareasEnProceso);
   return (
     <div>
       <BarraSuperior />
@@ -62,62 +55,21 @@ console.log(contexto.tareasEnProceso);
           }}
         >
           <h1 className="tituloLista">Nuevas Tareas</h1>
-          {contexto.tareasNuevas.map((tarea) => (
-            <DivTarea
-              key={tarea.id}
-              id={tarea.id.toString()}
-              draggable={true}
-              onDragStart={(e) => {
-                inicioDrag(e, tarea);
-              }}
-            >
-              <div>
-                <h2 className="tituloTarea">{tarea.titulo}</h2>
-                <p className="descripcion">{tarea.descripcion}</p>
-              </div>
-              <BotonTarea>
-                <Boton
-                  className="editar"
-                  onClick={() => {
-                    setDataModal(tarea);
 
-                    let md = document.getElementById("modalEditar");
-                    md!.style.display = "flex";
-                  }}
-                  title="Editar"
-                >
-                  {String.fromCodePoint(parseInt("9998")) /* Icono lápiz */}
-                </Boton>
-                <Boton
-                  className="eliminar"
-                  onClick={() => {
-                    contexto.eliminarTarea(tarea);
-                  }}
-                  title="Eliminar"
-                >
-                  {
-                    String.fromCodePoint(
-                      parseInt("128465")
-                    ) /* Icono papelera */
-                  }
-                </Boton>
-                <Boton
-                  className="terminada"
-                  onClick={() => contexto.terminarTarea(tarea)}
-                  title="Marcar como terminada"
-                >
-                  {String.fromCodePoint(parseInt("10004")) /* Icono check */}
-                </Boton>
-                <Boton
-                  className="enviarAProceso"
-                  onClick={() => contexto.enviarAProceso(tarea)}
-                  title="Marcar como 'En proceso'"
-                >
-                  {String.fromCodePoint(parseInt("129154")) /* Icono flecha */}
-                </Boton>
-              </BotonTarea>
-            </DivTarea>
-          ))}
+          <div className="contenedor">
+            {contexto.tareasNuevas.map((tarea) => (
+              <TareaCard
+                key={tarea.id}
+                // id={tarea.id.toString()}
+                // draggable={true}
+                // onDragStart={(e) => {
+                //   inicioDrag(e, tarea);
+                // }}
+                tarea={tarea}
+                setDataModal={setDataModal}
+              />
+            ))}
+          </div>
         </Lista>
         <Lista
           id="Proceso"
@@ -130,53 +82,20 @@ console.log(contexto.tareasEnProceso);
           }}
         >
           <h1 className="tituloLista">En proceso</h1>
-          {contexto.tareasEnProceso.map((tarea) => (
-            <DivTarea
-              key={tarea.id}
-              id={tarea.id.toString()}
-              draggable={true}
-              onDragStart={(e) => {
-                inicioDrag(e, tarea);
-              }}
-            >
-              <div>
-                <h2 className="tituloTarea">{tarea.titulo}</h2>
-                <p className="descripcion">{tarea.descripcion}</p>
-              </div>
-              <BotonTarea>
-                <Boton
-                  className="editar"
-                  onClick={() => {
-                    setDataModal(tarea);
-
-                    let md = document.getElementById("modalEditar");
-                    md!.style.display = "flex";
-                  }}
-                  title="Editar"
-                >
-                  {String.fromCodePoint(parseInt("9998")) /* Icono lápiz */}
-                </Boton>
-                <Boton
-                  className="eliminar"
-                  onClick={() => contexto.eliminarTarea(tarea)}
-                  title="Eliminar"
-                >
-                  {
-                    String.fromCodePoint(
-                      parseInt("128465")
-                    ) /* Icono papelera */
-                  }
-                </Boton>
-                <Boton
-                  className="terminada"
-                  onClick={() => contexto.terminarTarea(tarea)}
-                  title="Marcar como terminada"
-                >
-                  {String.fromCodePoint(parseInt("10004")) /* Icono check */}
-                </Boton>
-              </BotonTarea>
-            </DivTarea>
-          ))}
+          <div className="contenedor">
+            {contexto.tareasEnProceso.map((tarea) => (
+              <TareaCard
+                key={tarea.id}
+                // id={tarea.id.toString()}
+                // draggable={true}
+                // onDragStart={(e) => {
+                //   inicioDrag(e, tarea);
+                // }}
+                 tarea={tarea}
+                setDataModal={setDataModal}
+              />
+            ))}
+          </div>
         </Lista>
         <Lista
           id="Terminadas"
@@ -189,60 +108,45 @@ console.log(contexto.tareasEnProceso);
           }}
         >
           <h1 className="tituloLista">Terminadas</h1>
-          {contexto.tareasTerminadas.map((tarea) => (
-            <DivTarea
-              key={tarea.id}
-              id={tarea.id.toString()}
-              draggable={true}
-              onDragStart={(e) => {
-                inicioDrag(e, tarea);
-              }}
-            >
-              <div>
-                <h2 className="tituloTarea">{tarea.titulo}</h2>
-                <p className="descripcion">{tarea.descripcion}</p>
-              </div>
-              <BotonTarea>
-                <Boton
-                  className="editar"
-                  onClick={() => {
-                    setDataModal(tarea);
 
-                    let md = document.getElementById("modalEditar");
-                    md!.style.display = "flex";
-                  }}
-                  title="Editar"
-                >
-                  {String.fromCodePoint(parseInt("9998")) /* Icono lápiz */}
-                </Boton>
-                <Boton
-                  className="eliminar"
-                  onClick={() => contexto.eliminarTarea(tarea)}
-                  title="Eliminar"
-                >
-                  {
-                    String.fromCodePoint(
-                      parseInt("128465")
-                    ) /* Icono papelera */
-                  }
-                </Boton>
-                <Boton
-                  className="enviarAProceso"
-                  onClick={() => contexto.enviarAProceso(tarea)}
-                  title="Marcar como 'En proceso'"
-                >
-                  {String.fromCodePoint(parseInt("129152")) /* Icono flecha */}
-                </Boton>
-                <Boton
-                  className="reutilizarTarea"
-                  onClick={() => contexto.reutilizarTarea(tarea)}
-                  title="Reutilizar"
-                >
-                  {String.fromCodePoint(parseInt("9851")) /* Icono reciclaje */}
-                </Boton>
-              </BotonTarea>
-            </DivTarea>
-          ))}
+          <div className="contenedor">
+            {contexto.tareasTerminadas.map((tarea) => (
+              <TareaCard
+                // id={tarea.id.toString()}
+                // draggable={true}
+                // onDragStart={(e) => {
+                //   inicioDrag(e, tarea);
+                // }}
+                key={tarea.id}
+                tarea={tarea}
+                setDataModal={setDataModal}
+              />
+            ))}
+          </div>
+        </Lista>
+        <Lista>
+          <h1 className="tituloLista">Verificadas</h1>
+          <div className="contenedor">
+            {contexto.tareasVerificadas.map((tarea) => (
+              <TareaCard
+                key={tarea.id}
+                tarea={tarea}
+                setDataModal={setDataModal}
+              />
+            ))}
+          </div>
+        </Lista>
+        <Lista>
+          <h1 className="tituloLista">Bloqueadas</h1>
+          <div className="contenedor">
+            {contexto.tareasBloqueadas.map((tarea) => (
+              <TareaCard
+                key={tarea.id}
+                tarea={tarea}
+                setDataModal={setDataModal}
+              />
+            ))}
+          </div>
         </Lista>
         <div id="modalCrear" style={{ display: "none" }}>
           <ModalFormCrear />
@@ -250,6 +154,13 @@ console.log(contexto.tareasEnProceso);
         <div id="modalEditar" style={{ display: "none" }}>
           <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal} />
         </div>
+        <Boton
+          onClick={() => contexto.toggleDivCrear()}
+          style={{ fontSize: "18px", width: "150px" }}
+          className="btnAdd"
+        >
+          + Añadir tarea
+        </Boton>
       </ContenedorKanban>
     </div>
   );
