@@ -112,6 +112,7 @@ export const State = ({ children }: StateProps) => {
   // Mover la tarea de sitio
   const recolocarTarea = (tarea: Tarea, lugar: string) => {
     let tareasActualizadas: Tarea[];
+
     switch (lugar) {
       case "nueva":
         tareasActualizadas = [...tareasNuevas];
@@ -146,24 +147,6 @@ export const State = ({ children }: StateProps) => {
     }
   };
 
-  //    if (lugar === "Nuevas") {
-
-  //
-  //
-  //    } else if (lugar === "Proceso") {
-  //      let ubicacion: number = tareasEnProceso.indexOf(tarea);
-  //      let tareasActualizadas = [...tareasEnProceso];
-  //      tarea.estado = "proceso";
-  //      tareasActualizadas.splice(ubicacion, 0, tarea);
-  //      setTareasEnProceso(tareasActualizadas);
-  //    } else {
-  //      let ubicacion: number = tareasTerminadas.indexOf(tarea);
-  //      let tareasActualizadas = [...tareasTerminadas];
-  //      tarea.estado = "terminada";
-  //      tareasActualizadas.splice(ubicacion, 0, tarea);
-  //      setTareasTerminadas(tareasActualizadas);
-  //    }
-  //  };
   /* Edita una tarea */
 
   const editarTarea = (tarea: Tarea) => {
