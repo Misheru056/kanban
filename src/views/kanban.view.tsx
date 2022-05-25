@@ -30,7 +30,6 @@ export const Kanban = () => {
   //Por el que pasa por encima el elemento
   const enableDropping = (event: React.DragEvent<HTMLDivElement>) => {
     dragOverItem.current = event.currentTarget.id;
-    console.log(dragOverItem.current);
   };
 
   //cuanto suelto la tarea
@@ -39,13 +38,12 @@ export const Kanban = () => {
     contexto.eliminarTarea(dragTarea);
     contexto.recolocarTarea(dragTarea, dragOverItem.current);
   };
-  console.log(contexto.tareasEnProceso);
   return (
     <div>
       <BarraSuperior />
       <ContenedorKanban>
         <Lista
-          id="Nuevas"
+          id="nueva"
           onDragEnter={enableDropping}
           onDragOver={(e) => {
             e.preventDefault();
@@ -60,11 +58,10 @@ export const Kanban = () => {
             {contexto.tareasNuevas.map((tarea) => (
               <TareaCard
                 key={tarea.id}
-                // id={tarea.id.toString()}
-                // draggable={true}
-                // onDragStart={(e) => {
-                //   inicioDrag(e, tarea);
-                // }}
+                onStart={(e) => {
+                  inicioDrag(e, tarea);
+                }}
+                id={tarea.id.toString()}
                 tarea={tarea}
                 setDataModal={setDataModal}
               />
@@ -72,7 +69,7 @@ export const Kanban = () => {
           </div>
         </Lista>
         <Lista
-          id="Proceso"
+          id="proceso"
           onDragEnter={enableDropping}
           onDragOver={(e) => {
             e.preventDefault();
@@ -86,19 +83,18 @@ export const Kanban = () => {
             {contexto.tareasEnProceso.map((tarea) => (
               <TareaCard
                 key={tarea.id}
-                // id={tarea.id.toString()}
-                // draggable={true}
-                // onDragStart={(e) => {
-                //   inicioDrag(e, tarea);
-                // }}
-                 tarea={tarea}
+                onStart={(e) => {
+                  inicioDrag(e, tarea);
+                }}
+                id={tarea.id.toString()}
+                tarea={tarea}
                 setDataModal={setDataModal}
               />
             ))}
           </div>
         </Lista>
         <Lista
-          id="Terminadas"
+          id="terminada"
           onDragEnter={enableDropping}
           onDragOver={(e) => {
             e.preventDefault();
@@ -112,36 +108,61 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasTerminadas.map((tarea) => (
               <TareaCard
-                // id={tarea.id.toString()}
-                // draggable={true}
-                // onDragStart={(e) => {
-                //   inicioDrag(e, tarea);
-                // }}
                 key={tarea.id}
+                onStart={(e) => {
+                  inicioDrag(e, tarea);
+                }}
+                id={tarea.id.toString()}
                 tarea={tarea}
                 setDataModal={setDataModal}
               />
             ))}
           </div>
         </Lista>
-        <Lista>
+        <Lista
+          id="verificada"
+          onDragEnter={enableDropping}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDrop={(e) => {
+            handleDrop(e);
+          }}
+        >
           <h1 className="tituloLista">Verificadas</h1>
           <div className="contenedor">
             {contexto.tareasVerificadas.map((tarea) => (
               <TareaCard
                 key={tarea.id}
+                onStart={(e) => {
+                  inicioDrag(e, tarea);
+                }}
+                id={tarea.id.toString()}
                 tarea={tarea}
                 setDataModal={setDataModal}
               />
             ))}
           </div>
         </Lista>
-        <Lista>
+        <Lista
+          id="bloqueada"
+          onDragEnter={enableDropping}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDrop={(e) => {
+            handleDrop(e);
+          }}
+        >
           <h1 className="tituloLista">Bloqueadas</h1>
           <div className="contenedor">
             {contexto.tareasBloqueadas.map((tarea) => (
               <TareaCard
                 key={tarea.id}
+                onStart={(e) => {
+                  inicioDrag(e, tarea);
+                }}
+                id={tarea.id.toString()}
                 tarea={tarea}
                 setDataModal={setDataModal}
               />

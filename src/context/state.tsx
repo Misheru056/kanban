@@ -62,7 +62,6 @@ export const State = ({ children }: StateProps) => {
 
   /* Elimina una tarea */
   const eliminarTarea = (tarea: Tarea) => {
-
     let origen = tarea.estado;
     let ubicacion: number;
     let tareasActualizadas: Tarea[];
@@ -111,30 +110,60 @@ export const State = ({ children }: StateProps) => {
     }
   };
   // Mover la tarea de sitio
- const recolocarTarea = (tarea: Tarea, lugar: string) => {
-   
-   console.log(tarea, lugar, tarea.estado);
-   console.log(lugar);
-   if (lugar === "Nuevas") {
-     let ubicacion: number = tareasNuevas.indexOf(tarea);
-     let tareasActualizadas = [...tareasNuevas];
-     tarea.estado = "nueva";
-     tareasActualizadas.splice(ubicacion, 0, tarea);
-     setTareasNuevas(tareasActualizadas);
-   } else if (lugar === "Proceso") {
-     let ubicacion: number = tareasEnProceso.indexOf(tarea);
-     let tareasActualizadas = [...tareasEnProceso];
-     tarea.estado = "proceso";
-     tareasActualizadas.splice(ubicacion, 0, tarea);
-     setTareasEnProceso(tareasActualizadas);
-   } else {
-     let ubicacion: number = tareasTerminadas.indexOf(tarea);
-     let tareasActualizadas = [...tareasTerminadas];
-     tarea.estado = "terminada";
-     tareasActualizadas.splice(ubicacion, 0, tarea);
-     setTareasTerminadas(tareasActualizadas);
-   }
- };
+  const recolocarTarea = (tarea: Tarea, lugar: string) => {
+    let tareasActualizadas: Tarea[];
+    switch (lugar) {
+      case "nueva":
+        tareasActualizadas = [...tareasNuevas];
+        tarea.estado = "nueva";
+        tareasActualizadas.push(tarea);
+        setTareasNuevas(tareasActualizadas);
+        break;
+      case "proceso":
+        tareasActualizadas = [...tareasEnProceso];
+        tarea.estado = "proceso";
+        tareasActualizadas.push(tarea);
+        setTareasEnProceso(tareasActualizadas);
+        break;
+      case "terminada":
+        tareasActualizadas = [...tareasTerminadas];
+        tarea.estado = "terminada";
+        tareasActualizadas.push(tarea);
+        setTareasTerminadas(tareasActualizadas);
+        break;
+      case "bloqueada":
+        tareasActualizadas = [...tareasBloqueadas];
+        tarea.estado = "bloqueada";
+        tareasActualizadas.push(tarea);
+        setTareasBloqueadas(tareasActualizadas);
+        break;
+      case "verificada":
+        tareasActualizadas = [...tareasVerificadas];
+        tarea.estado = "verificada";
+        tareasActualizadas.push(tarea);
+        setTareasVerificadas(tareasActualizadas);
+        break;
+    }
+  };
+
+  //    if (lugar === "Nuevas") {
+
+  //
+  //
+  //    } else if (lugar === "Proceso") {
+  //      let ubicacion: number = tareasEnProceso.indexOf(tarea);
+  //      let tareasActualizadas = [...tareasEnProceso];
+  //      tarea.estado = "proceso";
+  //      tareasActualizadas.splice(ubicacion, 0, tarea);
+  //      setTareasEnProceso(tareasActualizadas);
+  //    } else {
+  //      let ubicacion: number = tareasTerminadas.indexOf(tarea);
+  //      let tareasActualizadas = [...tareasTerminadas];
+  //      tarea.estado = "terminada";
+  //      tareasActualizadas.splice(ubicacion, 0, tarea);
+  //      setTareasTerminadas(tareasActualizadas);
+  //    }
+  //  };
   /* Edita una tarea */
 
   const editarTarea = (tarea: Tarea) => {
