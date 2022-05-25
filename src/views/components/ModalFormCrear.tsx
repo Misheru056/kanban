@@ -1,6 +1,7 @@
 import {
   ErrorMessage,
   Field,
+  FieldArray,
   Form,
   Formik,
   FormikErrors,
@@ -15,18 +16,19 @@ import {
   Label,
   Modal,
 } from "../styles/styles";
-import { Tarea } from "../../domain/types/types";
+import { Subtarea, Tarea } from "../../domain/types/types";
 
 const initialValues: Tarea = {
   id: 0,
   titulo: "",
   descripcion: "",
   estado: "nueva",
-  subtareas: []
+  subtareas: [{ id: 0, texto: "", completada: false }],
 };
 
 const ModalFormCrear: React.FC = () => {
   const contexto = useContext(Context);
+
   /* Genera un id utilizando la hora y fecha actual */
   const getId = (): number => new Date().getTime();
 
@@ -38,12 +40,21 @@ const ModalFormCrear: React.FC = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) => {
+            //Eliminar subtareas vacías
+            for (let i = values.subtareas.length - 1; i >= 0; i--) {
+              if (values.subtareas[i].texto !== "") {
+                values.subtareas[i].id = getId() + i;
+              } else {
+                values.subtareas.splice(i, 1);
+              }
+            }
             let nuevaTarea: Tarea = {
               id: getId(),
               titulo: values.titulo,
               descripcion: values.descripcion,
               estado: "nueva",
-              subtareas: []
+              subtareas: values.subtareas,
+              porcentajeSubtareas: 0,
             };
             contexto.addTarea(nuevaTarea);
             resetForm();
@@ -74,13 +85,62 @@ const ModalFormCrear: React.FC = () => {
                 />
               </DivFormGroup>
               <DivFormGroup>
-                <Label>Descripción</Label>
+                <Label>Descripción (opcional)</Label>
                 <Field
                   type="text"
                   name="descripcion"
                   id="descripcion"
                   className="input"
                 />
+              </DivFormGroup>
+              <DivFormGroup>
+                <Label>Lista de subtareas (opcional)</Label>
+                <FieldArray name="subtareas">
+                  {(fieldArrayProps) => {
+                    const { push, remove, form } = fieldArrayProps;
+                    const { values } = form;
+                    const { subtareas } = values;
+                    return (
+                      <div>
+                        {subtareas.map((_subtarea: Subtarea, index: number) => (
+                          <div key={index}>
+                            <Field
+                              name={`subtareas[${index}].texto`}
+                              type="text"
+                              className="inputSubtarea"
+                            />
+                            {index > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => remove(index)}
+                                className="removeSubtarea"
+                              >
+                                {
+                                  String.fromCodePoint(
+                                    parseInt("9866")
+                                  ) /* Icono resta */
+                                }
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() =>
+                                push({ id: 0, texto: "", completada: false })
+                              }
+                              className="addSubtarea"
+                            >
+                              {
+                                String.fromCodePoint(
+                                  parseInt("128935")
+                                ) /* Icono suma */
+                              }
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }}
+                </FieldArray>
               </DivFormGroup>
               <hr style={{ width: "100%" }} />
               <div className="cajaBotones">

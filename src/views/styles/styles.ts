@@ -59,11 +59,49 @@ export const ContenedorForm = styled.div`
     width: 100%;
     justify-content: space-between;
   }
+
+  @media screen and (max-width: 360px) {
+    width: 325px;
+    padding: 14px 3px;
+  }
 `;
 
 export const DivFormGroup = styled.div`
   margin-bottom: 10px;
   width: 100%;
+
+  input.inputSubtarea {
+    width: 70%;
+    line-height: 30px;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-indent: 8px;
+  }
+
+  button.addSubtarea,
+  button.removeSubtarea {
+    color: white;
+    font-size: 1em;
+    border: none;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    box-shadow: 1px 1px 3px grey;
+  }
+
+  button.addSubtarea:hover,
+  button.removeSubtarea:hover {
+    background-color: #bd94df; //Lila
+  }
+
+  button.addSubtarea {
+    background-color: #529ede; //Azul
+  }
+
+  button.removeSubtarea {
+    background-color: #de5252;; //Rojo
+  }
 `;
 
 export const Label = styled.label`
@@ -74,7 +112,7 @@ export const Label = styled.label`
 `;
 
 export const Boton = styled.button`
-  width: 170px;
+  width: 150px;
   height: 55px;
   font-size: 21px;
   font-weight: bold;
@@ -304,8 +342,8 @@ export const BarraHerramientas = styled.div`
 export const DivSubtarea = styled.div`
   color: black;
   text-indent: 10px;
-  
-  label.completada{
+
+  label.completada {
     text-decoration: line-through;
   }
 `;
