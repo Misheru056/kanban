@@ -51,7 +51,7 @@ export const State = ({ children }: StateProps) => {
       let tareasActualizadas = [...tareasNuevas];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasNuevas(tareasActualizadas);
-    } else if (estado == "proceso") {
+    } else if (estado === "proceso") {
       let tareasActualizadas = [...tareasEnProceso];
       tareasActualizadas.splice(ubicacion, 1);
       setTareasEnProceso(tareasActualizadas);
@@ -62,31 +62,49 @@ export const State = ({ children }: StateProps) => {
     }
   };
 
+  /* Elimina una tarea */
+  const recolocarTarea = (tarea: Tarea, lugar: string) => {
+
+    let ubicacion: number = tareasNuevas.indexOf(tarea);
+    console.log(tarea, ubicacion, lugar, tarea.estado);
+    console.log(lugar);
+    if (lugar === "Nuevas") {
+      let tareasActualizadas = [...tareasNuevas];
+      tarea.estado = "nueva";
+      tareasActualizadas.splice(ubicacion, 0, tarea);
+      setTareasNuevas(tareasActualizadas);
+    } else if (lugar === "Proceso") {
+      let tareasActualizadas = [...tareasEnProceso];
+      tarea.estado = "proceso";
+      tareasActualizadas.splice(ubicacion, 0, tarea);
+      setTareasEnProceso(tareasActualizadas);
+    } else {
+      let tareasActualizadas = [...tareasTerminadas];
+       tarea.estado = "terminada";
+      tareasActualizadas.splice(ubicacion, 0, tarea);
+      setTareasTerminadas(tareasActualizadas);
+    }
+  };
+
   const editarTarea = (tarea: Tarea) => {
     let estado = tarea.estado;
 
     if (estado === "nueva") {
-      let index: number = tareasNuevas.findIndex(
-        (t) => t.id === tarea.id
-      );
+      let index: number = tareasNuevas.findIndex((t) => t.id === tarea.id);
       if (index !== -1) {
         let tareasActualizadas = [...tareasNuevas];
         tareasActualizadas.splice(index, 1, tarea);
         setTareasNuevas(tareasActualizadas);
       }
     } else if (estado === "proceso") {
-      let index: number = tareasEnProceso.findIndex(
-        (t) => t.id === tarea.id
-      );
+      let index: number = tareasEnProceso.findIndex((t) => t.id === tarea.id);
       if (index !== -1) {
         let tareasActualizadas = [...tareasEnProceso];
         tareasActualizadas.splice(index, 1, tarea);
         setTareasEnProceso(tareasActualizadas);
       }
     } else {
-      let index: number = tareasTerminadas.findIndex(
-        (t) => t.id === tarea.id
-      );
+      let index: number = tareasTerminadas.findIndex((t) => t.id === tarea.id);
       if (index !== -1) {
         let tareasActualizadas = [...tareasTerminadas];
         tareasActualizadas.splice(index, 1, tarea);
@@ -189,6 +207,7 @@ export const State = ({ children }: StateProps) => {
         terminarTarea: terminarTarea,
         cerrarSesion: cerrarSesion,
         toggleDivCrear: toggleDivCrear,
+        recolocarTarea: recolocarTarea,
       }}
     >
       {children}

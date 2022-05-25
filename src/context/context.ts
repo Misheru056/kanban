@@ -16,6 +16,7 @@ type ContextProps = {
   terminarTarea: Function;
   cerrarSesion: Function;
   toggleDivCrear: Function;
+  recolocarTarea:Function
 };
 
 export const Context = createContext({} as ContextProps);

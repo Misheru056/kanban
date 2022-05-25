@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import ModalFormCrear from "./components/ModalFormCrear";
 import ModalFormEditar from "./components/ModalFormEditar";
 import BarraSuperior from "./components/BarraSuperior";
@@ -11,25 +11,66 @@ import {
 } from "./styles/styles";
 import { Context } from "../context/context";
 import { Tarea } from "../domain/types/types";
+import { parseJsonText } from "typescript";
+import { stringify } from "querystring";
 
 export const Kanban = () => {
   const contexto = useContext(Context);
-
   const [dataModal, setDataModal] = useState<Tarea>({
     id: 0,
-    titulo: '',
-    descripcion: '',
-    estado: ''
+    titulo: "",
+    descripcion: "",
+    estado: "",
   });
-  
+  const [dragTarea, setDragTarea] = useState<Tarea>();
+  //Constantes relacionadas con Drag & Drop
+
+  const draggingItem = useRef<number>();
+  const dragOverItem = useRef<string>();
+
+  const inicioDrag = (event: React.DragEvent<HTMLDivElement>, tarea: Tarea) => {
+    draggingItem.current = parseInt(event.currentTarget.id);
+    setDragTarea(tarea);
+  };
+
+  //Por el que pasa por encima el elemento
+  const enableDropping = (event: React.DragEvent<HTMLDivElement>) => {
+    dragOverItem.current = event.currentTarget.id;
+    console.log(dragOverItem.current);
+  };
+
+  //cuanto suelto la tarea
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    contexto.eliminarTarea(dragTarea);
+    contexto.recolocarTarea(dragTarea, dragOverItem.current);
+    
+  };
+console.log(contexto.tareasEnProceso);
   return (
     <div>
       <BarraSuperior />
       <ContenedorKanban>
-        <Lista>
+        <Lista
+          id="Nuevas"
+          onDragEnter={enableDropping}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDrop={(e) => {
+            handleDrop(e);
+          }}
+        >
           <h1 className="tituloLista">Nuevas Tareas</h1>
           {contexto.tareasNuevas.map((tarea) => (
-            <DivTarea key={tarea.id}>
+            <DivTarea
+              key={tarea.id}
+              id={tarea.id.toString()}
+              draggable={true}
+              onDragStart={(e) => {
+                inicioDrag(e, tarea);
+              }}
+            >
               <div>
                 <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
@@ -78,16 +119,32 @@ export const Kanban = () => {
             </DivTarea>
           ))}
         </Lista>
-        <Lista>
+        <Lista
+          id="Proceso"
+          onDragEnter={enableDropping}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDrop={(e) => {
+            handleDrop(e);
+          }}
+        >
           <h1 className="tituloLista">En proceso</h1>
           {contexto.tareasEnProceso.map((tarea) => (
-            <DivTarea key={tarea.id}>
+            <DivTarea
+              key={tarea.id}
+              id={tarea.id.toString()}
+              draggable={true}
+              onDragStart={(e) => {
+                inicioDrag(e, tarea);
+              }}
+            >
               <div>
                 <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-              <Boton
+                <Boton
                   className="editar"
                   onClick={() => {
                     setDataModal(tarea);
@@ -121,16 +178,32 @@ export const Kanban = () => {
             </DivTarea>
           ))}
         </Lista>
-        <Lista>
+        <Lista
+          id="Terminadas"
+          onDragEnter={enableDropping}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDrop={(e) => {
+            handleDrop(e);
+          }}
+        >
           <h1 className="tituloLista">Terminadas</h1>
           {contexto.tareasTerminadas.map((tarea) => (
-            <DivTarea key={tarea.id}>
+            <DivTarea
+              key={tarea.id}
+              id={tarea.id.toString()}
+              draggable={true}
+              onDragStart={(e) => {
+                inicioDrag(e, tarea);
+              }}
+            >
               <div>
                 <h2 className="tituloTarea">{tarea.titulo}</h2>
                 <p className="descripcion">{tarea.descripcion}</p>
               </div>
               <BotonTarea>
-              <Boton
+                <Boton
                   className="editar"
                   onClick={() => {
                     setDataModal(tarea);
@@ -175,7 +248,7 @@ export const Kanban = () => {
           <ModalFormCrear />
         </div>
         <div id="modalEditar" style={{ display: "none" }}>
-          <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal}/>
+          <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal} />
         </div>
       </ContenedorKanban>
     </div>
