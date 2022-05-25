@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Context } from "../../context/context";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Boton, BarraHerramientas } from "../styles/styles";
 
 const BarraSuperior = () => {
