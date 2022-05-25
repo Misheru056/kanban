@@ -16,6 +16,11 @@ export const State = ({ children }: StateProps) => {
       id: 1,
       descripcion: "YOLOYOLOYOLO",
       estado: "nueva",
+      subtareas: [
+        {id: 1, texto: 'Subtarea 1', completada: false},
+        {id: 2, texto: 'Subtarea 2', completada: true},
+      ],
+      porcentajeSubtareas: 50
     },
 
     {
@@ -23,6 +28,7 @@ export const State = ({ children }: StateProps) => {
       id: 2,
       descripcion: "Otra cosa mariposa",
       estado: "nueva",
+      subtareas: []
     },
   ]);
   const [tareasEnProceso, setTareasEnProceso] = React.useState<Tarea[]>([
@@ -31,6 +37,7 @@ export const State = ({ children }: StateProps) => {
       id: 3,
       descripcion: "Esta tarea está en proceso",
       estado: "proceso",
+      subtareas: []
     },
   ]);
   const [tareasTerminadas, setTareasTerminadas] = React.useState<Tarea[]>([
@@ -39,6 +46,7 @@ export const State = ({ children }: StateProps) => {
       id: 4,
       descripcion: "Tarea completamente terminada",
       estado: "terminada",
+      subtareas: []
     },
   ]);
   const [tareasBloqueadas, setTareasBloqueadas] = React.useState<Tarea[]>([
@@ -47,6 +55,7 @@ export const State = ({ children }: StateProps) => {
       id: 5,
       descripcion: "Tarea bloqueada",
       estado: "bloqueada",
+      subtareas: []
     },
   ]);
   const [tareasVerificadas, setTareasVerificadas] = React.useState<Tarea[]>([
@@ -55,6 +64,7 @@ export const State = ({ children }: StateProps) => {
       id: 6,
       descripcion: "Tarea verificada",
       estado: "verificada",
+      subtareas: []
     },
   ]);
 

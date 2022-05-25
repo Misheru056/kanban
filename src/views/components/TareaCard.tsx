@@ -2,16 +2,24 @@ import { useContext } from "react";
 import { Context } from "../../context/context";
 import { Tarea } from "../../domain/types/types";
 import { Boton, BotonTarea, DivTarea } from "../styles/styles";
+import SubtareaCard from "./SubtareaCard";
 
 type TareaCardProps = { tarea: Tarea; setDataModal: Function };
 
 const TareaCard = ({ tarea, setDataModal }: TareaCardProps) => {
   const contexto = useContext(Context);
+
   return (
     <DivTarea>
       <div>
         <h2 className="tituloTarea">{tarea.titulo}</h2>
         <p className="descripcion">{tarea.descripcion}</p>
+        <div>
+          {tarea.subtareas.map( (subtarea) => (
+            <SubtareaCard key={subtarea.id} tareaPadre={tarea} subtarea={subtarea} />
+          ))}
+          {tarea.subtareas.length > 0 ? <p>Subtareas: {tarea.porcentajeSubtareas}%</p> : ''}
+        </div>
       </div>
       {tarea.estado !== "bloqueada" && (
         <BotonTarea>

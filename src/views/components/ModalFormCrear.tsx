@@ -22,6 +22,7 @@ const initialValues: Tarea = {
   titulo: "",
   descripcion: "",
   estado: "nueva",
+  subtareas: []
 };
 
 const ModalFormCrear: React.FC = () => {
@@ -42,6 +43,7 @@ const ModalFormCrear: React.FC = () => {
               titulo: values.titulo,
               descripcion: values.descripcion,
               estado: "nueva",
+              subtareas: []
             };
             contexto.addTarea(nuevaTarea);
             resetForm();

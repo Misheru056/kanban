@@ -103,7 +103,6 @@ export const Boton = styled.button`
 
 export const ContenedorKanban = styled.div`
   height: 100vh;
-  color: white;
   padding: 2vh 3vw;
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
@@ -136,6 +135,7 @@ export const Lista = styled.div`
     min-height: 64px;
     display: grid;
     align-items: center;
+    color: white;
   }
 
   .contenedor {
@@ -183,15 +183,16 @@ export const DivTarea = styled.div`
     font-size: 1.2em;
   }
   .descripcion {
-    color: black;
     padding: 1%;
     text-justify: auto;
     font-size: 0.9em;
   }
 `;
+
 export const BotonTarea = styled.div`
   border-top: 1px solid #373636; /*Casi negro*/
   padding: 5px;
+  margin-top: 10px;
   button {
     width: 31px;
     margin: 5px;
@@ -297,5 +298,14 @@ export const BarraHerramientas = styled.div`
 
   @media screen and (max-width: 480px) {
     padding: 0 10px;
+  }
+`;
+
+export const DivSubtarea = styled.div`
+  color: black;
+  text-indent: 10px;
+  
+  label.completada{
+    text-decoration: line-through;
   }
 `;

@@ -15,6 +15,7 @@ export const Kanban = () => {
     titulo: "",
     descripcion: "",
     estado: "",
+    subtareas: []
   });
 
   return (
