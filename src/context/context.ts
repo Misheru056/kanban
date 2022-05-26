@@ -22,7 +22,8 @@ type ContextProps = {
   verificarTarea: Function;
   cerrarSesion: Function;
   toggleDivCrear: Function;
-  recolocarTarea:Function
+  recolocarTarea: Function
+
 };
 
 export const Context = createContext({} as ContextProps);
