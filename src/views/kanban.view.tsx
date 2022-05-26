@@ -14,7 +14,7 @@ export const Kanban = () => {
     titulo: "",
     descripcion: "",
     estado: "",
-    subtareas: []
+    subtareas: [{id:0, texto:'', completada: false}]
   });
 
   const [dragTarea, setDragTarea] = useState<Tarea>();

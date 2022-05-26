@@ -88,6 +88,7 @@ export const DivFormGroup = styled.div`
     height: 30px;
     margin: 0 5px;
     box-shadow: 1px 1px 3px grey;
+    cursor: pointer;
   }
 
   button.addSubtarea:hover,
@@ -216,6 +217,8 @@ export const DivTarea = styled.div`
   background-color: #c3e8d5;
   grid-template-columns: 100%;
   margin-bottom: 1rem;
+  cursor: grab;
+
   .tituloTarea {
     color: #004b37;
     font-size: 1.2em;
