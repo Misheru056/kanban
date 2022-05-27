@@ -92,7 +92,7 @@ const ModalFormEditar = (props: {
           enableReinitialize={true}
           onSubmit={(values) => {
             //Eliminar subtareas vacías del array del form y del temporal
-            for (let i = values.subtareas.length - 1; i >= 0; i--) {
+            for (let i = subtareasTemp.length - 1; i >= 0; i--) {
               if (values.subtareas[i].texto === "") {
                 values.subtareas.splice(i, 1);
                 subtareasTemp.splice(i, 1);
