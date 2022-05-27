@@ -13,7 +13,6 @@ const instance = axios.create({
 let datosUbicacion: GeolocationCoordinates;
 const valores = () => {
   navigator.geolocation.getCurrentPosition((posicion) => {
-
     const ubicacion = posicion.coords;
     datosUbicacion = ubicacion;
   });
@@ -21,11 +20,11 @@ const valores = () => {
 valores();
 
 const recogerDatos = () => {
-  console.log(datosUbicacion);  
+  console.log(datosUbicacion);
   return instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,
-      lon:datosUbicacion.longitude
+      lon: datosUbicacion.longitude,
     },
   });
 };

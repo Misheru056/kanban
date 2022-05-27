@@ -7,7 +7,7 @@ import { DatosTiempo } from "../../domain/types/tiempo.models";
 
 const BarraSuperior = () => {
   let [datosTiempo, setDatosTiempo] = useState<DatosTiempo>();
-  const [noDisponible, setNoDisponile] = useState<boolean>(true);
+  const [noDisponible, setNoDisponile] = useState<boolean>();
   useEffect(() => {
     tiempoPresenter()
       .then((r) => {
