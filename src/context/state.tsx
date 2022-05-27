@@ -268,6 +268,17 @@ export const State = ({ children }: StateProps) => {
     navigate("/");
   };
 
+  /* Calcula el porcentaje de subtareas completadas */
+  const calcularPorcentajeComp = (tarea: Tarea) => {
+    let completadas: number = 0;
+    for(const element of tarea.subtareas){
+        if(element.completada)
+            completadas++;
+    }
+
+    tarea.porcentajeSubtareas = (completadas * 100) / tarea.subtareas.length;
+  }
+
   return (
     //Pasar con value a qué se tendrá acceso
     <Context.Provider
@@ -293,6 +304,7 @@ export const State = ({ children }: StateProps) => {
         cerrarSesion: cerrarSesion,
         toggleDivCrear: toggleDivCrear,
         recolocarTarea: recolocarTarea,
+        calcularPorcentajeComp: calcularPorcentajeComp
       }}
     >
       {children}

@@ -94,7 +94,6 @@ const ModalFormCrear: React.FC = () => {
                 />
               </DivFormGroup>
               <DivFormGroup>
-                <Label>Lista de subtareas (opcional)</Label>
                 <FieldArray name="subtareas">
                   {(fieldArrayProps) => {
                     const { push, remove, form } = fieldArrayProps;
@@ -102,41 +101,48 @@ const ModalFormCrear: React.FC = () => {
                     const { subtareas } = values;
                     return (
                       <div>
+                        <Label>
+                          Subtareas (opcional)
+                        </Label>
                         {subtareas.map((_subtarea: Subtarea, index: number) => (
-                          <div key={index}>
+                          <div 
+                            key={`subtareas[${index}]`} 
+                            className='subtareaForm'
+                          >
                             <Field
                               name={`subtareas[${index}].texto`}
                               type="text"
                               className="inputSubtarea"
                             />
-                            {index > 0 && (
-                              <button
-                                type="button"
-                                onClick={() => remove(index)}
-                                className="removeSubtarea"
-                              >
-                                {
-                                  String.fromCodePoint(
-                                    parseInt("9866")
-                                  ) /* Icono resta */
-                                }
-                              </button>
-                            )}
                             <button
                               type="button"
-                              onClick={() =>
-                                push({ id: 0, texto: "", completada: false })
-                              }
-                              className="addSubtarea"
+                              onClick={() => remove(index)}
+                              className="removeSubtarea"
                             >
                               {
                                 String.fromCodePoint(
-                                  parseInt("128935")
-                                ) /* Icono suma */
+                                  parseInt("9866")
+                                ) /* Icono resta */
                               }
                             </button>
                           </div>
                         ))}
+                        <div style={{'display':'flex'}}>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              push({ id: 0, texto: "", completada: false })
+                            }
+                            className="addSubtarea"
+                          >
+                            {
+                              String.fromCodePoint(
+                                parseInt("128935")
+                              ) /* Icono suma */
+                            }
+                          </button>
+                        </div>
+                        
                       </div>
                     );
                   }}

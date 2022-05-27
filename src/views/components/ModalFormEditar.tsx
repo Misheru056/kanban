@@ -24,19 +24,17 @@ const ModalFormEditar = (props: {
 }) => {
   const datosTareas = useContext(Context);
   const [subtareasTemp, setSubtareasTemp] = useState(props.dataModal.subtareas);
-  
+
   useEffect(() => {
     setSubtareasTemp(JSON.parse(JSON.stringify(props.dataModal.subtareas)));
   }, [props.dataModal]);
-  
 
-  //Permite y maneja los cambios realizados en el formulario de edición
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
     if (e.target.name.includes("subtareas")) {
       let index = e.target.id.substring(1);
       editarSubtarea(parseInt(index), e.target.value);
-    } else{
+    } else {
       props.setDataModal({
         ...props.dataModal,
         [e.target.name]: e.target.value,
@@ -54,20 +52,28 @@ const ModalFormEditar = (props: {
     });
   };
 
-  const nuevoInputSubtarea = () => {
-    // let subtareas = subtareasTemp;
-    // subtareas.push({
-    //   id: 0,
-    //   texto: "",
-    //   completada: false,
-    // });
-    // setSubtareasTemp(subtareas);
+  const nuevaSubtarea = () => {
+    let subtareas = subtareasTemp;
+    subtareas.push({
+      id: 0,
+      texto: "",
+      completada: false,
+    });
+
+    props.setDataModal({
+      ...props.dataModal,
+      subtareas: subtareasTemp,
+    });
   };
 
-  const eliminarInputSubtarea = (index: number) => {
-    // let subtareas = props.dataModal.subtareas;
-    // subtareas.splice(index, 1);
-    // setSubtareasTemp(subtareas);
+  const eliminarSubtarea = (index: number) => {
+    let subtareas = subtareasTemp;
+    subtareas.splice(index, 1);
+
+    props.setDataModal({
+      ...props.dataModal,
+      subtareas: subtareasTemp,
+    });
   };
 
   return (
@@ -84,7 +90,15 @@ const ModalFormEditar = (props: {
             subtareas: props.dataModal.subtareas,
           }}
           enableReinitialize={true}
-          onSubmit={() => {
+          onSubmit={(values) => {
+            //Eliminar subtareas vacías del array del form y del temporal
+            for (let i = values.subtareas.length - 1; i >= 0; i--) {
+              if (values.subtareas[i].texto === "") {
+                values.subtareas.splice(i, 1);
+                subtareasTemp.splice(i, 1);
+              }
+            }
+            datosTareas.calcularPorcentajeComp(props.dataModal);
             datosTareas.editarTarea(props.dataModal);
           }}
           validate={(values) => {
@@ -129,44 +143,64 @@ const ModalFormEditar = (props: {
                   }
                 </DivFormGroup>
                 <DivFormGroup>
-                  <Label>Lista de subtareas (opcional)</Label>
-                  <div>
-                    {subtareasTemp.map((subtarea: Subtarea, index: number) => (
-                      <div key={index}>
-                        <Field
-                          name={`subtareas[${index}].texto`}
-                          type="text"
-                          className="inputSubtarea"
-                          onChange={handleChange}
-                          id={`s${index}`}
-                        />
-                        {index > 0 && (
-                          <button
-                            type="button"
-                            onClick={() => eliminarInputSubtarea(index)}
-                            className="removeSubtarea"
-                          >
-                            {
-                              String.fromCodePoint(
-                                parseInt("9866")
-                              ) /* Icono resta */
-                            }
-                          </button>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => nuevoInputSubtarea()}
-                          className="addSubtarea"
-                        >
-                          {
-                            String.fromCodePoint(
-                              parseInt("128935")
-                            ) /* Icono suma */
-                          }
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                  <FieldArray name="subtareas">
+                    {(fieldArrayProps) => {
+                      const { push, remove, form } = fieldArrayProps;
+                      const { values } = form;
+                      const { subtareas } = values;
+                      return (
+                        <div>
+                          <Label>Subtareas (opcional)</Label>
+                          {subtareas.map(
+                            (_subtarea: Subtarea, index: number) => (
+                              <div
+                                key={`subtareas[${index}]`}
+                                className="subtareaForm"
+                              >
+                                <Field
+                                  name={`subtareas[${index}].texto`}
+                                  type="text"
+                                  className="inputSubtarea"
+                                  onChange={handleChange}
+                                  id={`s${index}`}
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    remove(index);
+                                    eliminarSubtarea(index);
+                                  }}
+                                  className="removeSubtarea"
+                                >
+                                  {
+                                    String.fromCodePoint(
+                                      parseInt("9866")
+                                    ) /* Icono resta */
+                                  }
+                                </button>
+                              </div>
+                            )
+                          )}
+                          <div style={{ display: "flex" }}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                push({ id: 0, texto: "", completada: false });
+                                nuevaSubtarea();
+                              }}
+                              className="addSubtarea"
+                            >
+                              {
+                                String.fromCodePoint(
+                                  parseInt("128935")
+                                ) /* Icono suma */
+                              }
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    }}
+                  </FieldArray>
                 </DivFormGroup>
                 <hr style={{ width: "100%" }} />
                 <div className="cajaBotones">

@@ -2,6 +2,9 @@ import styled, { createGlobalStyle } from "styled-components";
 
 /* GLOBAL */
 export const GlobalStyle = createGlobalStyle`
+  html, body{
+    height: 100%;
+  }
   body {
     background-color: #322F33;
   }
@@ -31,6 +34,28 @@ export const ContenedorForm = styled.div`
   border: 2px solid black;
   box-sizing: border-box;
   color: black;
+  overflow-y: auto;
+  max-height: 600px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
   h2 {
     text-align: center;
@@ -69,13 +94,19 @@ export const ContenedorForm = styled.div`
 export const DivFormGroup = styled.div`
   margin-bottom: 10px;
   width: 100%;
+  user-select: none;
+
+  div.subtareaForm {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+  }
 
   input.inputSubtarea {
-    width: 70%;
     line-height: 30px;
     font-size: 1rem;
-    margin-bottom: 5px;
     text-indent: 8px;
+    flex-grow: 1;
   }
 
   button.addSubtarea,
@@ -98,10 +129,13 @@ export const DivFormGroup = styled.div`
 
   button.addSubtarea {
     background-color: #529ede; //Azul
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
   }
 
   button.removeSubtarea {
-    background-color: #de5252;; //Rojo
+    background-color: #de5252; //Rojo
   }
 `;
 
@@ -124,6 +158,7 @@ export const Boton = styled.button`
   cursor: pointer;
   background-color: #56e38f; //Verde
   border: none;
+  user-select: none;
 
   :hover {
     background-color: #bd94df; //Lila
@@ -150,7 +185,7 @@ export const ContenedorKanban = styled.div`
     position: fixed;
     bottom: 30px;
     right: 40px;
-    background-color: #f2a552;
+    background-color: #f2a552; //Naranja
     color: #2f2e2e;
   }
 
@@ -304,8 +339,8 @@ export const Modal = styled.div`
   top: 0;
   left: 0;
   z-index: 1000;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

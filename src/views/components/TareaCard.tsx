@@ -24,10 +24,10 @@ const TareaCard = ({ tarea, setDataModal, onStart, id }: TareaCardProps) => {
         <h2 className="tituloTarea">{tarea.titulo}</h2>
         <p className="descripcion">{tarea.descripcion}</p>
         <div>
-          {tarea.subtareas.map( (subtarea) => (
-            <SubtareaCard key={subtarea.id} tareaPadre={tarea} subtarea={subtarea} />
+          {tarea.subtareas.map( (subtarea, index) => (
+            <SubtareaCard key={index} tareaPadre={tarea} subtarea={subtarea} />
           ))}
-          {tarea.subtareas.length > 0 ? <p>Subtareas: {tarea.porcentajeSubtareas}%</p> : ''}
+          {tarea.subtareas.length > 0 ? <p>Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%</p> : ''}
         </div>
       </div>
       {tarea.estado !== "bloqueada" && (

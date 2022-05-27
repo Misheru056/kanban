@@ -8,36 +8,27 @@ type SubtareaCardProps = { subtarea: Subtarea, tareaPadre: Tarea };
 const SubtareaCard = ({ subtarea, tareaPadre }: SubtareaCardProps) => {
   const contexto = useContext(Context);
   const [completa, setCompleta] = useState(subtarea.completada);
+
   const handleChange = () => {
     let estadoComp: boolean = completa;
     estadoComp = !estadoComp;
     setCompleta(estadoComp);
     subtarea.completada = estadoComp;
 
-    let completadas: number = 0;
-    for(const element of tareaPadre.subtareas){
-        if(element.completada)
-            completadas++;
-    }
-
-    tareaPadre.porcentajeSubtareas = (completadas * 100) / tareaPadre.subtareas.length;
-
+    contexto.calcularPorcentajeComp(tareaPadre);
     contexto.editarTarea(tareaPadre);
   };
 
   return (
     <DivSubtarea>
       <form>
+        <label className={subtarea.completada ? "completada" : ""}>
         <input
           type="checkbox"
-          id={"sub" + subtarea.id}
+          id={subtarea.id.toString()}
           checked={subtarea.completada}
           onChange={handleChange}
         />
-        <label
-          htmlFor={"sub" + subtarea.id}
-          className={subtarea.completada ? "completada" : ""}
-        >
           {subtarea.texto}
         </label>
       </form>
