@@ -20,7 +20,6 @@ const valores = () => {
 valores();
 
 const recogerDatos = () => {
-  console.log(datosUbicacion);
   return instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,

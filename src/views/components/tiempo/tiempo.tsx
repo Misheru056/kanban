@@ -1,15 +1,16 @@
-import { DatosTiempo } from "../../domain/types/tiempo.models";
+import { DatosTiempo } from "../../../domain/types/tiempo.models";
+import { DivTiempo, Img } from "./style";
 interface datosTiempoProps {
   datosTiempo: DatosTiempo;
 }
 const Tiempo = ({ datosTiempo }: datosTiempoProps) => {
   return (
-    <div>
+    <DivTiempo>
       <span>{datosTiempo?.nombreCiuedad}</span>
-      <img
+      <Img
         src={`http://openweathermap.org/img/wn/${datosTiempo?.icono}@2x.png`}
-      ></img>
-    </div>
+      ></Img>
+    </DivTiempo>
   );
 };
 export default Tiempo;

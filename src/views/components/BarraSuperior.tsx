@@ -1,33 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Boton, BarraHerramientas } from "../styles/styles";
 import { Context } from "../../context/context";
-import Tiempo from "./tiempo";
-import { tiempoPresenter } from "../tiempo.presenter";
+import Tiempo from "./tiempo/tiempo";
 import { DatosTiempo } from "../../domain/types/tiempo.models";
+import { TiempoPresenter } from "../tiempo.presenter";
 
 const BarraSuperior = () => {
   let [datosTiempo, setDatosTiempo] = useState<DatosTiempo>();
-  const [noDisponible, setNoDisponile] = useState<boolean>();
   useEffect(() => {
-    tiempoPresenter()
-      .then((r) => {
-        setDatosTiempo({
-          temperatura: r.data.main.temp,
-          icono: r.data.weather[0].icon,
-          nombreCiuedad: r.data.name,
-        });
-      })
-      .catch((error) => {
-        setNoDisponile(true);
-      });
+    let tiempo = new TiempoPresenter(setDatosTiempo);
+    tiempo.establecerDatos();
   }, [datosTiempo?.nombreCiuedad]);
 
   const contexto = useContext(Context);
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>
-      {!datosTiempo && !noDisponible && <span>Cargando...</span>}
-      {noDisponible && <span>Tiempo no disponible</span>}
+      {!datosTiempo && <span>Cargando...</span>}
       {datosTiempo && <Tiempo datosTiempo={datosTiempo}></Tiempo>}
       <Boton onClick={() => contexto.cerrarSesion()} className="cerrarSesion">
         Cerrar sesión
