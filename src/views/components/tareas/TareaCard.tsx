@@ -1,8 +1,9 @@
 import { DragEventHandler, useContext } from "react";
+import {BotonTarea, DivTarea } from "./stylesTarea";
 import { Context } from "../../../context/context";
 import { Tarea } from "../../../domain/types/types";
-import { Boton } from "../../styles/stylesGeneral";
-import {BotonTarea, DivTarea } from "./stylesTarea";
+import { Boton} from "../../styles/stylesGeneral";
+import SubtareaCard from "./SubtareaCard";
 type TareaCardProps = {
   tarea: Tarea;
   setDataModal: Function;
@@ -12,6 +13,7 @@ type TareaCardProps = {
 
 const TareaCard = ({ tarea, setDataModal, onStart, id }: TareaCardProps) => {
   const contexto = useContext(Context);
+
   return (
     <DivTarea
       draggable={true}
@@ -21,6 +23,12 @@ const TareaCard = ({ tarea, setDataModal, onStart, id }: TareaCardProps) => {
       <div>
         <h2 className="tituloTarea">{tarea.titulo}</h2>
         <p className="descripcion">{tarea.descripcion}</p>
+        <div>
+          {tarea.subtareas.map( (subtarea, index) => (
+            <SubtareaCard key={index} tareaPadre={tarea} subtarea={subtarea} />
+          ))}
+          {tarea.subtareas.length > 0 ? <p>Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%</p> : ''}
+        </div>
       </div>
       {tarea.estado !== "bloqueada" && (
         <BotonTarea>

@@ -2,6 +2,9 @@ import styled, { createGlobalStyle } from "styled-components";
 
 /* GLOBAL */
 export const GlobalStyle = createGlobalStyle`
+  html, body{
+    height: 100%;
+  }
   body {
     background-color: #322F33;
   }
@@ -19,11 +22,8 @@ export const StyledInicio = styled.div`
     color: white;
   }
 `;
-
-
-
 export const Boton = styled.button`
-  width: 170px;
+  width: 150px;
   height: 55px;
   font-size: 21px;
   font-weight: bold;
@@ -34,6 +34,7 @@ export const Boton = styled.button`
   cursor: pointer;
   background-color: #56e38f; //Verde
   border: none;
+  user-select: none;
 
   :hover {
     background-color: #bd94df; //Lila
@@ -52,7 +53,6 @@ export const Boton = styled.button`
 
 export const ContenedorKanban = styled.div`
   height: 100vh;
-  color: white;
   padding: 2vh 3vw;
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
@@ -61,7 +61,7 @@ export const ContenedorKanban = styled.div`
     position: fixed;
     bottom: 30px;
     right: 40px;
-    background-color: #f2a552;
+    background-color: #f2a552; //Naranja
     color: #2f2e2e;
   }
 
@@ -85,31 +85,10 @@ export const Lista = styled.div`
     min-height: 64px;
     display: grid;
     align-items: center;
+    color: white;
   }
 
-  .contenedor {
-    overflow-y: auto;
-    max-height: 700px;
-    /* width */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-  }
 
   @media screen and (max-width: 767px) {
     margin: 0 auto;
@@ -120,8 +99,27 @@ export const Lista = styled.div`
   }
 `;
 
-
-
+export const BotonTarea = styled.div`
+  border-top: 1px solid #373636; /*Casi negro*/
+  padding: 5px;
+  margin-top: 10px;
+  button {
+    width: 31px;
+    margin: 5px;
+    border: 1px solid;
+    border-radius: 100%;
+    height: fit-content;
+    font-size: 1em;
+    background-color: transparent;
+  }
+  :hover {
+    color: black;
+  }
+  .editar {
+    border-color: #c900ff;
+    color: #c900ff;
+  }
+`
 export const Modal = styled.div`
   display: none;
   background: rgba(56, 56, 56, 0.5);
@@ -131,8 +129,8 @@ export const Modal = styled.div`
   top: 0;
   left: 0;
   z-index: 1000;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,5 +164,14 @@ export const BarraHerramientas = styled.div`
 
   @media screen and (max-width: 480px) {
     padding: 0 10px;
+  }
+`;
+
+export const DivSubtarea = styled.div`
+  color: black;
+  text-indent: 10px;
+
+  label.completada {
+    text-decoration: line-through;
   }
 `;
