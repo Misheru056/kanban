@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
-import { DatosTiempo } from "../types/tiempo.dtos";
+import axios from "axios";
+import { WeatherData } from "../types/tiempo.dtos";
+
 const instance = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/weather",
   timeout: 15000,
@@ -9,26 +10,21 @@ const instance = axios.create({
     lang: "es",
   },
 });
+let datosUbicacion: GeolocationCoordinates;
+const valores = () => {
+  navigator.geolocation.getCurrentPosition((posicion) => {
+    const ubicacion = posicion.coords;
+    datosUbicacion = ubicacion;
+  });
+};
+valores();
 
-//  navigator.geolocation.getCurrentPosition((posicion: GeolocationPosition) => {
-//    latitud = posicion.coords.latitude;
-//    longitud = posicion.coords.longitude;
-//    recogerDatos(latitud, longitud).then((r) => {
-//      setNombre(r.data.name);
-//      setTiempo(r.data.weather[0].description);
-//      setTemperatura(r.data.main);
-//      setIcon(r.data.weather[0].icon);
-//    });
-//  });
-export async function recogerDatos(
-  latitud: number,
-  longitud: number
-): Promise<AxiosResponse<DatosTiempo>> {
-  const r = await instance.get<DatosTiempo>("/", {
+const recogerDatos = () => {
+  return instance.get<WeatherData>("/", {
     params: {
-      lat: latitud,
-      lon: longitud,
+      lat: datosUbicacion.latitude,
+      lon: datosUbicacion.longitude,
     },
   });
-  return r;
-}
+};
+export default recogerDatos;

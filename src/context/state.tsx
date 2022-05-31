@@ -9,7 +9,6 @@ interface StateProps {
 
 export const State = ({ children }: StateProps) => {
   /*Datos y métodos que queremos que sean comunes a todos los componentes*/
-
   const [tareasNuevas, setTareasNuevas] = React.useState<Tarea[]>([
     {
       titulo: "Mi tarea 1",
@@ -119,6 +118,7 @@ export const State = ({ children }: StateProps) => {
         break;
     }
   };
+
   // Mover la tarea de sitio
   const recolocarTarea = (tarea: Tarea, lugar: string) => {
     let tareasActualizadas: Tarea[];
@@ -158,7 +158,6 @@ export const State = ({ children }: StateProps) => {
   };
 
   /* Edita una tarea */
-
   const editarTarea = (tarea: Tarea) => {
     let estado = tarea.estado;
     let index: number;

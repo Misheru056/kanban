@@ -35,7 +35,7 @@ export const Kanban = () => {
   //cuanto suelto la tarea
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    if (dragOverItem.current != dragTarea?.estado) {
+    if (dragOverItem.current !== dragTarea?.estado) {
       contexto.eliminarTarea(dragTarea);
       contexto.recolocarTarea(dragTarea, dragOverItem.current);
     }
