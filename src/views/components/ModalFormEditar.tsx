@@ -30,7 +30,6 @@ const ModalFormEditar = (props: {
   }, [props.dataModal]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     if (e.target.name.includes("subtareas")) {
       let index = e.target.id.substring(1);
       editarSubtarea(parseInt(index), e.target.value);
@@ -42,9 +41,19 @@ const ModalFormEditar = (props: {
     }
   };
 
-  const editarSubtarea = (index: number, texto: string) => {
+  const editarSubtarea = (index: number, valor: string) => {
     let subtarea = subtareasTemp[index];
-    subtarea.texto = texto;
+    switch (valor) {
+      case "true":
+        subtarea.completada = false;
+        break;
+      case "false":
+        subtarea.completada = true;
+        break;
+      default:
+        subtarea.texto = valor;
+        break;
+    }
 
     props.setDataModal({
       ...props.dataModal,
@@ -158,6 +167,13 @@ const ModalFormEditar = (props: {
                                 className="subtareaForm"
                               >
                                 <Field
+                                  name={`subtareas[${index}].completada`}
+                                  type="checkbox"
+                                  onChange={handleChange}
+                                  id={`c${index}`}
+                                  title="Marcar Completada/No completada"
+                                />
+                                <Field
                                   name={`subtareas[${index}].texto`}
                                   type="text"
                                   className="inputSubtarea"
@@ -171,6 +187,7 @@ const ModalFormEditar = (props: {
                                     eliminarSubtarea(index);
                                   }}
                                   className="removeSubtarea"
+                                  title="Eliminar subtarea"
                                 >
                                   {
                                     String.fromCodePoint(
@@ -189,6 +206,7 @@ const ModalFormEditar = (props: {
                                 nuevaSubtarea();
                               }}
                               className="addSubtarea"
+                              title="Añadir subtarea"
                             >
                               {
                                 String.fromCodePoint(
