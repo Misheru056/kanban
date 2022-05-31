@@ -1,7 +1,8 @@
 import { Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { Boton, ContenedorForm, DivFormGroup, Label } from "../styles/styles";
-import { Usuario } from "../../domain/types/types";
+import { Boton } from "../../styles/stylesGeneral";
+import { ContenedorForm, DivFormGroup, Label } from "./styles";
+import { Usuario } from "../../../domain/types/types";
 
 /*-- Variables --*/
 const initialValues: Usuario = {

@@ -20,58 +20,7 @@ export const StyledInicio = styled.div`
   }
 `;
 
-/* FORMULARIOS */
 
-export const ContenedorForm = styled.div`
-  width: 400px;
-  padding: 14px;
-  background-color: #8ec5fc;
-  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  border-radius: 20px;
-  border: 2px solid black;
-  box-sizing: border-box;
-  color: black;
-
-  h2 {
-    text-align: center;
-  }
-
-  .formulario {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .formulario .error {
-    color: #c12020;
-    font-style: italic;
-  }
-
-  .input {
-    width: 98%;
-    line-height: 30px;
-    font-size: 1.1rem;
-  }
-
-  div.cajaBotones {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-`;
-
-export const DivFormGroup = styled.div`
-  margin-bottom: 10px;
-  width: 100%;
-`;
-
-export const Label = styled.label`
-  display: block;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-size: 1.1rem;
-`;
 
 export const Boton = styled.button`
   width: 170px;
@@ -171,87 +120,7 @@ export const Lista = styled.div`
   }
 `;
 
-export const DivTarea = styled.div`
-  padding-left: 5%;
-  padding-right: 5%;
-  display: grid;
-  background-color: #c3e8d5;
-  grid-template-columns: 100%;
-  margin-bottom: 1rem;
-  .tituloTarea {
-    color: #004b37;
-    font-size: 1.2em;
-  }
-  .descripcion {
-    color: black;
-    padding: 1%;
-    text-justify: auto;
-    font-size: 0.9em;
-  }
-`;
-export const BotonTarea = styled.div`
-  border-top: 1px solid #373636; /*Casi negro*/
-  padding: 5px;
-  button {
-    width: 31px;
-    margin: 5px;
-    border: 1px solid;
-    border-radius: 100%;
-    height: fit-content;
-    font-size: 1em;
-    background-color: transparent;
-  }
-  :hover {
-    color: black;
-  }
-  .editar {
-    border-color: #c900ff;
-    color: #c900ff;
-  }
 
-  .eliminar {
-    border-color: #f58f8f;
-    color: #f58f8f;
-  }
-  .terminada {
-    border-color: green;
-    color: green;
-  }
-  .enviarAProceso {
-    border-color: blue;
-    color: blue;
-  }
-  .reutilizarTarea {
-    border-color: #d67427;
-    color: #d67427;
-  }
-
-  .editar:hover {
-    background-color: #df71fd;
-    color: black;
-  }
-  .eliminar:hover {
-    background-color: #f58f8f;
-    color: black;
-  }
-  .terminada:hover {
-    background-color: green;
-    color: black;
-  }
-  .enviarAProceso:hover {
-    background-color: blue;
-    color: black;
-  }
-
-  .reutilizarTarea:hover {
-    background-color: #d67427;
-    color: black;
-  }
-
-  @media (max-width: 960px) {
-    grid-template-columns: 100%;
-  }
-`;
 
 export const Modal = styled.div`
   display: none;

@@ -8,14 +8,13 @@ import {
 } from "formik";
 import { useContext} from "react";
 import {
-  Boton,
   ContenedorForm,
   DivFormGroup,
   Label,
-  Modal,
-} from "../styles/styles";
-import { Context } from "../../context/context";
-import { Tarea } from "../../domain/types/types";
+} from "./styles";
+import { Boton,Modal } from "../../styles/stylesGeneral";
+import { Context } from "../../../context/context";
+import { Tarea } from "../../../domain/types/types";
 
 const ModalFormEditar = (props: {
   dataModal: Tarea;

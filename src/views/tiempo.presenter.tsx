@@ -1,11 +1,9 @@
-import { HookCallbacks } from "async_hooks";
-import { SetStateAction } from "react";
 import recogerDatos from "../domain/api/conexionApiTiempo";
 import { DatosTiempo } from "../domain/types/tiempo.models";
 export class TiempoPresenter {
-  setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | undefined>>;
+  setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>;
   constructor(
-    setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | undefined>>
+    setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>
   ) {
     this.setearDatos = setearDatos;
   }
@@ -17,8 +15,8 @@ export class TiempoPresenter {
         icono:r.data.weather[0].icon
       });
     })
-      .catch(error => {
-      this.setearDatos(undefined)
+      .catch(() => {
+      this.setearDatos(null)
     })
   }
 }

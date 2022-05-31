@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
-import ModalFormCrear from "./components/ModalFormCrear";
-import ModalFormEditar from "./components/ModalFormEditar";
+import ModalFormCrear from "./components/formularios/ModalFormCrear";
+import ModalFormEditar from "./components/formularios/ModalFormEditar";
 import BarraSuperior from "./components/BarraSuperior";
-import { Boton, ContenedorKanban, Lista } from "./styles/styles";
+import { Boton, ContenedorKanban, Lista } from "./styles/stylesGeneral";
 import { Context } from "../context/context";
 import { Tarea } from "../domain/types/types";
-import TareaCard from "./components/TareaCard";
+import TareaCard from "./components/tareas/TareaCard";
 
 export const Kanban = () => {
   const contexto = useContext(Context);

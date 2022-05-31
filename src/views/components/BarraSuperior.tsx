@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Boton, BarraHerramientas } from "../styles/styles";
+import React from "react";
+import { Boton, BarraHerramientas } from "../styles/stylesGeneral";
 import { Context } from "../../context/context";
 import Tiempo from "./tiempo/tiempo";
 import { DatosTiempo } from "../../domain/types/tiempo.models";
 import { TiempoPresenter } from "../tiempo.presenter";
 
 const BarraSuperior = () => {
-  let [datosTiempo, setDatosTiempo] = useState<DatosTiempo>();
-  useEffect(() => {
+  let [datosTiempo, setDatosTiempo] = React.useState<DatosTiempo | null>(null);
+  React.useEffect(() => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
     tiempo.establecerDatos();
   }, [datosTiempo?.nombreCiuedad]);
 
-  const contexto = useContext(Context);
+  const contexto = React.useContext(Context);
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>

@@ -7,15 +7,10 @@ import {
   FormikValues,
 } from "formik";
 import React, { useContext } from "react";
-import { Context } from "../../context/context";
-import {
-  Boton,
-  ContenedorForm,
-  DivFormGroup,
-  Label,
-  Modal,
-} from "../styles/styles";
-import { Tarea } from "../../domain/types/types";
+import { Context } from "../../../context/context";
+import { ContenedorForm, DivFormGroup, Label } from "./styles";
+import { Boton, Modal } from "../../styles/stylesGeneral";
+import { Tarea } from "../../../domain/types/types";
 
 const initialValues: Tarea = {
   id: 0,

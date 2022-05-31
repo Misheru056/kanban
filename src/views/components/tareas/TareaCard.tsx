@@ -1,8 +1,8 @@
 import { DragEventHandler, useContext } from "react";
-import { Context } from "../../context/context";
-import { Tarea } from "../../domain/types/types";
-import { Boton, BotonTarea, DivTarea } from "../styles/styles";
-
+import { Context } from "../../../context/context";
+import { Tarea } from "../../../domain/types/types";
+import { Boton } from "../../styles/stylesGeneral";
+import {BotonTarea, DivTarea } from "./stylesTarea";
 type TareaCardProps = {
   tarea: Tarea;
   setDataModal: Function;
