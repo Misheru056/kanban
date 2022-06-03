@@ -1,6 +1,7 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
 let datosUbicacion: GeolocationCoordinates;
+
 const valores = () => {
   navigator.geolocation.getCurrentPosition((posicion) => {
     const ubicacion = posicion.coords;
