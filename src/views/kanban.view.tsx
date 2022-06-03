@@ -14,10 +14,13 @@ export const Kanban = () => {
     titulo: "",
     descripcion: "",
     estado: "",
-    subtareas: [{id:0, texto:'', completada: false}]
+    subtareas: [{ id: 0, texto: "", completada: false }],
   });
 
   const [dragTarea, setDragTarea] = useState<Tarea>();
+
+  const [showModalCrear, setShowModalCrear] = useState(false);
+  const [showModalEditar, setShowModalEditar] = useState(false);
 
   //Constantes relacionadas con Drag & Drop
   const draggingItem = useRef<number>();
@@ -171,16 +174,19 @@ export const Kanban = () => {
             ))}
           </div>
         </Lista>
-        <div id="modalCrear" style={{ display: "none" }}>
-          <ModalFormCrear />
-        </div>
+        {showModalCrear && (
+          <div id="modalCrear">
+            <ModalFormCrear closeModal={() => setShowModalCrear(false)} />
+          </div>
+        )}
         <div id="modalEditar" style={{ display: "none" }}>
           <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal} />
         </div>
         <Boton
-          onClick={() => contexto.toggleDivCrear()}
+          onClick={() => setShowModalCrear(true)}
           style={{ fontSize: "18px", width: "150px" }}
           className="btnAdd"
+          data-testid="btnNuevaTarea"
         >
           + Añadir tarea
         </Boton>

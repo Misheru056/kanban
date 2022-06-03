@@ -27,4 +27,4 @@ const recogerDatos = () => {
     },
   });
 };
-export default recogerDatos;
+export const tiempoService = { recogerDatos };

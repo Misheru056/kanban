@@ -91,11 +91,9 @@ const ModalFormEditar = (props: {
         <hr />
         <Formik
           initialValues={{
-            id: props.dataModal.id,
             titulo: props.dataModal.titulo,
             descripcion: props.dataModal.descripcion,
-            estado: props.dataModal.estado,
-            subtareas: props.dataModal.subtareas,
+            subtareas: props.dataModal.subtareas
           }}
           enableReinitialize={true}
           onSubmit={(values) => {

@@ -1,6 +1,7 @@
-import recogerDatos from "../domain/api/conexionApiTiempo";
+import { tiempoService } from "../domain/api/conexionApiTiempo";
 import { DatosTiempo } from "../domain/types/tiempo.models";
 export class TiempoPresenter {
+
   setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>;
   constructor(
     setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>
@@ -8,7 +9,9 @@ export class TiempoPresenter {
     this.setearDatos = setearDatos;
   }
   establecerDatos() {
-    recogerDatos().then((r) => {
+
+    tiempoService.recogerDatos().then((r) => {
+      console.log("RECOGER DATOS -> ", JSON.stringify(r))
       this.setearDatos({
         nombreCiuedad: r.data.name,
         temperatura: r.data.main.temp,
