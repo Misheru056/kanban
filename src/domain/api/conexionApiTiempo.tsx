@@ -6,11 +6,6 @@ const valores = () => {
     const ubicacion = posicion.coords;
     datosUbicacion = ubicacion;
   });
-  if (datosUbicacion != null) {
-    return true;
-  } else {
-    return false;
-  }
 };
 valores();
 const instance = axios.create({
@@ -23,8 +18,8 @@ const instance = axios.create({
   },
 });
 
-const recogerDatos = () => {
-  if (valores()) {
+const recogerDatos = () => { 
+  if (datosUbicacion) {
     return instance.get<WeatherData>("/", {
       params: {
         lat: datosUbicacion.latitude,
