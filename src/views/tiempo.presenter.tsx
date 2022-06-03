@@ -8,7 +8,7 @@ export class TiempoPresenter {
     this.setearDatos = setearDatos;
   }
   establecerDatos() {
-    recogerDatos().then((r) => {
+    recogerDatos()?.then((r) => {
       this.setearDatos({
         nombreCiuedad: r.data.name,
         temperatura: r.data.main.temp,

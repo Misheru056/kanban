@@ -1,6 +1,18 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
-
+let datosUbicacion: GeolocationCoordinates;
+const valores = () => {
+  navigator.geolocation.getCurrentPosition((posicion) => {
+    const ubicacion = posicion.coords;
+    datosUbicacion = ubicacion;
+  });
+  if (datosUbicacion != null) {
+    return true;
+  } else {
+    return false;
+  }
+};
+valores();
 const instance = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/weather",
   timeout: 15000,
@@ -10,21 +22,15 @@ const instance = axios.create({
     lang: "es",
   },
 });
-let datosUbicacion: GeolocationCoordinates;
-const valores = () => {
-  navigator.geolocation.getCurrentPosition((posicion) => {
-    const ubicacion = posicion.coords;
-    datosUbicacion = ubicacion;
-  });
-};
-valores();
 
 const recogerDatos = () => {
-  return instance.get<WeatherData>("/", {
-    params: {
-      lat: datosUbicacion.latitude,
-      lon: datosUbicacion.longitude,
-    },
-  });
+  if (valores()) {
+    return instance.get<WeatherData>("/", {
+      params: {
+        lat: datosUbicacion.latitude,
+        lon: datosUbicacion.longitude,
+      },
+    });
+  }
 };
 export default recogerDatos;
