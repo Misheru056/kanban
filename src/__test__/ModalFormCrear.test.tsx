@@ -4,7 +4,6 @@ import user from "@testing-library/user-event";
 import { Kanban } from "../views/kanban.view";
 import { Context } from "../context/context";
 import { act } from "react-dom/test-utils";
-import { tiempoService } from "../domain/api/conexionApiTiempo";
 
 describe("ModalFormCrear", () => {
   afterEach(() => {
@@ -16,89 +15,15 @@ describe("ModalFormCrear", () => {
     expect(getTitulo()).toBeInTheDocument();
   });
 
-  it.only("new task created after submitting creation form", async () => {
-    const tiempo = {
-      data: {
-        coord: { lon: -4.5482, lat: 36.746 },
-        weather: [
-          {
-            id: 801,
-            main: "Clouds",
-            description: "algo de nubes",
-            icon: "02d",
-          },
-        ],
-        base: "stations",
-        main: {
-          temp: 24.67,
-          feels_like: 24.39,
-          temp_min: 24.04,
-          temp_max: 26.6,
-          pressure: 1013,
-          humidity: 46,
-        },
-        visibility: 10000,
-        wind: { speed: 5.14, deg: 260 },
-        clouds: { all: 20 },
-        dt: 1654249809,
-        sys: {
-          type: 2,
-          id: 2010336,
-          country: "ES",
-          sunrise: 1654232425,
-          sunset: 1654284754,
-        },
-        timezone: 7200,
-        id: 2520053,
-        name: "Estación de Cártama",
-        cod: 200,
-      },
-      status: 200,
-      statusText: "OK",
-      headers: {
-        "content-length": "485",
-        "content-type": "application/json; charset=utf-8",
-      },
-      config: {
-        transitional: {
-          silentJSONParsing: true,
-          forcedJSONParsing: true,
-          clarifyTimeoutError: false,
-        },
-        transformRequest: [null],
-        transformResponse: [null],
-        timeout: 15000,
-        xsrfCookieName: "XSRF-TOKEN",
-        xsrfHeaderName: "X-XSRF-TOKEN",
-        maxContentLength: -1,
-        maxBodyLength: -1,
-        env: { FormData: null },
-        headers: { Accept: "application/json, text/plain, /" },
-        baseURL: "https://api.openweathermap.org/data/2.5/weather",
-        params: {
-          appid: "25dcd561efa2017aacc36379233fde3f",
-          units: "metric",
-          lang: "es",
-          lat: 36.7460352,
-          lon: -4.5481984,
-        },
-        method: "get",
-        url: "/",
-      },
-      request: {},
-    }
-
-    jest.spyOn(tiempoService, 'recogerDatos').mockResolvedValue(tiempo as any)
-
+  it("new task created after submitting creation form", async () => {
+    
+    //jest.spyOn(tiempoService, 'recogerDatos').mockResolvedValue(tiempo as any);
 
     const setTareasNuevas = jest.fn((x) => {
-      //console.log("set en tareasNuevas", x);
     });
     const addTarea = jest.fn((x) => {
-      //console.log("añade tarea en test", x);
       let tareaMod = { ...x };
       tareaMod.id = 1;
-      //console.log("tarea modificada", tareaMod);
       setTareasNuevas(tareaMod);
     });
 
@@ -177,6 +102,12 @@ describe("ModalFormCrear", () => {
       </Context.Provider>
     );
 
+    // await waitFor(() => {
+    //   expect(screen.queryByText("Cargando...")).toBeNull();
+    // });
+
+    // expect(screen.getByText("Estación de Cártama")).toBeDefined();
+
     expect(screen.queryByTestId("input-titulo")).toBeNull();
 
     act(() => {
@@ -193,7 +124,7 @@ describe("ModalFormCrear", () => {
       expect(getFormCreate()).toHaveFormValues({
         titulo: "Tarea de prueba",
         descripcion: "Descripción tarea de prueba",
-        subtareas: [{ texto: "Subtarea de prueba" }],
+        "subtareas[0].texto": "Subtarea de prueba"
       });
     });
 
@@ -224,16 +155,17 @@ describe("ModalFormCrear", () => {
     expect(screen.queryByTestId("input-titulo")).toBeNull();
   });
 
-  it("new task with multiple subtasks", async () => {
+  it.only("new task with multiple subtasks", async () => {
     const setTareasNuevas = jest.fn((x) => {
       console.log("set en tareasNuevas", x);
     });
     const addTarea = jest.fn((x) => {
       console.log("añade tarea en test", x);
-      x.id = 1;
-      x.subtareas[0].id = 1;
-      x.subtareas[1].id = 2;
-      setTareasNuevas(x);
+      let tareaMod = {...x};
+      tareaMod.id = 1;
+      tareaMod.subtareas[0].id = 1;
+      tareaMod.subtareas[1].id = 2;
+      setTareasNuevas(tareaMod);
     });
 
     render(
@@ -277,17 +209,36 @@ describe("ModalFormCrear", () => {
 
     user.type(getTitulo(), "Tarea de prueba");
     user.type(getDescripcion(), "Descripción tarea de prueba");
-    user.type(getSubtareas()[0], "Subtarea de prueba");
+    user.type(getSubtarea(), "Subtarea de prueba");
 
     user.click(getBtnAdd());
-    user.type(getSubtareas()[1], "Subtarea de prueba 2");
+    user.type(screen.getByTestId("subtareas[1].id"), "Subtarea de prueba 2");
+
+    await waitFor(() => {
+      expect(getFormCreate()).toHaveFormValues({
+        titulo: "Tarea de prueba",
+        descripcion: "Descripción tarea de prueba",
+        "subtareas[0].texto": "Subtarea de prueba",
+        "subtareas[1].texto": "Subtarea de prueba 2"
+      });
+    });
 
     act(() => {
       user.click(getBtnCreate());
     });
 
     await waitFor(() => {
-      expect(addTarea).toHaveBeenCalled();
+      expect(addTarea).toHaveBeenCalledWith({
+        id: 0,
+        titulo: "Tarea de prueba",
+        descripcion: "Descripción tarea de prueba",
+        estado: "nueva",
+        subtareas: [
+          { id: 1, texto: "Subtarea de prueba", completada: false },
+          { id: 2, texto: "Subtarea de prueba 2", completada: false },
+        ],
+        porcentajeSubtareas: 0,
+      });
 
       expect(setTareasNuevas).toHaveBeenCalledWith({
         id: 1,

@@ -12,6 +12,7 @@ const instance = axios.create({
 });
 let datosUbicacion: GeolocationCoordinates;
 const valores = () => {
+  console.log(JSON.stringify(navigator))
   navigator.geolocation.getCurrentPosition((posicion) => {
     const ubicacion = posicion.coords;
     datosUbicacion = ubicacion;
