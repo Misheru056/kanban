@@ -6,7 +6,9 @@ import { DatosTiempo } from "../../domain/types/tiempo.models";
 import { TiempoPresenter } from "../tiempo.presenter";
 
 const BarraSuperior = () => {
-  let [datosTiempo, setDatosTiempo] = React.useState<DatosTiempo | null>(null);
+  let [datosTiempo, setDatosTiempo] = React.useState<DatosTiempo | undefined>(
+    undefined
+  );
   React.useEffect(() => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
     tiempo.establecerDatos();
@@ -16,8 +18,11 @@ const BarraSuperior = () => {
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>
-      {!datosTiempo && <span>Cargando...</span>}
-      {datosTiempo && <Tiempo datosTiempo={datosTiempo}></Tiempo>}
+      {datosTiempo === undefined ? (
+        <span>Cargando...</span>
+      ) : (
+        <Tiempo datosTiempo={datosTiempo}></Tiempo>
+      )}
       <Boton onClick={() => contexto.cerrarSesion()} className="cerrarSesion">
         Cerrar sesión
         {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

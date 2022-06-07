@@ -1,26 +1,26 @@
 import { tiempoService } from "../domain/api/conexionApiTiempo";
 import { DatosTiempo } from "../domain/types/tiempo.models";
 export class TiempoPresenter {
-
-  setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>;
+  setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | undefined>>;
   constructor(
-    setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | null>>
+    setearDatos: React.Dispatch<React.SetStateAction<DatosTiempo | undefined>>
   ) {
     this.setearDatos = setearDatos;
   }
   establecerDatos() {
-
-    tiempoService.recogerDatos().then((r) => {
-      console.log("RECOGER DATOS -> ", JSON.stringify(r))
-      this.setearDatos({
-        nombreCiuedad: r.data.name,
-        temperatura: r.data.main.temp,
-        icono:r.data.weather[0].icon
-      });
-    })
+    tiempoService
+      .recogerDatos()
+      .then((r) => { 
+        this.setearDatos({
+          nombreCiuedad: r.data.name,
+          temperatura: r.data.main.temp,
+          icono: r.data.weather[0].icon,
+        });
+        console.log(r)
+      })
       .catch(() => {
-      this.setearDatos(null)
-    })
+        this.setearDatos(undefined);
+      });
   }
 }
 //convertir en clase

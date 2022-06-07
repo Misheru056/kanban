@@ -1,16 +1,11 @@
-import {
-  cleanup,
-  queryByTestId,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { Kanban } from "../views/kanban.view";
 import { Context } from "../context/context";
 import ModalFormEditar from "../views/components/formularios/ModalFormEditar";
 import user from "@testing-library/user-event";
 import { Tarea } from "../domain/types/types";
 import { clear } from "@testing-library/user-event/dist/clear";
+import { type } from "os";
 
 describe("ModalFormEditar", () => {
   afterEach(() => {
@@ -41,7 +36,6 @@ describe("ModalFormEditar", () => {
 it.only("Edited taks", async () => {
   const editarTarea = jest.fn((tarea: Tarea) => {
     let copiaTarea = { ...tarea };
-    console.log(copiaTarea);
   });
   render(
     <Context.Provider
@@ -102,6 +96,7 @@ it.only("Edited taks", async () => {
   clear(getTitulo());
   clear(getDescripcion());
   clear(getSubtarea());
+  clear(screen.getByTestId("subtareas[1].id"));
 
   user.type(getTitulo(), "Tarea de sustitucion");
   user.type(getDescripcion(), "Descripción tarea de sustitucion");
@@ -129,13 +124,11 @@ it.only("Edited taks", async () => {
           completada: false,
         },
       ],
-      porcentajeSubtareas: 0,
+      porcentajeSubtareas: 50,
     });
   });
 
   expect(screen.queryByTestId("input-titulo")).toBeNull();
-
-  expect(screen.getByText("Tarea de sustitucion")).not.toBeNull();
 });
 
 function getTitulo() {
