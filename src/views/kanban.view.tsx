@@ -14,10 +14,13 @@ export const Kanban = () => {
     titulo: "",
     descripcion: "",
     estado: "",
-    subtareas: [{id:0, texto:'', completada: false}]
+    subtareas: [{ id: 0, texto: "", completada: false }],
   });
 
   const [dragTarea, setDragTarea] = useState<Tarea>();
+
+  const [showModalCrear, setShowModalCrear] = useState(false);
+  const [showModalEditar, setShowModalEditar] = useState(false);
 
   //Constantes relacionadas con Drag & Drop
   const draggingItem = useRef<number>();
@@ -59,6 +62,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasNuevas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -84,6 +88,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasEnProceso.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -110,6 +115,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasTerminadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -135,6 +141,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasVerificadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -160,6 +167,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasBloqueadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -171,16 +179,25 @@ export const Kanban = () => {
             ))}
           </div>
         </Lista>
-        <div id="modalCrear" style={{ display: "none" }}>
-          <ModalFormCrear />
-        </div>
-        <div id="modalEditar" style={{ display: "none" }}>
-          <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal} />
-        </div>
+        {showModalCrear && (
+          <div id="modalCrear">
+            <ModalFormCrear closeModal={() => setShowModalCrear(false)} />
+          </div>
+        )}
+        {showModalEditar && (
+          <div id="modalEditar">
+            <ModalFormEditar
+              closeModal={() => setShowModalEditar(false)}
+              dataModal={dataModal}
+              setDataModal={setDataModal}
+            />
+          </div>
+        )}
         <Boton
-          onClick={() => contexto.toggleDivCrear()}
+          onClick={() => setShowModalCrear(true)}
           style={{ fontSize: "18px", width: "150px" }}
           className="btnAdd"
+          data-testid="btnNuevaTarea"
         >
           + Añadir tarea
         </Boton>

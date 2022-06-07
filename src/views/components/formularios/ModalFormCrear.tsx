@@ -13,20 +13,8 @@ import { ContenedorForm, DivFormGroup, Label } from "./styles";
 import { Boton, Modal } from "../../styles/stylesGeneral";
 import { Subtarea,Tarea } from "../../../domain/types/types";
 
-
-const initialValues: Tarea = {
-  id: 0,
-  titulo: "",
-  descripcion: "",
-  estado: "nueva",
-  subtareas: [{ id: 0, texto: "", completada: false }],
-};
-
-const ModalFormCrear: React.FC = () => {
+const ModalFormCrear: React.FC<{closeModal:()=>void}> = ({closeModal}) => {
   const contexto = useContext(Context);
-
-  /* Genera un id utilizando la hora y fecha actual */
-  const getId = (): number => new Date().getTime();
 
   return (
     <Modal>
@@ -34,26 +22,34 @@ const ModalFormCrear: React.FC = () => {
         <h2>Crear nueva tarea</h2>
         <hr />
         <Formik
-          initialValues={initialValues}
+          initialValues={{
+            titulo: "",
+            descripcion: "",
+            subtareas: [{
+              texto: ""
+            }]
+          }}
           onSubmit={(values, { resetForm }) => {
-            //Eliminar subtareas vacías
-            for (let i = values.subtareas.length - 1; i >= 0; i--) {
-              if (values.subtareas[i].texto !== "") {
-                values.subtareas[i].id = getId() + i;
-              } else {
-                values.subtareas.splice(i, 1);
-              }
-            }
+            console.log("valores formulario -> "+JSON.stringify(values))
+            console.log("subtareas valores formulario -> "+JSON.stringify(values.subtareas))
+            let nuevasSubtareas: Subtarea[] = [];
+            values.subtareas.forEach(element => {
+              nuevasSubtareas.push(
+                { id: 0, texto: element.texto, completada: false }
+              )
+            });
+
             let nuevaTarea: Tarea = {
-              id: getId(),
+              id: 0,
               titulo: values.titulo,
               descripcion: values.descripcion,
               estado: "nueva",
-              subtareas: values.subtareas,
+              subtareas: nuevasSubtareas,
               porcentajeSubtareas: 0,
             };
             contexto.addTarea(nuevaTarea);
             resetForm();
+            closeModal();
           }}
           validate={(values) => {
             let errores: FormikErrors<FormikValues> = {};
@@ -66,7 +62,10 @@ const ModalFormCrear: React.FC = () => {
           }}
         >
           {() => (
-            <Form className="formulario">
+            <Form  
+              className="formulario"
+              data-testid="formCreate"
+            >
               <DivFormGroup>
                 <Label>Título</Label>
                 <Field
@@ -74,6 +73,7 @@ const ModalFormCrear: React.FC = () => {
                   name="titulo"
                   id="titulo"
                   className="input"
+                  data-testid="input-titulo"
                 />
                 <ErrorMessage
                   name="titulo"
@@ -87,10 +87,11 @@ const ModalFormCrear: React.FC = () => {
                   name="descripcion"
                   id="descripcion"
                   className="input"
+                  data-testid="input-descripcion"
                 />
               </DivFormGroup>
               <DivFormGroup>
-                <FieldArray name="subtareas">
+                <FieldArray name="subtareas" data-testid="fieldArray">
                   {(fieldArrayProps) => {
                     const { push, remove, form } = fieldArrayProps;
                     const { values } = form;
@@ -107,13 +108,16 @@ const ModalFormCrear: React.FC = () => {
                           >
                             <Field
                               name={`subtareas[${index}].texto`}
+                              id={`subtareas[${index}].texto`}
                               type="text"
                               className="inputSubtarea"
+                              data-testid={`subtareas[${index}].id`}
                             />
                             <button
                               type="button"
                               onClick={() => remove(index)}
                               className="removeSubtarea"
+                              data-testid="btn-remove"
                             >
                               {
                                 String.fromCodePoint(
@@ -130,6 +134,7 @@ const ModalFormCrear: React.FC = () => {
                               push({ id: 0, texto: "", completada: false })
                             }
                             className="addSubtarea"
+                            data-testid="btn-add"
                           >
                             {
                               String.fromCodePoint(
@@ -148,12 +153,18 @@ const ModalFormCrear: React.FC = () => {
               <div className="cajaBotones">
                 <Boton
                   type="reset"
-                  onClick={() => contexto.toggleDivCrear()}
+                  onClick={() => closeModal()}
                   className="cancelar"
+                  data-testid="btn-cancel"
                 >
                   Cancelar
                 </Boton>
-                <Boton type="submit">Crear tarea</Boton>
+                <Boton 
+                  type="submit"
+                  data-testid="btn-create"
+                >
+                  Crear tarea
+                </Boton>
               </div>
             </Form>
           )}

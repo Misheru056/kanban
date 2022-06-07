@@ -88,14 +88,8 @@ export const Lista = styled.div`
     color: white;
   }
 
-
-
   @media screen and (max-width: 767px) {
     margin: 0 auto;
-
-    .contenedor {
-      max-height: 500px;
-    }
   }
 `;
 

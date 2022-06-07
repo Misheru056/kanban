@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { Tarea } from "../domain/types/types";
 
-type ContextProps = {
+export type ContextProps = {
   tareasNuevas: Tarea[];
   tareasEnProceso: Tarea[];
   tareasTerminadas: Tarea[];

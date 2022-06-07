@@ -211,10 +211,22 @@ export const State = ({ children }: StateProps) => {
     md!.style.display = "none";
   };
 
+  /* Genera un id utilizando la hora y fecha actual */
+  const getId = (): number => new Date().getTime();
+
   /* Añade una tarea al array tareasNuevas */
   const addTarea = (tarea: Tarea) => {
+    //Eliminar subtareas vacías
+    for (let i = tarea.subtareas.length - 1; i >= 0; i--) {
+      if (tarea.subtareas[i].texto !== "") {
+        tarea.subtareas[i].id = getId() + i;
+      } else {
+        tarea.subtareas.splice(i, 1);
+      }
+    }
+
+    tarea.id = getId();
     setTareasNuevas([...tareasNuevas, tarea]);
-    toggleDivCrear();
   };
 
   /* Mueve una tarea a la fase 'En proceso' */

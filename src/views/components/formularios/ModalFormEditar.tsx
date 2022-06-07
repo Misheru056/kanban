@@ -8,18 +8,15 @@ import {
   FormikValues,
 } from "formik";
 import { useContext, useEffect, useState } from "react";
-import {
-  ContenedorForm,
-  DivFormGroup,
-  Label
-} from "./styles";
-import { Boton,Modal } from "../../styles/stylesGeneral";
+import { ContenedorForm, DivFormGroup, Label } from "./styles";
+import { Boton, Modal } from "../../styles/stylesGeneral";
 import { Context } from "../../../context/context";
-import {Subtarea, Tarea } from "../../../domain/types/types";
+import { Subtarea, Tarea } from "../../../domain/types/types";
 
 const ModalFormEditar = (props: {
   dataModal: Tarea;
   setDataModal: Function;
+  closeModal: Function;
 }) => {
   const datosTareas = useContext(Context);
   const [subtareasTemp, setSubtareasTemp] = useState(props.dataModal.subtareas);
@@ -91,10 +88,8 @@ const ModalFormEditar = (props: {
         <hr />
         <Formik
           initialValues={{
-            id: props.dataModal.id,
             titulo: props.dataModal.titulo,
             descripcion: props.dataModal.descripcion,
-            estado: props.dataModal.estado,
             subtareas: props.dataModal.subtareas,
           }}
           enableReinitialize={true}
@@ -108,6 +103,7 @@ const ModalFormEditar = (props: {
             }
             datosTareas.calcularPorcentajeComp(props.dataModal);
             datosTareas.editarTarea(props.dataModal);
+            props.closeModal(false);
           }}
           validate={(values) => {
             let error: FormikErrors<FormikValues> = {};
@@ -119,10 +115,11 @@ const ModalFormEditar = (props: {
         >
           {() => {
             return (
-              <Form className="formulario">
+              <Form className="formulario" data-testid="form-edit">
                 <DivFormGroup>
                   <Label>Título</Label>
                   <Field
+                    data-testid="input-titulo"
                     type="text"
                     name="titulo"
                     id="titulo"
@@ -137,6 +134,7 @@ const ModalFormEditar = (props: {
                 <DivFormGroup>
                   <Label>Descripción (opcional)</Label>
                   <Field
+                    data-testid="input-descripcion"
                     type="text"
                     name="descripcion"
                     id="descripcion"
@@ -166,6 +164,7 @@ const ModalFormEditar = (props: {
                                 className="subtareaForm"
                               >
                                 <Field
+                                  data-testid={`check[${index}].id`}
                                   name={`subtareas[${index}].completada`}
                                   type="checkbox"
                                   onChange={handleChange}
@@ -173,6 +172,7 @@ const ModalFormEditar = (props: {
                                   title="Marcar Completada/No completada"
                                 />
                                 <Field
+                                  data-testid={`subtareas[${index}].id`}
                                   name={`subtareas[${index}].texto`}
                                   type="text"
                                   className="inputSubtarea"
@@ -224,14 +224,13 @@ const ModalFormEditar = (props: {
                   <Boton
                     type="reset"
                     onClick={() => {
-                      let md = document.getElementById("modalEditar");
-                      md!.style.display = "none";
+                      props.closeModal(false);
                     }}
                     className="cancelar"
                   >
                     Cancelar
                   </Boton>
-                  <Boton type="submit">Guardar</Boton>
+                  <Boton type="submit" name="guardar">Guardar</Boton>
                 </div>
               </Form>
             );
