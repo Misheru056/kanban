@@ -16,7 +16,6 @@ export class TiempoPresenter {
           temperatura: r.data.main.temp,
           icono: r.data.weather[0].icon,
         });
-        console.log(r)
       })
       .catch(() => {
         this.setearDatos(undefined);

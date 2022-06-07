@@ -1,14 +1,5 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
-let valor = "cascac";
-
-const valores = () => {
-  navigator.geolocation.getCurrentPosition((posicion) => {
-    const ubicacion = posicion.coords;
-    datosUbicacion = ubicacion;
-  });
-};
-valores();
 
 let datosUbicacion: GeolocationCoordinates = {
   latitude: undefined as unknown as number,
@@ -19,6 +10,14 @@ let datosUbicacion: GeolocationCoordinates = {
   heading: undefined as unknown as number,
   speed: undefined as unknown as number,
 };
+
+const valores = () => {
+  navigator.geolocation.getCurrentPosition((posicion) => {
+    const ubicacion = posicion.coords;
+    datosUbicacion = ubicacion;
+  });
+};
+valores();
 
 const instance = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/weather",
