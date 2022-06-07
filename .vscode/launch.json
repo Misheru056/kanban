@@ -17,7 +17,9 @@
             "--verbose",
             // To debug a specific test file, add the file name;
             // I.E.:
-            "ModalFormCrear.test.tsx"
+            "ModalFormCrear.test.tsx",
+            "ModalFormEditar.test.tsx",
+            "apiTiempo.test.tsx"
             ],
             "runtimeExecutable": "npm",
       }

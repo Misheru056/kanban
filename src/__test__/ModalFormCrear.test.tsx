@@ -17,7 +17,7 @@ describe("ModalFormCrear", () => {
 
   it("new task created after submitting creation form", async () => {
     
-    //jest.spyOn(tiempoService, 'recogerDatos').mockResolvedValue(tiempo as any);
+   
 
     const setTareasNuevas = jest.fn((x) => {
     });
@@ -102,11 +102,6 @@ describe("ModalFormCrear", () => {
       </Context.Provider>
     );
 
-    // await waitFor(() => {
-    //   expect(screen.queryByText("Cargando...")).toBeNull();
-    // });
-
-    // expect(screen.getByText("Estación de Cártama")).toBeDefined();
 
     expect(screen.queryByTestId("input-titulo")).toBeNull();
 
@@ -212,6 +207,7 @@ describe("ModalFormCrear", () => {
     user.type(getSubtarea(), "Subtarea de prueba");
 
     user.click(getBtnAdd());
+    
     user.type(screen.getByTestId("subtareas[1].id"), "Subtarea de prueba 2");
 
     await waitFor(() => {

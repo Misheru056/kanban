@@ -62,6 +62,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasNuevas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -87,6 +88,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasEnProceso.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -113,6 +115,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasTerminadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -138,6 +141,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasVerificadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -163,6 +167,7 @@ export const Kanban = () => {
           <div className="contenedor">
             {contexto.tareasBloqueadas.map((tarea) => (
               <TareaCard
+                showModal={() => setShowModalEditar(true)}
                 key={tarea.id}
                 onStart={(e) => {
                   inicioDrag(e, tarea);
@@ -179,9 +184,15 @@ export const Kanban = () => {
             <ModalFormCrear closeModal={() => setShowModalCrear(false)} />
           </div>
         )}
-        <div id="modalEditar" style={{ display: "none" }}>
-          <ModalFormEditar dataModal={dataModal} setDataModal={setDataModal} />
-        </div>
+        {showModalEditar && (
+          <div id="modalEditar">
+            <ModalFormEditar
+              closeModal={() => setShowModalEditar(false)}
+              dataModal={dataModal}
+              setDataModal={setDataModal}
+            />
+          </div>
+        )}
         <Boton
           onClick={() => setShowModalCrear(true)}
           style={{ fontSize: "18px", width: "150px" }}

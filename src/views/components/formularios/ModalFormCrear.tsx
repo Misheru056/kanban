@@ -16,9 +16,6 @@ import { Subtarea,Tarea } from "../../../domain/types/types";
 const ModalFormCrear: React.FC<{closeModal:()=>void}> = ({closeModal}) => {
   const contexto = useContext(Context);
 
-  /* Genera un id utilizando la hora y fecha actual */
-  const getId = (): number => new Date().getTime();
-
   return (
     <Modal>
       <ContenedorForm>
