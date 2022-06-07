@@ -17,9 +17,10 @@ export class TiempoPresenter {
           icono: r.data.weather[0].icon,
         });
       })
+
+
       .catch(() => {
         this.setearDatos(undefined);
       });
   }
 }
-//convertir en clase
