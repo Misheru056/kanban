@@ -5,7 +5,7 @@ import ModalFormEditar from "../views/components/formularios/ModalFormEditar";
 import user from "@testing-library/user-event";
 import { Tarea } from "../domain/types/types";
 import { clear } from "@testing-library/user-event/dist/clear";
-import { type } from "os";
+import { renderWithContext } from "./builder";
 
 describe("ModalFormEditar", () => {
   afterEach(() => {
@@ -34,51 +34,27 @@ describe("ModalFormEditar", () => {
   });
 });
 it.only("Edited taks", async () => {
+  let tareaPrueba: Tarea = {
+    titulo: "Mi tarea 1",
+    id: 1,
+    descripcion: "YOLOYOLOYOLO",
+    estado: "nueva",
+    subtareas: [
+      { id: 1, texto: "Subtarea 1", completada: false },
+      { id: 2, texto: "Subtarea 2", completada: true },
+    ],
+    porcentajeSubtareas: 50,
+  };
+  let tareasNuevasPrueba: Tarea[] = [tareaPrueba];
   const editarTarea = jest.fn((tarea: Tarea) => {
-    let copiaTarea = { ...tarea };
+    tareaPrueba = tarea;
+    tareasNuevasPrueba.push(tareaPrueba);
   });
-  render(
-    <Context.Provider
-      value={{
-        tareasNuevas: [
-          {
-            titulo: "Mi tarea 1",
-            id: 1,
-            descripcion: "YOLOYOLOYOLO",
-            estado: "nueva",
-            subtareas: [
-              { id: 1, texto: "Subtarea 1", completada: false },
-              { id: 2, texto: "Subtarea 2", completada: true },
-            ],
-            porcentajeSubtareas: 50,
-          },
-        ],
-        tareasEnProceso: [],
-        tareasTerminadas: [],
-        tareasBloqueadas: [],
-        tareasVerificadas: [],
-        setTareasNuevas: jest.fn,
-        setTareasEnProceso: jest.fn,
-        setTareasTerminadas: jest.fn,
-        setTareasBloqueadas: jest.fn,
-        setTareasVerificadas: jest.fn,
-        eliminarTarea: jest.fn,
-        editarTarea: editarTarea,
-        addTarea: jest.fn,
-        enviarAProceso: jest.fn,
-        reutilizarTarea: jest.fn,
-        terminarTarea: jest.fn,
-        bloquearTarea: jest.fn,
-        verificarTarea: jest.fn,
-        cerrarSesion: jest.fn,
-        toggleDivCrear: jest.fn,
-        recolocarTarea: jest.fn,
-        calcularPorcentajeComp: jest.fn,
-      }}
-    >
-      <Kanban />
-    </Context.Provider>
-  );
+  renderWithContext({
+    children: <Kanban />,
+    providerData: { editarTarea, tareasNuevas: tareasNuevasPrueba},
+  });
+
   expect(screen.queryByTestId("input-titulo")).toBeNull();
 
   user.click(screen.getByTestId("1buttoneditar"));
@@ -110,7 +86,6 @@ it.only("Edited taks", async () => {
     });
   });
   user.click(getBtnEdit());
-
   await waitFor(() => {
     expect(editarTarea).toHaveBeenCalledWith({
       titulo: "Tarea de sustitucion",
@@ -127,10 +102,25 @@ it.only("Edited taks", async () => {
       porcentajeSubtareas: 50,
     });
   });
-
   expect(screen.queryByTestId("input-titulo")).toBeNull();
 
-  
+  expect(editarTarea).toBeCalledWith(
+    (tareaPrueba = {
+      titulo: "Tarea de sustitucion",
+      id: 1,
+      descripcion: "Descripción tarea de sustitucion",
+      estado: "nueva",
+      subtareas: [
+        {
+          id: 1,
+          texto: "Subtarea de prueba de sustitucion",
+          completada: false,
+        },
+      ],
+      porcentajeSubtareas: 50,
+    })
+  );
+  expect(screen.getByText("Tarea de sustitucion"));
 });
 
 function getTitulo() {

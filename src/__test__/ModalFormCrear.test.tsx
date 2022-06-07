@@ -4,6 +4,8 @@ import user from "@testing-library/user-event";
 import { Kanban } from "../views/kanban.view";
 import { Context } from "../context/context";
 import { act } from "react-dom/test-utils";
+import { renderWithContext } from "./builder";
+import { Tarea } from "../domain/types/types";
 
 describe("ModalFormCrear", () => {
   afterEach(() => {
@@ -16,92 +18,17 @@ describe("ModalFormCrear", () => {
   });
 
   it("new task created after submitting creation form", async () => {
-    
-   
 
-    const setTareasNuevas = jest.fn((x) => {
-    });
+    const setTareasNuevas = jest.fn((x) => {});
     const addTarea = jest.fn((x) => {
       let tareaMod = { ...x };
       tareaMod.id = 1;
       setTareasNuevas(tareaMod);
     });
-
-    render(
-      <Context.Provider
-        value={{
-          tareasNuevas: [
-            {
-              titulo: "Mi tarea 1",
-              id: 1,
-              descripcion: "YOLOYOLOYOLO",
-              estado: "nueva",
-              subtareas: [
-                { id: 1, texto: "Subtarea 1", completada: false },
-                { id: 2, texto: "Subtarea 2", completada: true },
-              ],
-              porcentajeSubtareas: 50,
-            },
-          ],
-          tareasEnProceso: [
-            {
-              titulo: "Mi tarea 3",
-              id: 3,
-              descripcion: "Esta tarea está en proceso",
-              estado: "proceso",
-              subtareas: [],
-            },
-          ],
-          tareasTerminadas: [
-            {
-              titulo: "Mi tarea 4",
-              id: 4,
-              descripcion: "Tarea completamente terminada",
-              estado: "terminada",
-              subtareas: [],
-            },
-          ],
-          tareasBloqueadas: [
-            {
-              titulo: "Bloqueada 1",
-              id: 5,
-              descripcion: "Tarea bloqueada",
-              estado: "bloqueada",
-              subtareas: [],
-            },
-          ],
-          tareasVerificadas: [
-            {
-              titulo: "Verificada 1",
-              id: 6,
-              descripcion: "Tarea verificada",
-              estado: "verificada",
-              subtareas: [],
-            },
-          ],
-          setTareasNuevas: setTareasNuevas,
-          setTareasEnProceso: jest.fn,
-          setTareasTerminadas: jest.fn,
-          setTareasBloqueadas: jest.fn,
-          setTareasVerificadas: jest.fn,
-          eliminarTarea: jest.fn,
-          editarTarea: jest.fn,
-          addTarea: addTarea,
-          enviarAProceso: jest.fn,
-          reutilizarTarea: jest.fn,
-          terminarTarea: jest.fn,
-          bloquearTarea: jest.fn,
-          verificarTarea: jest.fn,
-          cerrarSesion: jest.fn,
-          toggleDivCrear: jest.fn,
-          recolocarTarea: jest.fn,
-          calcularPorcentajeComp: jest.fn,
-        }}
-      >
-        <Kanban />
-      </Context.Provider>
-    );
-
+    renderWithContext({
+      children: <Kanban />,
+      providerData: { setTareasNuevas, addTarea },
+    });
 
     expect(screen.queryByTestId("input-titulo")).toBeNull();
 
@@ -119,7 +46,7 @@ describe("ModalFormCrear", () => {
       expect(getFormCreate()).toHaveFormValues({
         titulo: "Tarea de prueba",
         descripcion: "Descripción tarea de prueba",
-        "subtareas[0].texto": "Subtarea de prueba"
+        "subtareas[0].texto": "Subtarea de prueba",
       });
     });
 
@@ -156,7 +83,7 @@ describe("ModalFormCrear", () => {
     });
     const addTarea = jest.fn((x) => {
       console.log("añade tarea en test", x);
-      let tareaMod = {...x};
+      let tareaMod = { ...x };
       tareaMod.id = 1;
       tareaMod.subtareas[0].id = 1;
       tareaMod.subtareas[1].id = 2;
@@ -207,7 +134,7 @@ describe("ModalFormCrear", () => {
     user.type(getSubtarea(), "Subtarea de prueba");
 
     user.click(getBtnAdd());
-    
+
     user.type(screen.getByTestId("subtareas[1].id"), "Subtarea de prueba 2");
 
     await waitFor(() => {
@@ -215,7 +142,7 @@ describe("ModalFormCrear", () => {
         titulo: "Tarea de prueba",
         descripcion: "Descripción tarea de prueba",
         "subtareas[0].texto": "Subtarea de prueba",
-        "subtareas[1].texto": "Subtarea de prueba 2"
+        "subtareas[1].texto": "Subtarea de prueba 2",
       });
     });
 

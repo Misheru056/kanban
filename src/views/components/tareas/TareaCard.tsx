@@ -44,7 +44,6 @@ const TareaCard = ({
             className="editar"
             data-testid={tarea.id.toString() + "buttoneditar"}
             onClick={() => {
-              console.log("asdsda");
               showModal(true);
               setDataModal(tarea);
             }}
