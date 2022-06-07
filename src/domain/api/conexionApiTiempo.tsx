@@ -1,7 +1,5 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
-let datosUbicacion: GeolocationCoordinates;
-
 let datosUbicacion: GeolocationCoordinates = {
   latitude: undefined as unknown as number,
   longitude: undefined as unknown as number,
