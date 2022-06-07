@@ -1,5 +1,6 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
+
 let datosUbicacion: GeolocationCoordinates = {
   latitude: undefined as unknown as number,
   longitude: undefined as unknown as number,
@@ -27,17 +28,12 @@ const instance = axios.create({
     lang: "es",
   },
 });
-
-
-const recogerDatos = () => { 
-  if (datosUbicacion) {
-    return instance.get<WeatherData>("/", {
-      params: {
-        lat: datosUbicacion.latitude,
-        lon: datosUbicacion.longitude,
-      },
-    });
-  }
-
+const recogerDatos = () => {
+  return instance.get<WeatherData>("/", {
+    params: {
+      lat: datosUbicacion.latitude,
+      lon: datosUbicacion.longitude,
+    },
+  });
 };
 export const tiempoService = { recogerDatos };
