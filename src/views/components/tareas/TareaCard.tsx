@@ -25,14 +25,18 @@ const TareaCard = ({
   return (
     <DivTarea draggable={true} id={id} onDragStart={onStart}>
       <div>
-        <h2 className="tituloTarea">{tarea.titulo}</h2>
+        <h2 data-testid={"titulo-tarea-" + tarea.id} className="tituloTarea">
+          {tarea.titulo}
+        </h2>
         <p className="descripcion">{tarea.descripcion}</p>
         <div>
           {tarea.subtareas.map((subtarea, index) => (
             <SubtareaCard key={index} tareaPadre={tarea} subtarea={subtarea} />
           ))}
           {tarea.subtareas.length > 0 ? (
-            <p>Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%</p>
+            <p data-testid={`porcentaje${tarea.id}`}>
+              Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%
+            </p>
           ) : (
             ""
           )}

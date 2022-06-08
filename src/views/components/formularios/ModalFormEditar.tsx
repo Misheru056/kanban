@@ -181,6 +181,7 @@ const ModalFormEditar = (props: {
                                 />
                                 <button
                                   type="button"
+                                  data-testid={`sButton${index}`}
                                   onClick={() => {
                                     remove(index);
                                     eliminarSubtarea(index);
