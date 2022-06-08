@@ -117,7 +117,7 @@ const ModalFormCrear: React.FC<{closeModal:()=>void}> = ({closeModal}) => {
                               type="button"
                               onClick={() => remove(index)}
                               className="removeSubtarea"
-                              data-testid="btn-remove"
+                              data-testid={`btn-remove${index}`}
                             >
                               {
                                 String.fromCodePoint(
