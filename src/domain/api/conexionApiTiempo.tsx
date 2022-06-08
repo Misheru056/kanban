@@ -36,4 +36,5 @@ const recogerDatos = () => {
     },
   });
 };
+
 export const tiempoService = { recogerDatos };
