@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { is } from "cypress/types/bluebird";
+
 describe("empty spec", () => {
   it("passes", () => {
     localStorage.setItem("usuario", "sdasdd");
@@ -26,5 +28,7 @@ describe("empty spec", () => {
 
     cy.get('[data-testid="input-titulo"]').should('not.exist')
     cy.get('[data-testid="titulo-tarea-1"]').should("exist");
+    cy.get('#2').should('be.checked')
+    cy.get('[data-testid="porcentaje1"]').should('have.text','Subtareas: 100%');
   });
 });

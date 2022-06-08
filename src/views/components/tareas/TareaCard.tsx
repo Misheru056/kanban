@@ -34,7 +34,9 @@ const TareaCard = ({
             <SubtareaCard key={index} tareaPadre={tarea} subtarea={subtarea} />
           ))}
           {tarea.subtareas.length > 0 ? (
-            <p>Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%</p>
+            <p data-testid={`porcentaje${tarea.id}`}>
+              Subtareas: {tarea.porcentajeSubtareas?.toFixed(0)}%
+            </p>
           ) : (
             ""
           )}
