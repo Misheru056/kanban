@@ -1,7 +1,4 @@
 /// <reference types="cypress" />
-
-import { is } from "cypress/types/bluebird";
-
 describe("empty spec", () => {
   it("passes", () => {
     localStorage.setItem("usuario", "sdasdd");

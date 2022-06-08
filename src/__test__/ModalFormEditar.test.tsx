@@ -1,6 +1,5 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { Kanban } from "../views/kanban.view";
-import { Context } from "../context/context";
 import ModalFormEditar from "../views/components/formularios/ModalFormEditar";
 import user from "@testing-library/user-event";
 import { Tarea } from "../domain/types/types";
