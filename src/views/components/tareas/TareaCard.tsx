@@ -30,8 +30,8 @@ const TareaCard = ({
         </h2>
         <p className="descripcion">{tarea.descripcion}</p>
         <div>
-          {tarea.subtareas.map((subtarea, index) => (
-            <SubtareaCard key={index} tareaPadre={tarea} subtarea={subtarea} />
+          {tarea.subtareas.map((subtarea) => (
+            <SubtareaCard key={subtarea.id} tareaPadre={tarea} subtarea={subtarea} />
           ))}
           {tarea.subtareas.length > 0 ? (
             <p data-testid={`porcentaje${tarea.id}`}>

@@ -5,7 +5,6 @@ import { Kanban } from "../views/kanban.view";
 import { Context } from "../context/context";
 import { act } from "react-dom/test-utils";
 import { renderWithContext } from "./builder";
-import { Tarea } from "../domain/types/types";
 
 describe("ModalFormCrear", () => {
   afterEach(() => {
@@ -77,7 +76,7 @@ describe("ModalFormCrear", () => {
     expect(screen.queryByTestId("input-titulo")).toBeNull();
   });
 
-  it.only("new task with multiple subtasks", async () => {
+  it("new task with multiple subtasks", async () => {
     const setTareasNuevas = jest.fn((x) => {
       console.log("set en tareasNuevas", x);
     });
