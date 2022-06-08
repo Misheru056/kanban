@@ -21,7 +21,7 @@ const SubtareaCard = ({ subtarea, tareaPadre }: SubtareaCardProps) => {
 
   return (
     <DivSubtarea>
-      <form>
+      <form data-testid={`formSubtarea${subtarea.id}`}>
         <label className={subtarea.completada ? "completada" : ""}>
         <input
           type="checkbox"
