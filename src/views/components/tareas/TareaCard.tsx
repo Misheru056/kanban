@@ -25,7 +25,9 @@ const TareaCard = ({
   return (
     <DivTarea draggable={true} id={id} onDragStart={onStart}>
       <div>
-        <h2 className="tituloTarea">{tarea.titulo}</h2>
+        <h2 data-testid={"titulo-tarea-" + tarea.id} className="tituloTarea">
+          {tarea.titulo}
+        </h2>
         <p className="descripcion">{tarea.descripcion}</p>
         <div>
           {tarea.subtareas.map((subtarea, index) => (
