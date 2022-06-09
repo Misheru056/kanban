@@ -83,7 +83,6 @@ it("Search on the api", async () => {
     </Context.Provider>
   );
 
-
   await waitFor(() => {
     expect(screen.queryByText("Cargando...")).toBeNull();
   });

@@ -1,7 +1,11 @@
 /// <reference types="cypress" />
-describe("empty spec", () => {
+
+describe("Caso correcto", () => {
+  beforeEach(()=>{
+    localStorage.setItem("usuario", "editar")
+  })
+
   it("Open the edit modal", () => {
-    localStorage.setItem("usuario", "sdasdd");
     cy.visit("http://localhost:3000/organizador");
     cy.get('[data-testid="1buttoneditar"]').click();
   });

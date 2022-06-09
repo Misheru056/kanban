@@ -28,13 +28,14 @@ const instance = axios.create({
     lang: "es",
   },
 });
-const recogerDatos = () => {
-  return instance.get<WeatherData>("/", {
+const recogerDatos = async () => {
+  const conexion = await instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,
       lon: datosUbicacion.longitude,
     },
   });
+  return conexion;
 };
 
 export const tiempoService = { recogerDatos };
