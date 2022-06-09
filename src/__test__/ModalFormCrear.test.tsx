@@ -78,16 +78,14 @@ describe("ModalFormCrear", () => {
 
   it("new task with multiple subtasks", async () => {
     const setTareasNuevas = jest.fn((x) => {
-      console.log("set en tareasNuevas", x);
     });
     const addTarea = jest.fn((x) => {
-      console.log("añade tarea en test", x);
       let tareaMod = { ...x };
       tareaMod.id = 1;
       tareaMod.subtareas[0].id = 1;
       tareaMod.subtareas[1].id = 2;
       setTareasNuevas(tareaMod);
-    });
+    }); 
 
     render(
       <Context.Provider
@@ -180,7 +178,6 @@ describe("ModalFormCrear", () => {
 
   it("title field should be required to submit creation form", async () => {
     const addTarea = jest.fn((x) => {
-      console.log("añade tarea en test", x);
     });
 
     render(

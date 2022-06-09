@@ -30,8 +30,6 @@ const ModalFormCrear: React.FC<{closeModal:()=>void}> = ({closeModal}) => {
             }]
           }}
           onSubmit={(values, { resetForm }) => {
-            console.log("valores formulario -> "+JSON.stringify(values))
-            console.log("subtareas valores formulario -> "+JSON.stringify(values.subtareas))
             let nuevasSubtareas: Subtarea[] = [];
             values.subtareas.forEach(element => {
               nuevasSubtareas.push(
