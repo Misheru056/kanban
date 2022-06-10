@@ -6,22 +6,23 @@ import { DatosTiempo } from "../../domain/types/tiempo.models";
 import { TiempoPresenter } from "../tiempo.presenter";
 
 const BarraSuperior = () => {
-  let [datosTiempo, setDatosTiempo] = React.useState<DatosTiempo | undefined>(
-    undefined
-  );
+  let [datosTiempo, setDatosTiempo] = React.useState<
+    DatosTiempo | undefined | null
+  >(null);
   React.useEffect(() => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
     tiempo.establecerDatos();
-  }, [datosTiempo?.nombreCiuedad]);
-
+  }, []);
   const contexto = React.useContext(Context);
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>
-      {datosTiempo === undefined ? (
+      {datosTiempo === null ? (
         <span>Cargando...</span>
-      ) : (
+      ) :datosTiempo !== undefined  ? (
         <Tiempo datosTiempo={datosTiempo}></Tiempo>
+      ) : (
+        <span>No disponible...</span>
       )}
       <Boton onClick={() => contexto.cerrarSesion()} className="cerrarSesion">
         Cerrar sesión

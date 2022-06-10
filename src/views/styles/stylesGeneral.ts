@@ -1,5 +1,10 @@
 import styled, { createGlobalStyle } from "styled-components";
+// import theme from 'styled-theming';
 
+// export const GlobalTheme = theme('mode', {
+//   light: { button: '#fff' },
+//   dark: '#000',
+// });
 /* GLOBAL */
 export const GlobalStyle = createGlobalStyle`
   html, body{
