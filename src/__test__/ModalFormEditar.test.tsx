@@ -32,7 +32,7 @@ describe("ModalFormEditar", () => {
     expect(getTitulo()).toBeInTheDocument();
   });
 });
-it.only("Edited taks", async () => {
+it("Edited taks", async () => {
   let tareaPrueba: Tarea = {
     titulo: "Mi tarea 1",
     id: 1,

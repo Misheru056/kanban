@@ -52,9 +52,10 @@ const FormInicioSesion = () => {
                 name="username"
                 id="username"
                 className="input"
+                data-testid="inputUsuario"
               />
               {touched.username && errors.username && (
-                <div className="error">{errors.username}</div>
+                <div className="error" data-testid="error">{errors.username}</div>
               )}
             </DivFormGroup>
             <DivFormGroup>
@@ -64,6 +65,7 @@ const FormInicioSesion = () => {
                 name="passwd"
                 id="passwd"
                 className="input"
+                data-testid="inputPassword"
               />
 
               {touched.passwd && errors.passwd && (
