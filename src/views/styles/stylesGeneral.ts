@@ -1,5 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
 
+enum VARIANT {
+  PRIMARY,
+  SECONDARY,
+}
+interface IProps {
+  variant?: VARIANT;
+}
+
 /* GLOBAL */
 export const GlobalStyle = createGlobalStyle`
   html, body{
@@ -113,7 +121,7 @@ export const BotonTarea = styled.div`
     border-color: #c900ff;
     color: #c900ff;
   }
-`
+`;
 export const Modal = styled.div`
   display: none;
   background: rgba(56, 56, 56, 0.5);
@@ -155,6 +163,55 @@ export const BarraHerramientas = styled.div`
       margin-left: 10px;
     }
   }
+
+  .label {
+      width: 20px;
+      height: 5px;
+      background-color:#111;
+      display: flex;
+      border-radius:50px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px;
+      position: relative;
+      transform: scale(1.5);
+      cursor: pointer;
+    }
+
+    .bola {
+      width: 12px;
+      height: 12px;
+      background-color: white;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      border-radius: 50%;
+      transition: transform 0.2s linear;
+    }
+
+    .checkbox{
+      display: none;
+    }
+
+    /*  target the elemenent after the label*/
+    .checkbox:checked + .label .bola{
+      transform: translateX(14px);
+    }
+
+    i{
+      color: white;
+      font-size: 11px;
+      position: absolute;
+      user-select: none;
+    }
+
+    i.luna{
+      left: 4px;
+    }
+
+    i.sol{
+      right: 3px;
+    }
 
   @media screen and (max-width: 480px) {
     padding: 0 10px;
