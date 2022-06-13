@@ -1,19 +1,12 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
-import ModalFormCrear from "../views/components/formularios/ModalFormCrear";
 import user from "@testing-library/user-event";
 import { Kanban } from "../views/kanban.view";
-import { Context } from "../context/context";
 import { act } from "react-dom/test-utils";
 import { renderWithContext } from "./builder";
 
 describe("ModalFormCrear", () => {
   afterEach(() => {
     cleanup();
-  });
-
-  it("renders the modal view", () => {
-    render(<ModalFormCrear closeModal={jest.fn()} />);
-    expect(getTitulo()).toBeInTheDocument();
   });
 
   it("new task created after submitting creation form", async () => {
@@ -23,6 +16,7 @@ describe("ModalFormCrear", () => {
       tareaMod.id = 1;
       setTareasNuevas(tareaMod);
     });
+    
     renderWithContext({
       children: <Kanban />,
       providerData: { setTareasNuevas, addTarea },
