@@ -44,7 +44,6 @@ const BarraSuperior = () => {
           className="checkbox"
           id="checkbox"
           onChange={() => {
-            console.log(contexto.theme);
             if (contexto.theme === "light") {
               contexto.controlTheme("dark");
               contexto.setUserChange(true);
