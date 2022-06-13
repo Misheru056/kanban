@@ -8,6 +8,10 @@ interface StateProps {
 }
 
 export const State = ({ children }: StateProps) => {
+  //control de tema
+  const [userChange, setUserChange] = React.useState<boolean>(false);
+
+  const [theme, controlTheme] = React.useState<string>("light");
   /*Datos y métodos que queremos que sean comunes a todos los componentes*/
   const [tareasNuevas, setTareasNuevas] = React.useState<Tarea[]>([
     {
@@ -16,10 +20,10 @@ export const State = ({ children }: StateProps) => {
       descripcion: "YOLOYOLOYOLO",
       estado: "nueva",
       subtareas: [
-        {id: 1, texto: 'Subtarea 1', completada: false},
-        {id: 2, texto: 'Subtarea 2', completada: true},
+        { id: 1, texto: "Subtarea 1", completada: false },
+        { id: 2, texto: "Subtarea 2", completada: true },
       ],
-      porcentajeSubtareas: 50
+      porcentajeSubtareas: 50,
     },
 
     {
@@ -27,7 +31,7 @@ export const State = ({ children }: StateProps) => {
       id: 2,
       descripcion: "Otra cosa mariposa",
       estado: "nueva",
-      subtareas: []
+      subtareas: [],
     },
   ]);
   const [tareasEnProceso, setTareasEnProceso] = React.useState<Tarea[]>([
@@ -36,7 +40,7 @@ export const State = ({ children }: StateProps) => {
       id: 3,
       descripcion: "Esta tarea está en proceso",
       estado: "proceso",
-      subtareas: []
+      subtareas: [],
     },
   ]);
   const [tareasTerminadas, setTareasTerminadas] = React.useState<Tarea[]>([
@@ -45,7 +49,7 @@ export const State = ({ children }: StateProps) => {
       id: 4,
       descripcion: "Tarea completamente terminada",
       estado: "terminada",
-      subtareas: []
+      subtareas: [],
     },
   ]);
   const [tareasBloqueadas, setTareasBloqueadas] = React.useState<Tarea[]>([
@@ -54,7 +58,7 @@ export const State = ({ children }: StateProps) => {
       id: 5,
       descripcion: "Tarea bloqueada",
       estado: "bloqueada",
-      subtareas: []
+      subtareas: [],
     },
   ]);
   const [tareasVerificadas, setTareasVerificadas] = React.useState<Tarea[]>([
@@ -63,7 +67,7 @@ export const State = ({ children }: StateProps) => {
       id: 6,
       descripcion: "Tarea verificada",
       estado: "verificada",
-      subtareas: []
+      subtareas: [],
     },
   ]);
 
@@ -282,13 +286,12 @@ export const State = ({ children }: StateProps) => {
   /* Calcula el porcentaje de subtareas completadas */
   const calcularPorcentajeComp = (tarea: Tarea) => {
     let completadas: number = 0;
-    for(const element of tarea.subtareas){
-        if(element.completada)
-            completadas++;
+    for (const element of tarea.subtareas) {
+      if (element.completada) completadas++;
     }
 
     tarea.porcentajeSubtareas = (completadas * 100) / tarea.subtareas.length;
-  }
+  };
 
   return (
     //Pasar con value a qué se tendrá acceso
@@ -299,6 +302,8 @@ export const State = ({ children }: StateProps) => {
         tareasTerminadas: tareasTerminadas,
         tareasBloqueadas: tareasBloqueadas,
         tareasVerificadas: tareasVerificadas,
+        theme: theme,
+        userChange: userChange,
         setTareasNuevas: setTareasNuevas,
         setTareasEnProceso: setTareasEnProceso,
         setTareasTerminadas: setTareasTerminadas,
@@ -315,7 +320,9 @@ export const State = ({ children }: StateProps) => {
         cerrarSesion: cerrarSesion,
         toggleDivCrear: toggleDivCrear,
         recolocarTarea: recolocarTarea,
-        calcularPorcentajeComp: calcularPorcentajeComp
+        calcularPorcentajeComp: calcularPorcentajeComp,
+        controlTheme: controlTheme,
+        setUserChange: setUserChange,
       }}
     >
       {children}

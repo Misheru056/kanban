@@ -3,15 +3,15 @@ export const DivTarea = styled.div`
   padding-left: 5%;
   padding-right: 5%;
   display: grid;
-  background-color: #c3e8d5;
+  background-color: ${(props) => props.theme.cardColor};
   grid-template-columns: 100%;
   margin-bottom: 1rem;
   .tituloTarea {
-    color: #004b37;
+    color: ${(props) => props.theme.textColorC};
     font-size: 1.2em;
   }
   .descripcion {
-    color: black;
+    color: ${(props) => props.theme.textColorC};
     padding: 1%;
     text-justify: auto;
     font-size: 0.9em;

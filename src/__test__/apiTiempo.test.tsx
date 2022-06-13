@@ -2,8 +2,6 @@ import { screen, waitFor } from "@testing-library/react";
 import { tiempoService } from "../domain/api/conexionApiTiempo";
 import { Kanban } from "../views/kanban.view";
 import { renderWithContext, tiempo } from "./builder";
-import * as ModuloBarraSup from "../views/components/BarraSuperior";
-import { act } from "react-dom/test-utils";
 
 describe("API Weather", () => {
   it("Search on the api is successfull", async () => {

@@ -1,26 +1,36 @@
 import styled, { createGlobalStyle } from "styled-components";
-// import theme from 'styled-theming';
+import { Tema } from "./ThemeContext";
 
-// export const GlobalTheme = theme('mode', {
-//   light: { button: '#fff' },
-//   dark: '#000',
-// });
+//Tema oscuro
+export const DarkTheme = {
+  bgColor: '#09242E',
+  textColor: 'white',
+  botonColor: '#2e5234',
+  botonColorAdd: "#EE964B",
+  bgColorBarra: '#19647E',
+  cardColor: '#2288AA',
+  textColorC: 'black'
+}
 
-enum VARIANT {
-  PRIMARY,
-  SECONDARY,
+//Tema claro
+export const LightTheme = {
+  bgColor: '#7fd6cb',
+  textColor: 'black',
+  botonColor: '#56e38f',
+  botonColorAdd: "#F07167",
+  bgColorBarra: '#0098b0',
+  cardColor: '#fdfcdc',
+  textColorC:'black'
 }
-interface IProps {
-  variant?: VARIANT;
-}
+
 
 /* GLOBAL */
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ theme: Tema }>`
   html, body{
     height: 100%;
   }
   body {
-    background-color: #322F33;
+    background-color: ${(props) =>props.theme.bgColor};
   }
 `;
 
@@ -33,7 +43,7 @@ export const StyledInicio = styled.div`
   flex-direction: column;
 
   h1 {
-    color: white;
+    color:  ${(props) => props.theme.textColor};
   }
 `;
 export const Boton = styled.button`
@@ -46,7 +56,7 @@ export const Boton = styled.button`
   border-radius: 15px;
   margin: 0.67rem 0;
   cursor: pointer;
-  background-color: #56e38f; //Verde
+  background-color:  ${(props) => props.theme.botonColor};
   border: none;
   user-select: none;
 
@@ -75,8 +85,8 @@ export const ContenedorKanban = styled.div`
     position: fixed;
     bottom: 30px;
     right: 40px;
-    background-color: #f2a552; //Naranja
-    color: #2f2e2e;
+    background-color: ${(props) => props.theme.botonColorAdd};
+    color: ${(props) => props.theme.textColor};
   }
 
   button.btnAdd:hover {
@@ -99,7 +109,7 @@ export const Lista = styled.div`
     min-height: 64px;
     display: grid;
     align-items: center;
-    color: white;
+    color: ${(props) => props.theme.textColor};
   }
 
   @media screen and (max-width: 767px) {
@@ -150,10 +160,10 @@ export const BarraHerramientas = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  background-color: #201f21;
+  background-color:  ${(props) => props.theme.bgColorBarra};
 
   span {
-    color: white;
+    color:  ${(props) => props.theme.textColor};
     font-size: 1.3rem;
   }
 
@@ -161,8 +171,9 @@ export const BarraHerramientas = styled.div`
     font-size: 14px;
     width: 110px;
     height: 30px;
-    background-color: transparent;
-    border: 1px solid grey;
+    box-shadow: 1px 1px 3px black;
+    background-color: ${(props) => props.theme.botonColorAdd};
+    border: 1px solid black;
 
     @media screen and (max-width: 480px) {
       height: 40px;
@@ -225,7 +236,7 @@ export const BarraHerramientas = styled.div`
 `;
 
 export const DivSubtarea = styled.div`
-  color: black;
+  color: ${(props) => props.theme.textColorC};
   text-indent: 10px;
 
   label.completada {

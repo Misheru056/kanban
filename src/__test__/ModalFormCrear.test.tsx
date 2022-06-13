@@ -17,7 +17,6 @@ describe("ModalFormCrear", () => {
   });
 
   it("new task created after submitting creation form", async () => {
-
     const setTareasNuevas = jest.fn((x) => {});
     const addTarea = jest.fn((x) => {
       let tareaMod = { ...x };
@@ -77,46 +76,19 @@ describe("ModalFormCrear", () => {
   });
 
   it("new task with multiple subtasks", async () => {
-    const setTareasNuevas = jest.fn((x) => {
-    });
+    const setTareasNuevas = jest.fn((x) => {});
     const addTarea = jest.fn((x) => {
       let tareaMod = { ...x };
       tareaMod.id = 1;
       tareaMod.subtareas[0].id = 1;
       tareaMod.subtareas[1].id = 2;
       setTareasNuevas(tareaMod);
-    }); 
+    });
 
-    render(
-      <Context.Provider
-        value={{
-          tareasNuevas: [],
-          tareasEnProceso: [],
-          tareasTerminadas: [],
-          tareasBloqueadas: [],
-          tareasVerificadas: [],
-          setTareasNuevas: setTareasNuevas,
-          setTareasEnProceso: jest.fn,
-          setTareasTerminadas: jest.fn,
-          setTareasBloqueadas: jest.fn,
-          setTareasVerificadas: jest.fn,
-          eliminarTarea: jest.fn,
-          editarTarea: jest.fn,
-          addTarea: addTarea,
-          enviarAProceso: jest.fn,
-          reutilizarTarea: jest.fn,
-          terminarTarea: jest.fn,
-          bloquearTarea: jest.fn,
-          verificarTarea: jest.fn,
-          cerrarSesion: jest.fn,
-          toggleDivCrear: jest.fn,
-          recolocarTarea: jest.fn,
-          calcularPorcentajeComp: jest.fn,
-        }}
-      >
-        <Kanban />
-      </Context.Provider>
-    );
+    renderWithContext({
+      children: <Kanban />,
+      providerData: { setTareasNuevas, addTarea },
+    });
 
     expect(screen.queryByTestId("input-titulo")).toBeNull();
 
@@ -177,39 +149,12 @@ describe("ModalFormCrear", () => {
   });
 
   it("title field should be required to submit creation form", async () => {
-    const addTarea = jest.fn((x) => {
-    });
+    const addTarea = jest.fn((x) => {});
 
-    render(
-      <Context.Provider
-        value={{
-          tareasNuevas: [],
-          tareasEnProceso: [],
-          tareasTerminadas: [],
-          tareasBloqueadas: [],
-          tareasVerificadas: [],
-          setTareasNuevas: jest.fn,
-          setTareasEnProceso: jest.fn,
-          setTareasTerminadas: jest.fn,
-          setTareasBloqueadas: jest.fn,
-          setTareasVerificadas: jest.fn,
-          eliminarTarea: jest.fn,
-          editarTarea: jest.fn,
-          addTarea: addTarea,
-          enviarAProceso: jest.fn,
-          reutilizarTarea: jest.fn,
-          terminarTarea: jest.fn,
-          bloquearTarea: jest.fn,
-          verificarTarea: jest.fn,
-          cerrarSesion: jest.fn,
-          toggleDivCrear: jest.fn,
-          recolocarTarea: jest.fn,
-          calcularPorcentajeComp: jest.fn,
-        }}
-      >
-        <Kanban />
-      </Context.Provider>
-    );
+    renderWithContext({
+      children: <Kanban />,
+      providerData: { addTarea },
+    });
 
     act(() => {
       user.click(getBtnNuevaTarea());

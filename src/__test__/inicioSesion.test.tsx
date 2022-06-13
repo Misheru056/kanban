@@ -1,19 +1,24 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
 import user from "@testing-library/user-event";
-import { tiempoService } from "../domain/api/conexionApiTiempo";
-import { renderWithContext, tiempo } from "./builder";
-import { Kanban } from "../views/kanban.view";
+import { renderWithContext } from "./builder";
+import Inicio from "../views/Inicio.view";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 describe("Login", () => {
   beforeEach(() => {
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
+    renderWithContext({
+      children: (
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      ),
+    });
   });
+  afterEach(() => {
+    cleanup();
+  })
 
   it("Inserting correct login data navigates to Kanban panel", () => {
     user.type(screen.getByTestId("inputUsuario"), "Ana");

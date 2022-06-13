@@ -7,23 +7,27 @@ export type ContextProps = {
   tareasTerminadas: Tarea[];
   tareasBloqueadas: Tarea[];
   tareasVerificadas: Tarea[];
-  setTareasNuevas: Function;
-  setTareasEnProceso: Function;
-  setTareasTerminadas: Function;
-  setTareasBloqueadas: Function;
-  setTareasVerificadas: Function;
-  eliminarTarea: Function;
-  editarTarea: Function;
-  addTarea: Function;
-  enviarAProceso: Function;
-  reutilizarTarea: Function;
-  terminarTarea: Function;
-  bloquearTarea: Function;
-  verificarTarea: Function;
-  cerrarSesion: Function;
-  toggleDivCrear: Function;
-  recolocarTarea:Function;
-  calcularPorcentajeComp: Function;
+  theme: string,
+  userChange: boolean,
+  setTareasNuevas: Function,
+  setTareasEnProceso: Function,
+  setTareasTerminadas: Function,
+  setTareasBloqueadas: Function,
+  setTareasVerificadas: Function,
+  eliminarTarea: Function,
+  editarTarea: Function,
+  addTarea: Function,
+  enviarAProceso: Function,
+  reutilizarTarea: Function,
+  terminarTarea: Function,
+  bloquearTarea: Function,
+  verificarTarea: Function,
+  cerrarSesion: Function,
+  toggleDivCrear: Function,
+  recolocarTarea:Function,
+  calcularPorcentajeComp: Function,
+  controlTheme: Function,
+  setUserChange: Function,
 };
 
 export const Context = createContext({} as ContextProps);
