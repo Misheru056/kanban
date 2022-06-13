@@ -47,10 +47,10 @@ const BarraSuperior = () => {
             console.log(contexto.theme);
             if (contexto.theme === "light") {
               contexto.controlTheme("dark");
-              contexto.userChange = true;
+              contexto.setUserChange(true);
             } else {
               contexto.controlTheme("light");
-              contexto.userChange = true;
+              contexto.setUserChange(true);
             }
           }}
         />
