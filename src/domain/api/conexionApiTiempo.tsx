@@ -11,8 +11,8 @@ let datosUbicacion: GeolocationCoordinates = {
   speed: undefined as unknown as number,
 };
 
-const valores = () => {
-  navigator.geolocation.getCurrentPosition((posicion) => {
+const  valores = async() => {
+ navigator.geolocation.getCurrentPosition((posicion) => {
     const ubicacion = posicion.coords;
     datosUbicacion = ubicacion;
   });

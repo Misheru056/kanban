@@ -14,16 +14,16 @@ function App() {
   let contexto = useContext(Context);
   const hoy: Date = new Date();
   let hora = hoy.getHours();
-
   useEffect(() => {
-    if (!contexto.userChange && hora > 19 ) {
+    hora = hoy.getHours();
+    if (!contexto.userChange && hoy.getHours() >= 13) {
       console.log("quepasa" + contexto.userChange);
       contexto.controlTheme("dark");
-    } else if (!contexto.userChange && hora <= 19) {
+    } else if (!contexto.userChange && hoy.getHours() < 13) {
       console.log("quepasa2" + contexto.userChange);
       contexto.controlTheme("light");
     }
-  }, [contexto.theme]);
+  }, [contexto.theme, hoy.getHours()]);
   return (
     <>
       <ThemeProvider
