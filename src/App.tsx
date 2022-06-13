@@ -1,22 +1,43 @@
+import React, { useContext, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { State } from "./context/state";
+import { ThemeProvider } from "styled-components";
+import { Context } from "./context/context";
 import { LoginRoute, PrivateRoute } from "./routes/routes";
 import Inicio from "./views/Inicio.view";
 import { Kanban } from "./views/kanban.view";
+import {
+  DarkTheme,
+  GlobalStyle,
+  LightTheme,
+} from "./views/styles/stylesGeneral";
 function App() {
+  let contexto = useContext(Context);
+  const hoy: Date = new Date();
+  let hora = hoy.getHours();
+
+  useEffect(() => {
+    if (!contexto.userChange && hora > 19 ) {
+      console.log("quepasa" + contexto.userChange);
+      contexto.controlTheme("dark");
+    } else if (!contexto.userChange && hora <= 19) {
+      console.log("quepasa2" + contexto.userChange);
+      contexto.controlTheme("light");
+    }
+  }, [contexto.theme]);
   return (
     <>
-      <State>
+      <ThemeProvider
+        theme={contexto.theme === "light" ? LightTheme : DarkTheme}
+      >
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<LoginRoute outlet={<Inicio />} />} />
           <Route
             path="/organizador"
-           
-            
             element={<PrivateRoute outlet={<Kanban />} />}
           />
         </Routes>
-      </State>
+      </ThemeProvider>
     </>
   );
 }

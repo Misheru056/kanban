@@ -1,12 +1,16 @@
 import { render } from "@testing-library/react";
 import React from "react";
+import theme from "styled-theming";
 import { Context, ContextProps } from "../context/context";
 
 interface ProviderProps {
   children: React.ReactNode;
   providerData?: Partial<ContextProps>;
 }
-export const renderWithContext = ({ children, providerData }: ProviderProps) => {
+export const renderWithContext = ({
+  children,
+  providerData,
+}: ProviderProps) => {
   return render(
     <Context.Provider
       value={{
@@ -15,6 +19,8 @@ export const renderWithContext = ({ children, providerData }: ProviderProps) => 
         tareasTerminadas: [],
         tareasBloqueadas: [],
         tareasVerificadas: [],
+        theme: "light",
+        userChange: undefined as unknown as boolean,
         setTareasNuevas: jest.fn,
         setTareasEnProceso: jest.fn,
         setTareasTerminadas: jest.fn,
@@ -32,6 +38,8 @@ export const renderWithContext = ({ children, providerData }: ProviderProps) => 
         toggleDivCrear: jest.fn,
         recolocarTarea: jest.fn,
         calcularPorcentajeComp: jest.fn,
+        controlTheme: jest.fn,
+        setUserChange: jest.fn,
         ...providerData,
       }}
     >
