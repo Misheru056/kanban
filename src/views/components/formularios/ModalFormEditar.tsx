@@ -128,7 +128,7 @@ const ModalFormEditar = (props: {
                   />
                   <ErrorMessage
                     name="titulo"
-                    render={(msg) => <div className="error">{msg}</div>}
+                    render={(msg) => <div className="error" data-testid="error">{msg}</div>}
                   />
                 </DivFormGroup>
                 <DivFormGroup>
