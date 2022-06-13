@@ -6,7 +6,7 @@ import { DatosTiempo } from "../../domain/types/tiempo.models";
 import { TiempoPresenter } from "../tiempo.presenter";
 
 const BarraSuperior = () => {
-  let [datosTiempo, setDatosTiempo] = React.useState<
+  const [datosTiempo, setDatosTiempo] = React.useState<
     DatosTiempo | undefined | null
   >(null);
   React.useEffect(() => {
@@ -14,6 +14,9 @@ const BarraSuperior = () => {
     tiempo.establecerDatos();
   }, []);
   const contexto = React.useContext(Context);
+
+  const funcionSetDatos = setDatosTiempo;
+
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>

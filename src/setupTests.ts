@@ -13,3 +13,4 @@ const mockGeolocation = {
 };
 // @ts-ignore
 navigator.geolocation = mockGeolocation;
+
