@@ -4,7 +4,6 @@ import App from "../App";
 import user from "@testing-library/user-event";
 import { renderWithContext } from "./builder";
 import Inicio from "../views/Inicio.view";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 describe("Login", () => {
   beforeEach(() => {
