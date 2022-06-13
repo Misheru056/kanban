@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import { Kanban } from "../views/kanban.view";
 import { act } from "react-dom/test-utils";
