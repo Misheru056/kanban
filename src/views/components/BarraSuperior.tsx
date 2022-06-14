@@ -12,6 +12,7 @@ const BarraSuperior = () => {
 
   React.useEffect(() => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
+    tiempo.establecerDatos();
     setInterval(() => {
       tiempo.establecerDatos();
       console.log("Comprobando temperatura y ubicación...");

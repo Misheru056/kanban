@@ -33,49 +33,22 @@ export const BotonTarea = styled.div`
     color: black;
   }
   .editar {
-    border-color: #c900ff;
-    color: #c900ff;
+    border-color: ${(props) => props.theme.colorButtonEdit};
+    color:  ${(props) => props.theme.colorButtonEdit};
   }
 
   .eliminar {
-    border-color: #f58f8f;
-    color: #f58f8f;
+    border-color:  ${(props) => props.theme.colorButtonDel};
+    color: ${(props) => props.theme.colorButtonDel};
   }
-  .terminada {
-    border-color: green;
-    color: green;
-  }
-  .enviarAProceso {
-    border-color: blue;
-    color: blue;
-  }
-  .reutilizarTarea {
-    border-color: #d67427;
-    color: #d67427;
-  }
-
   .editar:hover {
-    background-color: #df71fd;
+    background-color: ${(props) => props.theme.colorButtonEdit};
     color: black;
   }
   .eliminar:hover {
-    background-color: #f58f8f;
+    background-color:  ${(props) => props.theme.colorButtonDel};
     color: black;
   }
-  .terminada:hover {
-    background-color: green;
-    color: black;
-  }
-  .enviarAProceso:hover {
-    background-color: blue;
-    color: black;
-  }
-
-  .reutilizarTarea:hover {
-    background-color: #d67427;
-    color: black;
-  }
-
   @media (max-width: 960px) {
     grid-template-columns: 100%;
   }

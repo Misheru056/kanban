@@ -9,7 +9,11 @@ export const DarkTheme = {
   botonColorAdd: "#EE964B",
   bgColorBarra: '#19647E',
   cardColor: '#2288AA',
-  textColorC: 'black'
+  textColorC: 'black',
+  colorButtonEdit: '#F4D35E',
+  colorButtonDel: '#FFFFFF',
+  bottonAddHover: ' #ffc586'
+
 }
 
 //Tema claro
@@ -17,10 +21,14 @@ export const LightTheme = {
   bgColor: '#7fd6cb',
   textColor: 'black',
   botonColor: '#56e38f',
-  botonColorAdd: "#F07167",
+  botonColorAdd: "#A71B11",
   bgColorBarra: '#0098b0',
   cardColor: '#fdfcdc',
-  textColorC:'black'
+  textColorC: 'black',
+  textColorWhite: 'white',
+  colorButtonEdit: '#44B028',
+  colorButtonDel: '#B800AE',
+  bottonAddHover: '#E72517'
 }
 
 
@@ -30,7 +38,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: Tema }>`
     height: 100%;
   }
   body {
-    background-color: ${(props) =>props.theme.bgColor};
+    background-color: ${(props) => props.theme.bgColor};
   }
 `;
 
@@ -86,11 +94,11 @@ export const ContenedorKanban = styled.div`
     bottom: 30px;
     right: 40px;
     background-color: ${(props) => props.theme.botonColorAdd};
-    color: ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.textColorWhite};
   }
 
   button.btnAdd:hover {
-    background-color: #ffc586;
+    background-color: ${(props) => props.theme.bottonAddHover};
   }
 
   @media screen and (max-width: 767px) {
@@ -167,7 +175,9 @@ export const BarraHerramientas = styled.div`
     color:  ${(props) => props.theme.textColor};
     font-size: 1.3rem;
   }
-
+ button.cerrarSesion:hover{
+    background-color: ${(props) => props.theme.bottonAddHover}
+ }
   button.cerrarSesion {
     font-size: 14px;
     width: 110px;
