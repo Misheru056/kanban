@@ -9,11 +9,16 @@ const BarraSuperior = () => {
   let [datosTiempo, setDatosTiempo] = React.useState<
     DatosTiempo | undefined | null
   >(null);
+
   React.useEffect(() => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
-    tiempo.establecerDatos();
+    setInterval(() => {
+      tiempo.establecerDatos();
+      console.log("Comprobando temperatura y ubicación...");
+    }, 1800000);
   }, []);
   const contexto = React.useContext(Context);
+
   return (
     <BarraHerramientas>
       <span>Hola, {localStorage.getItem("usuario")}</span>
