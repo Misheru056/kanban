@@ -156,7 +156,7 @@ export const Modal = styled.div`
 
 export const BarraHerramientas = styled.div`
   border-bottom: 1px solid silver;
-  height: 17vh;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;

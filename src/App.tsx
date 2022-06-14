@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Context } from "./context/context";
@@ -11,19 +11,27 @@ import {
   LightTheme,
 } from "./views/styles/stylesGeneral";
 function App() {
+  const [counter, setCounter] = useState(0);
   let contexto = useContext(Context);
   const hoy: Date = new Date();
   let hora = hoy.getHours();
   useEffect(() => {
+    let intervalId;
+    intervalId = setInterval(() => {
+      setCounter((counter) => counter + 1);
+    }, 300000);
+
     hora = hoy.getHours();
-    if (!contexto.userChange && hoy.getHours() >= 13) {
-      console.log("quepasa" + contexto.userChange);
+    if (!contexto.userChange && hoy.getHours() >= 13 && hoy.getHours() <= 6) {
       contexto.controlTheme("dark");
-    } else if (!contexto.userChange && hoy.getHours() < 13) {
-      console.log("quepasa2" + contexto.userChange);
+    } else if (
+      !contexto.userChange &&
+      hoy.getHours() < 13 &&
+      hoy.getHours() > 6
+    ) {
       contexto.controlTheme("light");
     }
-  }, [contexto.theme, hoy.getHours()]);
+  }, [contexto.theme, counter]);
   return (
     <>
       <ThemeProvider
