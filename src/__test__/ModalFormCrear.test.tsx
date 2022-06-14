@@ -1,16 +1,17 @@
-import { cleanup, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import { Kanban } from "../views/kanban.view";
 import { act } from "react-dom/test-utils";
 import { renderWithContext } from "./builder";
+import ModalFormCrear from "../views/components/formularios/ModalFormCrear";
 
-describe("ModalFormCrear", () => {
+describe("ModalFormCrear implementation", () => {
   afterEach(() => {
     cleanup();
   });
 
   it("new task created after submitting creation form", async () => {
-    const setTareasNuevas = jest.fn((x) => {});
+    const setTareasNuevas = jest.fn();
     const addTarea = jest.fn((x) => {
       let tareaMod = { ...x };
       tareaMod.id = 1;
@@ -70,7 +71,7 @@ describe("ModalFormCrear", () => {
   });
 
   it("new task with multiple subtasks", async () => {
-    const setTareasNuevas = jest.fn((x) => {});
+    const setTareasNuevas = jest.fn();
     const addTarea = jest.fn((x) => {
       let tareaMod = { ...x };
       tareaMod.id = 1;
@@ -142,32 +143,19 @@ describe("ModalFormCrear", () => {
     expect(screen.queryByTestId("input-titulo")).toBeNull();
   });
 
-  it("title field should be required to submit creation form", async () => {
-    const addTarea = jest.fn((x) => {});
-
-    renderWithContext({
-      children: <Kanban />,
-      providerData: { addTarea },
-    });
-
-    act(() => {
-      user.click(getBtnNuevaTarea());
-    });
-
-    expect(getTitulo()).not.toBeNull();
+  it("Create form receives correct values", async () => {
+    render(<ModalFormCrear closeModal={jest.fn()} />);
 
     user.type(getTitulo(), "Tarea de prueba");
-
-    act(() => {
-      user.click(getBtnCreate());
-    });
-
-    expect(getFormCreate()).toHaveFormValues({
-      titulo: "Tarea de prueba",
-    });
+    user.type(getDescripcion(), "Descripción tarea de prueba");
+    user.type(getSubtarea(), "Subtarea de prueba");
 
     await waitFor(() => {
-      expect(addTarea).toHaveBeenCalled();
+      expect(getFormCreate()).toHaveFormValues({
+        titulo: "Tarea de prueba",
+        descripcion: "Descripción tarea de prueba",
+        "subtareas[0].texto": "Subtarea de prueba"
+      });
     });
   });
 });
