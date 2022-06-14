@@ -4,7 +4,6 @@ import { Context } from "../../context/context";
 import Tiempo from "./tiempo/tiempo";
 import { DatosTiempo } from "../../domain/types/tiempo.models";
 import { TiempoPresenter } from "../tiempo.presenter";
-import theme from "styled-theming";
 
 const BarraSuperior = () => {
   let [datosTiempo, setDatosTiempo] = React.useState<
