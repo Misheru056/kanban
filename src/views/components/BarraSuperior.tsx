@@ -14,9 +14,7 @@ const BarraSuperior = () => {
     let tiempo = new TiempoPresenter(setDatosTiempo);
     tiempo.establecerDatos();
     interval = setInterval(() => {
-      console.log('presenter llamada')
           tiempo.establecerDatos();
-      console.log("Comprobando temperatura y ubicación...");
     }, 1800000);
   }, [datosTiempo?.temperatura]);
   const contexto = React.useContext(Context);

@@ -19,7 +19,6 @@ function App() {
   useEffect(() => {
     intervalId = setInterval(() => {
       hora = hoy.getHours();
-      console.log("intervalo");
     }, 300000);
     if (!contexto.userChange && hoy.getHours() >= 13 && hoy.getHours() <= 6) {
       contexto.controlTheme("dark");
