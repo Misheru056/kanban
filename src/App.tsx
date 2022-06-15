@@ -11,17 +11,16 @@ import {
   LightTheme,
 } from "./views/styles/stylesGeneral";
 function App() {
-  const [counter, setCounter] = useState(0);
   let contexto = useContext(Context);
   const hoy: Date = new Date();
   let hora = hoy.getHours();
+
+  let intervalId;
   useEffect(() => {
-    let intervalId;
     intervalId = setInterval(() => {
-      setCounter((counter) => counter + 1);
+      hora = hoy.getHours();
+      console.log("intervalo");
     }, 300000);
-    document.getElementById("noscript")!.style.display = "none";
-    hora = hoy.getHours();
     if (!contexto.userChange && hoy.getHours() >= 13 && hoy.getHours() <= 6) {
       contexto.controlTheme("dark");
     } else if (
@@ -31,7 +30,7 @@ function App() {
     ) {
       contexto.controlTheme("light");
     }
-  }, [contexto.theme, counter]);
+  }, [contexto.theme, hora]);
   return (
     <>
       <ThemeProvider
