@@ -1,10 +1,10 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
 
-let datosUbicacion: GeolocationCoordinates
+let datosUbicacion: GeolocationCoordinates;
 
-const  valores = async() => {
- navigator.geolocation.getCurrentPosition((posicion) => {
+const valores = async () => {
+  navigator.geolocation.getCurrentPosition((posicion) => {
     const ubicacion = posicion.coords;
     datosUbicacion = ubicacion;
   });
@@ -22,17 +22,16 @@ const instance = axios.create({
 });
 const recogerDatos = async () => {
   if (!datosUbicacion) {
-     console.log(datosUbicacion);
     valores();
   }
- 
+
   const conexion = await instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,
       lon: datosUbicacion.longitude,
     },
   });
-  
+
   return conexion;
 };
 
