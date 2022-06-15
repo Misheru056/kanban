@@ -29,6 +29,9 @@ const instance = axios.create({
   },
 });
 const recogerDatos = async () => {
+  if (!datosUbicacion) {
+    valores()
+  }
   const conexion = await instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,
