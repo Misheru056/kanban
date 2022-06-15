@@ -1,15 +1,7 @@
 import axios from "axios";
 import { WeatherData } from "../types/tiempo.dtos";
 
-let datosUbicacion: GeolocationCoordinates = {
-  latitude: undefined as unknown as number,
-  longitude: undefined as unknown as number,
-  accuracy: undefined as unknown as number,
-  altitude: undefined as unknown as number,
-  altitudeAccuracy: undefined as unknown as number,
-  heading: undefined as unknown as number,
-  speed: undefined as unknown as number,
-};
+let datosUbicacion: GeolocationCoordinates
 
 const  valores = async() => {
  navigator.geolocation.getCurrentPosition((posicion) => {
@@ -30,14 +22,17 @@ const instance = axios.create({
 });
 const recogerDatos = async () => {
   if (!datosUbicacion) {
-    valores()
+     console.log(datosUbicacion);
+    valores();
   }
+ 
   const conexion = await instance.get<WeatherData>("/", {
     params: {
       lat: datosUbicacion.latitude,
       lon: datosUbicacion.longitude,
     },
   });
+  
   return conexion;
 };
 

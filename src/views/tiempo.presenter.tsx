@@ -15,6 +15,7 @@ export class TiempoPresenter {
     tiempoService
       .recogerDatos()
       .then((r) => {
+        console.log("dasd");
         this.setearDatos({
           nombreCiuedad: r.data.name,
           temperatura: r.data.main.temp,
