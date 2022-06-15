@@ -17,7 +17,7 @@ const BarraSuperior = () => {
       tiempo.establecerDatos();
       console.log("Comprobando temperatura y ubicación...");
     }, 1800000);
-  }, [datosTiempo]);
+  }, []);
   const contexto = React.useContext(Context);
 
   return (
