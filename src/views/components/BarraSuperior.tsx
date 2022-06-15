@@ -15,10 +15,10 @@ const BarraSuperior = () => {
     tiempo.establecerDatos();
     interval = setInterval(() => {
       console.log('presenter llamada')
-     tiempo.establecerDatos();
+          tiempo.establecerDatos();
       console.log("Comprobando temperatura y ubicación...");
     }, 1800000);
-  }, [datosTiempo]);
+  }, [datosTiempo?.temperatura]);
   const contexto = React.useContext(Context);
 
   return (
