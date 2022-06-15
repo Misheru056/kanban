@@ -20,7 +20,7 @@ function App() {
     intervalId = setInterval(() => {
       setCounter((counter) => counter + 1);
     }, 300000);
-
+    document.getElementById("noscript")!.style.display = "none";
     hora = hoy.getHours();
     if (!contexto.userChange && hoy.getHours() >= 13 && hoy.getHours() <= 6) {
       contexto.controlTheme("dark");

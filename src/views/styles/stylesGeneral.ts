@@ -83,7 +83,7 @@ export const Boton = styled.button`
 
 /* PIZARRA KANBAN */
 
-export const ContenedorKanban = styled.div`
+export const ContenedorKanban = styled.main`
   height: 100vh;
   padding: 2vh 3vw;
   display: grid;
@@ -162,7 +162,7 @@ export const Modal = styled.div`
   justify-content: center;
 `;
 
-export const BarraHerramientas = styled.div`
+export const BarraHerramientas = styled.header`
   border-bottom: 1px solid silver;
   height: 100px;
   display: flex;
