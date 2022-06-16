@@ -1,0 +1,6 @@
+{
+    "inputUsuario" : "#username",
+    "inputPasswd" : "#passwd",
+    "loginButton" : "[type=submit]",
+    "error" : ".error"
+}
