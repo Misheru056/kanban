@@ -1,0 +1,16 @@
+{
+    "inputTitulo" : "[data-testid='input-titulo']",
+    "inputDescripcion" : "[data-testid='input-descripcion']",
+    "inputSubtarea1" : "[data-testid='subtareas[0].id']",
+    "btnRemoveSubtarea1" : "[data-testid='btn-remove0']",
+    "btnAddSubtarea" : "[data-testid='btn-add']",
+    "btnCrearTarea" : "[data-testid='btn-create']",
+    "btnCancelar" : "[data-testid='btn-cancel']",
+    "btnNuevaTarea" : "[data-testid='btnNuevaTarea']",
+    "error" : ".error",
+    "btnEditarTarea1" : "[data-testid='1buttoneditar']",
+    "btnEliminarTarea1" : "#\\31  > .sc-evZas > .eliminar",
+    "checkSubtarea1" : "#c1",
+    "checkSubtarea2" : "#c2",
+    "btnGuardarCambios" : "[type='submit']"
+}

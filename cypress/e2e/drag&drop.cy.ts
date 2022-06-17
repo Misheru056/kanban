@@ -6,21 +6,16 @@ describe("drag and drop is working", () => {
     cy.visit("http://localhost:3000/organizador");
   });
 
-  it("drag from nuevas to bloqueadas", () => {
-
-    const dataTransfer = new DataTransfer();
-
-    cy.get("#1").trigger("dragstart", {
-      dataTransfer
+  it("drag from nuevas to en proceso", () => {
+    cy.fixture("drag&drop").then((drag) => {
+      cy.dragDrop("#1", drag.proceso);
     });
+  });
 
-    cy.get("#bloqueada").trigger("dragenter", {
-        dataTransfer
-      });
- 
-    cy.get("#bloqueada").trigger("drop", { 
-        dataTransfer 
-      });
-
+  it("drag from nuevas to bloqueadas", () => {
+    cy.fixture("drag&drop").then((drag) => {
+      cy.dragDrop("#1", drag.bloqueadas);
+    });
+    cy.get("[data-testid='1buttoneditar']").should("not.exist");
   });
 });

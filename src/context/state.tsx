@@ -209,10 +209,6 @@ export const State = ({ children }: StateProps) => {
         }
         break;
     }
-
-    //Ocultar modal tras la actualización
-    let md = document.getElementById("modalEditar");
-    md!.style.display = "none";
   };
 
   /* Genera un id utilizando la hora y fecha actual */

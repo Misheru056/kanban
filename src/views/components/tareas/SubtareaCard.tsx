@@ -25,7 +25,7 @@ const SubtareaCard = ({ subtarea, tareaPadre }: SubtareaCardProps) => {
         <label className={subtarea.completada ? "completada" : ""}>
         <input
           type="checkbox"
-          id={subtarea.id.toString()}
+          id={"c"+subtarea.id.toString()}
           checked={subtarea.completada}
           onChange={handleChange}
         />
