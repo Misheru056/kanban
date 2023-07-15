@@ -15,7 +15,7 @@ const instance = axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/weather",
   timeout: 15000,
   params: {
-    appid: "25dcd561efa2017aacc36379233fde3f",
+    appid: "",
     units: "metric",
     lang: "es",
   },
